@@ -1,0 +1,145 @@
+table Dim_Calendario
+	lineageTag: 0e60ed26-1315-4a4e-8299-254f86f2e647
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 023f8e9d-93c1-4e32-8040-3810ca3a24aa
+		summarizeBy: none
+		sourceColumn: Data
+
+		variation Variation
+			isDefault
+			relationship: e48cc97c-2a70-4117-a263-d307e0d48166
+			defaultHierarchy: LocalDateTable_9ff82a44-6efd-4a52-8805-977e4906c5d9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Anno
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d05ebcf-33cc-41bb-a73a-d2cba545bdc8
+		summarizeBy: sum
+		sourceColumn: Anno
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: string
+		lineageTag: 760b67a3-306c-4db2-a938-1e5a4aef58e4
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mese_num
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c332099-3093-4e4b-8a26-f4ee8cbb7f99
+		summarizeBy: sum
+		sourceColumn: Mese_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mese
+		dataType: string
+		lineageTag: 12902ec0-cd5f-429f-a8bc-a0e8e79a390a
+		summarizeBy: none
+		sourceColumn: Mese
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mese_breve
+		dataType: string
+		lineageTag: 014ce88f-a661-4ef2-8e7a-3ca6c79b87cd
+		summarizeBy: none
+		sourceColumn: Mese_breve
+
+		annotation SummarizationSetBy = Automatic
+
+	column Giorno_mese
+		dataType: int64
+		formatString: 0
+		lineageTag: b8c36d5d-d246-439c-a0c2-66ef90ccec4a
+		summarizeBy: sum
+		sourceColumn: Giorno_mese
+
+		annotation SummarizationSetBy = Automatic
+
+	column Giorno_sett_num
+		dataType: int64
+		formatString: 0
+		lineageTag: f7f9ff74-143a-434f-bc08-c4d20f8deff3
+		summarizeBy: sum
+		sourceColumn: Giorno_sett_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column Giorno_settimana
+		dataType: string
+		lineageTag: 45b6b3bf-2781-45f5-a625-ea40d6378aef
+		summarizeBy: none
+		sourceColumn: Giorno_settimana
+
+		annotation SummarizationSetBy = Automatic
+
+	column Giorno_sett_breve
+		dataType: string
+		lineageTag: bb4e0942-23d1-4f19-a49c-a391a734054d
+		summarizeBy: none
+		sourceColumn: Giorno_sett_breve
+
+		annotation SummarizationSetBy = Automatic
+
+	column Settimana_ISO
+		dataType: int64
+		formatString: 0
+		lineageTag: 81990b99-3471-422a-9e91-0601e158ab77
+		summarizeBy: sum
+		sourceColumn: Settimana_ISO
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tipo_giorno
+		dataType: string
+		lineageTag: fe9e68bc-93b7-4212-afb4-d3e0fbf9d8d9
+		summarizeBy: none
+		sourceColumn: Tipo_giorno
+
+		annotation SummarizationSetBy = Automatic
+
+	column Festivo
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 68c78cc2-e39c-4c60-8b1e-813a3e707c48
+		summarizeBy: none
+		sourceColumn: Festivo
+
+		annotation SummarizationSetBy = Automatic
+
+	column In_periodo_dati
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9cac469f-f324-4b1b-8695-c81d0a97a9fe
+		summarizeBy: none
+		sourceColumn: In_periodo_dati
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Calendario = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\Dim_Calendario_Fasce_team.xlsx"), null, true),
+				    #"cal corr_Sheet" = Source{[Item="cal corr",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"cal corr_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Data", type date}, {"Anno", Int64.Type}, {"Trimestre", type text}, {"Mese_num", Int64.Type}, {"Mese", type text}, {"Mese_breve", type text}, {"Giorno_mese", Int64.Type}, {"Giorno_sett_num", Int64.Type}, {"Giorno_settimana", type text}, {"Giorno_sett_breve", type text}, {"Settimana_ISO", Int64.Type}, {"Tipo_giorno", type text}, {"Festivo", type logical}, {"In_periodo_dati", type logical}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

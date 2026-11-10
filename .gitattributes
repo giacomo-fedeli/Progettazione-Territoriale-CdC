@@ -1,0 +1,15 @@
+# File di testo del PBIP: fine riga coerente tra PC diversi
+*.tmdl  text eol=crlf
+*.json  text eol=crlf
+*.pbir  text eol=crlf
+*.pbism text eol=crlf
+*.pbip  text eol=crlf
+*.md    text eol=lf
+# File binari
+*.xlsx binary
+*.xls  binary
+*.pdf  binary
+*.pptx binary
+*.pod  binary
+*.png  binary
+*.zip  binary

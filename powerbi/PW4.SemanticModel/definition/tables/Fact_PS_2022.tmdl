@@ -1,0 +1,405 @@
+table Fact_PS_2022
+	lineageTag: e1d11d28-0a42-4f17-9ee7-364a6bb6a551
+
+	column PK_ID_Episodio
+		dataType: int64
+		formatString: 0
+		lineageTag: ba2ba44f-bd8c-4d59-af9e-f9406c00b5c2
+		summarizeBy: sum
+		sourceColumn: PK_ID_Episodio
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_Codice_Identificativo_PS
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d1e1b33-5f0d-427e-ba37-f72617232d40
+		summarizeBy: none
+		sourceColumn: FK_Codice_Identificativo_PS
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_Paziente
+		dataType: string
+		lineageTag: dc082d69-1b74-4f49-b732-e497479dccd1
+		summarizeBy: none
+		sourceColumn: FK_Paziente
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_Paese_Cittadinanza
+		dataType: int64
+		formatString: 0
+		lineageTag: 56c4e561-7a64-4bb9-8143-5fba13332c78
+		summarizeBy: none
+		sourceColumn: FK_Paese_Cittadinanza
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_Codice_Comune_Residenza
+		dataType: string
+		lineageTag: 7ce829e5-fa1c-4396-80c8-83e949305084
+		summarizeBy: none
+		sourceColumn: FK_Codice_Comune_Residenza
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_accettazione
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5e7670d6-39f9-4bfe-8672-90eb92899cbe
+		summarizeBy: none
+		sourceColumn: data_accettazione
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ora_accettazione
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 4cb80a8f-9c69-4c6b-8e53-b386e8b36df8
+		summarizeBy: none
+		sourceColumn: ora_accettazione
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column FK_Codice_Mod_Arrivo
+		dataType: int64
+		formatString: 0
+		lineageTag: 77335300-693d-408a-99cb-2fbb3526d005
+		summarizeBy: none
+		sourceColumn: FK_Codice_Mod_Arrivo
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_Codice_Responsabile_Invio
+		dataType: int64
+		formatString: 0
+		lineageTag: 32b15fcd-85df-4839-8f08-da061ea18dd9
+		summarizeBy: none
+		sourceColumn: FK_Codice_Responsabile_Invio
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_Codice_Problema_Principale
+		dataType: int64
+		formatString: 0
+		lineageTag: 634e951c-4599-488f-969d-3932e217aec0
+		summarizeBy: none
+		sourceColumn: FK_Codice_Problema_Principale
+
+		annotation SummarizationSetBy = Automatic
+
+	column triage_ingresso
+		dataType: string
+		lineageTag: 0ff676d3-6490-4fc9-ba5a-da3169695bb6
+		summarizeBy: none
+		sourceColumn: triage_ingresso
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_prcar
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2b424190-b6c1-4c88-a66f-47d4a35e5988
+		summarizeBy: none
+		sourceColumn: data_prcar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ora_prcar
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: e22cb45b-4cda-482e-84ed-992f2f1fe899
+		summarizeBy: none
+		sourceColumn: ora_prcar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column FK_Esito_Trattamento
+		dataType: int64
+		formatString: 0
+		lineageTag: 5140b0ee-1858-4c31-80e3-79ee6dafeb98
+		summarizeBy: none
+		sourceColumn: FK_Esito_Trattamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_dimissione
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 011d9208-db7b-4284-8f71-a1a87da18fe4
+		summarizeBy: none
+		sourceColumn: data_dimissione
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ora_dimissione
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 541ac365-2b07-41ce-9c7b-c97979843b15
+		summarizeBy: none
+		sourceColumn: ora_dimissione
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column triage_uscita
+		dataType: string
+		lineageTag: fa21837b-83f6-455b-8276-18cc1414da13
+		summarizeBy: none
+		sourceColumn: triage_uscita
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_Codice_Reparto
+		dataType: int64
+		formatString: 0
+		lineageTag: b2e5eeb7-da7d-48f6-8f93-3cc56bb09537
+		summarizeBy: none
+		sourceColumn: FK_Codice_Reparto
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_Codice_Regime_Erogazione
+		dataType: int64
+		formatString: 0
+		lineageTag: a9682514-d157-49ad-9e60-f6abbb18b67e
+		summarizeBy: none
+		sourceColumn: FK_Codice_Regime_Erogazione
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_Codice_Ticket
+		dataType: int64
+		formatString: 0
+		lineageTag: 450d16e8-7ad6-4a32-b64f-eecca0e35bec
+		summarizeBy: none
+		sourceColumn: FK_Codice_Ticket
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_Codice_Diagnosi_Primaria
+		dataType: string
+		lineageTag: 2c6c1a4b-f344-4b4e-a536-81fdf564ce29
+		summarizeBy: none
+		sourceColumn: FK_Codice_Diagnosi_Primaria
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_Codice_Diagnosi_Secondaria
+		dataType: string
+		lineageTag: 3752164b-cdad-4a24-854e-cee268539912
+		summarizeBy: none
+		sourceColumn: FK_Codice_Diagnosi_Secondaria
+
+		annotation SummarizationSetBy = Automatic
+
+	column Numero_prestazioni_PS
+		dataType: int64
+		formatString: 0
+		lineageTag: c35c522f-d440-40c8-8997-b127fd808b5f
+		summarizeBy: sum
+		sourceColumn: Numero_prestazioni_PS
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valore_economico_prestazioni_PS
+		dataType: double
+		lineageTag: a6127a0a-b2f6-4243-b3a2-073843ed5a87
+		summarizeBy: sum
+		sourceColumn: Valore_economico_prestazioni_PS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Ticket_pagato
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 0f4ef0e8-ab9f-442b-9fe3-4be6a85e660f
+		summarizeBy: none
+		sourceColumn: Ticket_pagato
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_ora_accettazione
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 69501215-3edb-448f-a1c6-151261bcb337
+		summarizeBy: none
+		sourceColumn: data_ora_accettazione
+
+		variation Variation
+			isDefault
+			relationship: c914f375-57f5-4055-a77b-e815894a86fc
+			defaultHierarchy: LocalDateTable_e475520f-c019-49ef-b19a-38b5642d4f3b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_ora_dimissione
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 38f6f9f8-a810-480a-996a-54541908da13
+		summarizeBy: none
+		sourceColumn: data_ora_dimissione
+
+		variation Variation
+			isDefault
+			relationship: 0f2c1eba-f76d-44a3-85d3-fa25fbab0bb3
+			defaultHierarchy: LocalDateTable_061509ff-3b44-439c-ac8e-a72eafcdccaa.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column durata_accettazione_dimissione
+		dataType: double
+		lineageTag: 5f88b7c9-3d37-43ed-915f-26a2c04b5ebf
+		summarizeBy: sum
+		sourceColumn: durata_accettazione_dimissione
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column data_ora_prcar
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 40ac2af1-54f4-4f3b-8d16-c48fc07661ef
+		summarizeBy: none
+		sourceColumn: data_ora_prcar
+
+		variation Variation
+			isDefault
+			relationship: ef6d8482-f4bd-4252-bbe9-e68a203b411e
+			defaultHierarchy: LocalDateTable_41be5900-a120-4e32-b4b1-5d6ad675d34a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column durata_accettazione_prcar
+		dataType: double
+		lineageTag: 7e19ed02-040a-4d6f-81e3-737ebf818cb8
+		summarizeBy: sum
+		sourceColumn: durata_accettazione_prcar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column durata_prcar_dimissione
+		dataType: double
+		lineageTag: 01c7df64-56cd-48f8-91d0-cfdbbe35762a
+		summarizeBy: sum
+		sourceColumn: durata_prcar_dimissione
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ora_intera_accettazione
+		dataType: int64
+		formatString: 0
+		lineageTag: 793fae0d-1782-4ead-865b-54d11dab10c5
+		summarizeBy: none
+		sourceColumn: ora_intera_accettazione
+
+		annotation SummarizationSetBy = Automatic
+
+	column ora_intera_prcar
+		dataType: int64
+		formatString: 0
+		lineageTag: aca1a017-b71a-44d7-bd39-31a11094a9e7
+		summarizeBy: sum
+		sourceColumn: ora_intera_prcar
+
+		annotation SummarizationSetBy = Automatic
+
+	column ora_intera_dimissione
+		dataType: int64
+		formatString: 0
+		lineageTag: 60cc43cc-72c8-45a8-be67-cab47a4a701b
+		summarizeBy: sum
+		sourceColumn: ora_intera_dimissione
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_PS_2022 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\fatti_ridotta.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"codice_istituto", Int64.Type}, {"id_pz", type text}, {"cittadinanza", Int64.Type}, {"residenza", type text}, {"data", Int64.Type}, {"ora", type time}, {"mod_arr", Int64.Type}, {"resp_inv", Int64.Type}, {"probl_pr", Int64.Type}, {"triage_ingresso", type text}, {"data_prcar", Int64.Type}, {"ora_prcar", type time}, {"esito_tratt", Int64.Type}, {"data_dim", Int64.Type}, {"ora_dim", type time}, {"triage_uscita", type text}, {"codrep", Int64.Type}, {"reg_erog", Int64.Type}, {"tck", Int64.Type}, {"diagn_pr", type text}, {"diagn_sec", Int64.Type}, {"Numero_prestazioni_PS", Int64.Type}, {"Valore_economico_prestazioni_PS", type number}, {"Ticket_pagato", type logical}, {"data_ora_accettazione", type number}, {"data_ora_dimissione", type number}, {"durata_pronto_soccorso", type text}}),
+				    #"Changed Type1" = Table.TransformColumns(
+				    #"Changed Type",
+				    {
+				        {
+				            "durata_pronto_soccorso",
+				            each Duration.FromText(Text.Replace(_, " days ", ".")),
+				            type duration
+				        }
+				    }
+				),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type1",{{"data_ora_accettazione", Order.Ascending}}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Sorted Rows",{{"data_ora_accettazione", type datetime}, {"data_ora_dimissione", type datetime}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Changed Type2", "Index", 1, 1, Int64.Type),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Added Index",{"Index", "codice_istituto", "id_pz", "cittadinanza", "residenza", "data", "ora", "mod_arr", "resp_inv", "probl_pr", "triage_ingresso", "data_prcar", "ora_prcar", "esito_tratt", "data_dim", "ora_dim", "triage_uscita", "codrep", "reg_erog", "tck", "diagn_pr", "diagn_sec", "Numero_prestazioni_PS", "Valore_economico_prestazioni_PS", "Ticket_pagato", "data_ora_accettazione", "data_ora_dimissione", "durata_pronto_soccorso"}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Reordered Columns",{{"diagn_sec", type text}}),
+				    #"Added Custom" = Table.AddColumn(
+				    #"Changed Type3",
+				    "data_ora_prcar",
+				    each DateTime.From([data_prcar]) + #duration(
+				        0,
+				        Time.Hour([ora_prcar]),
+				        Time.Minute([ora_prcar]),
+				        Time.Second([ora_prcar])
+				    ),
+				    type datetime
+				),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Added Custom",{{"data_prcar", type date}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type4",{{"data", "data_accettazione"}, {"ora", "ora_accettazione"}}),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Renamed Columns",{{"data_accettazione", type date}}),
+				    #"Reordered Columns1" = Table.ReorderColumns(#"Changed Type5",{"Index", "codice_istituto", "id_pz", "cittadinanza", "residenza", "data_accettazione", "ora_accettazione", "mod_arr", "resp_inv", "probl_pr", "triage_ingresso", "data_prcar", "ora_prcar", "esito_tratt", "data_dim", "ora_dim", "triage_uscita", "codrep", "reg_erog", "tck", "diagn_pr", "diagn_sec", "Numero_prestazioni_PS", "Valore_economico_prestazioni_PS", "Ticket_pagato", "data_ora_accettazione", "data_ora_prcar", "data_ora_dimissione", "durata_pronto_soccorso"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Reordered Columns1",{{"durata_pronto_soccorso", "durata_accettazione_dimissione"}}),
+				    #"Added Custom1" = Table.AddColumn(
+				    #"Renamed Columns1",
+				    "durata_accettazione_prcar",
+				    each [data_ora_prcar] - [data_ora_accettazione],
+				    type duration
+				),
+				    #"Added Custom2" = Table.AddColumn(
+				    #"Added Custom1",
+				    "durata_prcar_dimissione",
+				    each [data_ora_dimissione] - [data_ora_prcar],
+				    type duration
+				),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Added Custom2",{{"Index", "PK_ID_Episodio"}, {"id_pz", "FK_Paziente"}, {"codrep", "FK_Codice_Reparto"}, {"codice_istituto", "FK_Codice_Identificativo_PS"}, {"cittadinanza", "FK_Paese_Cittadinanza"}, {"residenza", "FK_Codice_Comune_Residenza"}, {"diagn_pr", "FK_Codice_Diagnosi_Primaria"}, {"diagn_sec", "FK_Codice_Diagnosi_Secondaria"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns2", each true),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Filtered Rows",{{"esito_tratt", "FK_Esito_Trattamento"}}),
+				    #"Added Custom3" = Table.AddColumn(#"Renamed Columns3", "Custom", each Time.Hour([ora_accettazione]), Int64.Type),
+				    #"Reordered Columns2" = Table.ReorderColumns(#"Added Custom3",{"PK_ID_Episodio", "FK_Codice_Identificativo_PS", "FK_Paziente", "FK_Paese_Cittadinanza", "FK_Codice_Comune_Residenza", "data_accettazione", "ora_accettazione", "Custom", "mod_arr", "resp_inv", "probl_pr", "triage_ingresso", "data_prcar", "ora_prcar", "FK_Esito_Trattamento", "data_dim", "ora_dim", "triage_uscita", "FK_Codice_Reparto", "reg_erog", "tck", "FK_Codice_Diagnosi_Primaria", "FK_Codice_Diagnosi_Secondaria", "Numero_prestazioni_PS", "Valore_economico_prestazioni_PS", "Ticket_pagato", "data_ora_accettazione", "data_ora_prcar", "data_ora_dimissione", "durata_accettazione_dimissione", "durata_accettazione_prcar", "durata_prcar_dimissione"}),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Reordered Columns2",{{"Custom", "ora_intero_accettazione"}}),
+				    #"Added Custom4" = Table.AddColumn(#"Renamed Columns4", "Custom", each Time.Hour([ora_prcar]), Int64.Type),
+				    #"Reordered Columns3" = Table.ReorderColumns(#"Added Custom4",{"PK_ID_Episodio", "FK_Codice_Identificativo_PS", "FK_Paziente", "FK_Paese_Cittadinanza", "FK_Codice_Comune_Residenza", "data_accettazione", "ora_accettazione", "ora_intero_accettazione", "mod_arr", "resp_inv", "probl_pr", "triage_ingresso", "data_prcar", "ora_prcar", "Custom", "FK_Esito_Trattamento", "data_dim", "ora_dim", "triage_uscita", "FK_Codice_Reparto", "reg_erog", "tck", "FK_Codice_Diagnosi_Primaria", "FK_Codice_Diagnosi_Secondaria", "Numero_prestazioni_PS", "Valore_economico_prestazioni_PS", "Ticket_pagato", "data_ora_accettazione", "data_ora_prcar", "data_ora_dimissione", "durata_accettazione_dimissione", "durata_accettazione_prcar", "durata_prcar_dimissione"}),
+				    #"Renamed Columns5" = Table.RenameColumns(#"Reordered Columns3",{{"ora_intero_accettazione", "ora_intera_accettazione"}, {"Custom", "ora_intera_prcar"}}),
+				    #"Added Custom5" = Table.AddColumn(#"Renamed Columns5", "Custom", each Time.Hour([ora_dim]), Int64.Type),
+				    #"Reordered Columns4" = Table.ReorderColumns(#"Added Custom5",{"PK_ID_Episodio", "FK_Codice_Identificativo_PS", "FK_Paziente", "FK_Paese_Cittadinanza", "FK_Codice_Comune_Residenza", "data_accettazione", "ora_accettazione", "ora_intera_accettazione", "mod_arr", "resp_inv", "probl_pr", "triage_ingresso", "data_prcar", "ora_prcar", "ora_intera_prcar", "FK_Esito_Trattamento", "data_dim", "ora_dim", "Custom", "triage_uscita", "FK_Codice_Reparto", "reg_erog", "tck", "FK_Codice_Diagnosi_Primaria", "FK_Codice_Diagnosi_Secondaria", "Numero_prestazioni_PS", "Valore_economico_prestazioni_PS", "Ticket_pagato", "data_ora_accettazione", "data_ora_prcar", "data_ora_dimissione", "durata_accettazione_dimissione", "durata_accettazione_prcar", "durata_prcar_dimissione"}),
+				    #"Renamed Columns6" = Table.RenameColumns(#"Reordered Columns4",{{"Custom", "ora_intera_dimissione"}, {"ora_dim", "ora_dimissione"}, {"data_dim", "data_dimissione"}, {"mod_arr", "FK_Codice_Mod_Arrivo"}, {"probl_pr", "FK_Codice_Problema_Principale"}, {"reg_erog", "FK_Codice_Regime_Erogazione"}, {"resp_inv", "FK_Codice_Responsabile_Invio"}, {"tck", "FK_Codice_Ticket"}}),
+				    #"Changed Type6" = Table.TransformColumnTypes(#"Renamed Columns6",{{"data_dimissione", type date}})
+				in
+				    #"Changed Type6"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

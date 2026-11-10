@@ -1,0 +1,40 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: it-IT
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["PercorsoDati","Fact_PS_2022","Dim_Calendario","Dim_Triage","Dim_Ticket","Dim_Responsabile_Invio","DIm_Fasce_Orarie","Dim_Esito_Trattamento","DIm_Diagnosi","Dim_Comuni_Residenze","Dim_Paesi_Cittadinanze","Dim_Pronto_Soccorso","DIm_Pazienti","Dim_Reparti","Dim_Fasce_Eta","Dim_Mod_Arrivo","Dim_Problema_Principale","Dim_Regime_Erogazione"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Fact_PS_2022
+ref table DateTableTemplate_f19610ae-4a99-43cc-8cf7-e154960657e7
+ref table LocalDateTable_e475520f-c019-49ef-b19a-38b5642d4f3b
+ref table LocalDateTable_061509ff-3b44-439c-ac8e-a72eafcdccaa
+ref table DIm_Pazienti
+ref table Dim_Pronto_Soccorso
+ref table Dim_Paesi_Cittadinanze
+ref table Dim_Comuni_Residenze
+ref table DIm_Diagnosi
+ref table Dim_Reparti
+ref table Dim_Esito_Trattamento
+ref table Dim_Fasce_Eta
+ref table DIm_Fasce_Orarie
+ref table Dim_Mod_Arrivo
+ref table Dim_Problema_Principale
+ref table Dim_Regime_Erogazione
+ref table Dim_Responsabile_Invio
+ref table Dim_Ticket
+ref table Dim_Triage
+ref table Dim_Calendario
+ref table LocalDateTable_9ff82a44-6efd-4a52-8805-977e4906c5d9
+ref table LocalDateTable_41be5900-a120-4e32-b4b1-5d6ad675d34a
+
+ref cultureInfo en-US
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "PW4"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3af39f9f-53e7-45ac-a2b7-da1535ee6ed3"
+  }
+}

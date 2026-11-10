@@ -1,0 +1,45 @@
+table Dim_Regime_Erogazione
+	lineageTag: 6a80fd15-9878-4a5c-ba9e-7224f6f7ec13
+
+	column PK_Codice_Regime_Erogazione
+		dataType: int64
+		formatString: 0
+		lineageTag: 9fa90774-173e-4d10-847a-3e9775b1ca09
+		summarizeBy: none
+		sourceColumn: PK_Codice_Regime_Erogazione
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrizione
+		dataType: string
+		lineageTag: 45c3a2a6-1da8-441d-a950-e772bedc402b
+		summarizeBy: none
+		sourceColumn: Descrizione
+
+		annotation SummarizationSetBy = Automatic
+
+	column Etichetta_breve
+		dataType: string
+		lineageTag: dcdf21da-0b7c-46fa-a1b7-632f386c9505
+		summarizeBy: none
+		sourceColumn: Etichetta_breve
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Regime_Erogazione = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\lookup_codifiche_PS_2022_team.xlsx"), null, true),
+				    reg_erog_Sheet = Source{[Item="reg_erog",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(reg_erog_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Codice", Int64.Type}, {"Descrizione", type text}, {"Etichetta_breve", type text}, {"Fonte", type text}, {"Nota", type any}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Codice", "PK_Codice_Regime_Erogazione"}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{"Fonte", "Nota"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

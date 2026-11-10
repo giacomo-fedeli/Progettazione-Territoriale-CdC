@@ -1,0 +1,36 @@
+table Dim_Paesi_Cittadinanze
+	lineageTag: 0568ae16-2aab-4aa7-acd6-104c38e3bc07
+
+	column PK_Codice_Paese
+		dataType: int64
+		formatString: 0
+		lineageTag: 14f21cff-1890-408d-8d92-6a8ef858dbf3
+		summarizeBy: none
+		sourceColumn: PK_Codice_Paese
+
+		annotation SummarizationSetBy = Automatic
+
+	column Paese_ANPR
+		dataType: string
+		lineageTag: db4d9395-f5d6-4ed2-9681-21a3d09d82de
+		summarizeBy: none
+		sourceColumn: Paese_ANPR
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Paesi_Cittadinanze = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "dimensioni\codici_cittadinanza_paesi.xlsx"), null, true),
+				    codici_cittadinanza_paesi_Sheet = Source{[Item="codici_cittadinanza_paesi",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(codici_cittadinanza_paesi_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"codice_cittadinanza", Int64.Type}, {"paese_ANPR", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"codice_cittadinanza", "PK_Codice_Paese"}, {"paese_ANPR", "Paese_ANPR"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

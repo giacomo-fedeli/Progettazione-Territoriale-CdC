@@ -1,0 +1,6 @@
+/// Cartella dati del repository (deve finire con backslash). Ogni componente la imposta sul proprio PC.
+expression PercorsoDati = "C:\Users\FedeliGiacomo\Downloads\OneDrive_2026-11-09\PW4-CaseDellaComunita-G5\dati\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 07a3833b-b2ae-43b1-88e9-25df9029e4f2
+
+	annotation PBI_ResultType = Text
+

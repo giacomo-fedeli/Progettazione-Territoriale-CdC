@@ -1,0 +1,68 @@
+table Dim_Comuni_Residenze
+	lineageTag: 169f7c60-2c79-47d7-abbb-2b827b8b00dc
+
+	column PK_Codice_Comune
+		dataType: string
+		lineageTag: 5ae631f8-6816-4ebf-8979-c454a1a069f8
+		summarizeBy: none
+		sourceColumn: PK_Codice_Comune
+
+		annotation SummarizationSetBy = Automatic
+
+	column Comune
+		dataType: string
+		lineageTag: 8c132ad7-7580-428b-a4ef-ce43a6bd16d2
+		summarizeBy: none
+		sourceColumn: Comune
+
+		annotation SummarizationSetBy = Automatic
+
+	column Provincia
+		dataType: string
+		lineageTag: 7fafda69-52c4-46a4-89a7-9638ec191056
+		summarizeBy: none
+		sourceColumn: Provincia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regione
+		dataType: string
+		lineageTag: 09ce6593-6f50-45ee-888f-3d1f5a44cd89
+		summarizeBy: none
+		sourceColumn: Regione
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ripartizione geografica'
+		dataType: string
+		lineageTag: 46fe5169-8fb4-46f1-98b1-8bc0feb583ed
+		summarizeBy: none
+		sourceColumn: Ripartizione geografica
+
+		annotation SummarizationSetBy = Automatic
+
+	column Popolazione_2022
+		dataType: int64
+		formatString: 0
+		lineageTag: 7f89177e-a8b8-4029-acf8-a9650ae686a9
+		summarizeBy: none
+		sourceColumn: Popolazione_2022
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Comuni_Residenze = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "dimensioni\code_to_residenza_geo_pop.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Popolazione_2022", Int64.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Res", "Comune"}, {"Codici_res", "PK_Codice_Comune"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

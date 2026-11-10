@@ -1,0 +1,54 @@
+table Dim_Mod_Arrivo
+	lineageTag: 1045fb76-cccf-41de-9320-eb1b75446ea2
+
+	column PK_Codice_Mod_Arrivo
+		dataType: int64
+		formatString: 0
+		lineageTag: 2df50403-73e7-4b64-9229-4a418c58cd7a
+		summarizeBy: none
+		sourceColumn: PK_Codice_Mod_Arrivo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrizione
+		dataType: string
+		lineageTag: 0bef97ff-5306-4eee-92ff-3b1cd5cee3bd
+		summarizeBy: none
+		sourceColumn: Descrizione
+
+		annotation SummarizationSetBy = Automatic
+
+	column Etichetta_breve
+		dataType: string
+		lineageTag: 8037b3c7-e90a-4949-a619-f30d6346ac19
+		summarizeBy: none
+		sourceColumn: Etichetta_breve
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gruppo_arrivo
+		dataType: string
+		lineageTag: 0b347790-7f84-4c82-b2fb-d663c55c5993
+		summarizeBy: none
+		sourceColumn: Gruppo_arrivo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Mod_Arrivo = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\lookup_codifiche_PS_2022_team.xlsx"), null, true),
+				    mod_arr_Sheet = Source{[Item="mod_arr",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(mod_arr_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Codice", Int64.Type}, {"Descrizione", type text}, {"Etichetta_breve", type text}, {"Gruppo_arrivo", type text}, {"Fonte", type text}, {"Nota", type any}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Codice", "PK_Codice_Arrivo"}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{"Fonte", "Nota"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns",{{"PK_Codice_Arrivo", "PK_Codice_Mod_Arrivo"}})
+				in
+				    #"Renamed Columns1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

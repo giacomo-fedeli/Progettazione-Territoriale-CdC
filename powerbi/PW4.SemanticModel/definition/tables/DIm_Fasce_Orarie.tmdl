@@ -1,0 +1,78 @@
+table DIm_Fasce_Orarie
+	lineageTag: 2ba9ca5e-bbdb-4e09-a21b-1e24c69974fa
+
+	column Ora
+		dataType: int64
+		formatString: 0
+		lineageTag: 85ac7b84-3048-47e6-9966-94320467b326
+		summarizeBy: none
+		sourceColumn: Ora
+
+		annotation SummarizationSetBy = Automatic
+
+	column Etichetta_ora
+		dataType: string
+		lineageTag: f587aa35-f439-4b80-8978-dd91f19a403a
+		summarizeBy: none
+		sourceColumn: Etichetta_ora
+
+		annotation SummarizationSetBy = Automatic
+
+	column Turno
+		dataType: string
+		lineageTag: 86892282-f885-4b99-8ab8-147a60477ed0
+		summarizeBy: none
+		sourceColumn: Turno
+
+		annotation SummarizationSetBy = Automatic
+
+	column Turno_descrizione
+		dataType: string
+		lineageTag: 7cd6c5ef-0896-4296-84af-dc0911500852
+		summarizeBy: none
+		sourceColumn: Turno_descrizione
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordine_turno
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b44213c-c645-44ff-aba7-0f31e325df4a
+		summarizeBy: none
+		sourceColumn: Ordine_turno
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fascia
+		dataType: string
+		lineageTag: 98712a4a-b04e-4802-bb5c-892793cf5ee5
+		summarizeBy: none
+		sourceColumn: Fascia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordine_fascia
+		dataType: int64
+		formatString: 0
+		lineageTag: f21e33df-f18c-4c1c-9d00-157a7e65c9f2
+		summarizeBy: none
+		sourceColumn: Ordine_fascia
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIm_Fasce_Orarie = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\lookup_codifiche_PS_2022_team.xlsx"), null, true),
+				    fasce_orarie_Sheet = Source{[Item="fasce_orarie",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(fasce_orarie_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Ora", Int64.Type}, {"Etichetta_ora", type text}, {"Turno", type text}, {"Turno_descrizione", type text}, {"Ordine_turno", Int64.Type}, {"Fascia", type text}, {"Ordine_fascia", Int64.Type}, {"Nota", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Nota"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,70 @@
+table DIm_Pazienti
+	lineageTag: f75b1a25-e590-42ba-8e3d-e17b760648a5
+
+	column PK_Paziente
+		dataType: string
+		lineageTag: d5c26c13-5be3-4bb5-8303-9e49c7788aa6
+		summarizeBy: none
+		sourceColumn: PK_Paziente
+
+		annotation SummarizationSetBy = Automatic
+
+	column sesso
+		dataType: int64
+		formatString: 0
+		lineageTag: ae14322b-fb74-4192-b737-f8a93978a9e5
+		summarizeBy: sum
+		sourceColumn: sesso
+
+		annotation SummarizationSetBy = Automatic
+
+	column sesso_descrizione
+		dataType: string
+		lineageTag: 0450f7eb-3759-44aa-89c2-f547255e07ff
+		summarizeBy: none
+		sourceColumn: sesso_descrizione
+
+		annotation SummarizationSetBy = Automatic
+
+	column anno_nascita
+		dataType: int64
+		formatString: 0
+		lineageTag: 879c1545-08db-4202-b0aa-a041b343734d
+		summarizeBy: sum
+		sourceColumn: anno_nascita
+
+		annotation SummarizationSetBy = Automatic
+
+	column anni_compiuti_2022
+		dataType: int64
+		formatString: 0
+		lineageTag: 670acb06-2b24-425f-a542-70caaa6a004a
+		summarizeBy: none
+		sourceColumn: anni_compiuti_2022
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIm_Pazienti = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\pazienti.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id_pz", type text}, {"sesso", Int64.Type}, {"anno_nascita", Int64.Type}, {"anni_compiuti_2022", Int64.Type}}),
+				    #"Added Custom" = Table.AddColumn(
+				    #"Changed Type",
+				    "sesso_descrizione",
+				    each if [sesso] = 1 then "Maschio"
+				         else if [sesso] = 2 then "Femmina"
+				         else null
+				),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Added Custom",{"id_pz", "sesso", "sesso_descrizione", "anno_nascita", "anni_compiuti_2022"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Reordered Columns",{{"id_pz", "PK_Paziente"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,46 @@
+table Dim_Ticket
+	lineageTag: 5d846464-debf-4330-9d60-4b47d8946351
+
+	column PK_Codice_Ticket
+		dataType: int64
+		formatString: 0
+		lineageTag: d17572e7-d956-4b58-b1bb-9736a88c8d0b
+		summarizeBy: none
+		sourceColumn: PK_Codice_Ticket
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrizione
+		dataType: string
+		lineageTag: 46e97a9a-b8ef-4624-b921-630299489ad6
+		summarizeBy: none
+		sourceColumn: Descrizione
+
+		annotation SummarizationSetBy = Automatic
+
+	column Importo_eur
+		dataType: int64
+		formatString: 0
+		lineageTag: 1934667e-c345-4fa3-ba3e-06a9f1585348
+		summarizeBy: none
+		sourceColumn: Importo_eur
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Ticket = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\lookup_codifiche_PS_2022_team.xlsx"), null, true),
+				    tck_Sheet = Source{[Item="tck",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(tck_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Codice", Int64.Type}, {"Descrizione", type text}, {"Importo_eur", Int64.Type}, {"Fonte", type text}, {"Nota", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Fonte", "Nota"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"Codice", "PK_Codice_Ticket"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

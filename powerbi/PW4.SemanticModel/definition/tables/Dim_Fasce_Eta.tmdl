@@ -1,0 +1,53 @@
+table Dim_Fasce_Eta
+	lineageTag: c4482540-bac2-46c6-ab6b-db8788136f87
+
+	column Eta
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f8210d2-02b4-400d-9eb4-1bc04d5a5760
+		summarizeBy: none
+		sourceColumn: Eta
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fascia_eta
+		dataType: string
+		lineageTag: 120dcc44-5fea-49c9-8273-2ad6e6e1b2f4
+		summarizeBy: none
+		sourceColumn: Fascia_eta
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordine_fascia
+		dataType: int64
+		formatString: 0
+		lineageTag: 8fc5dbc8-7a3c-46cb-9eaa-fc921ecd7cf7
+		summarizeBy: none
+		sourceColumn: Ordine_fascia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Classe
+		dataType: string
+		lineageTag: b1ce8f8c-ded8-46b4-bf6c-c4d133397566
+		summarizeBy: none
+		sourceColumn: Classe
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Fasce_Eta = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\lookup_codifiche_PS_2022_team.xlsx"), null, true),
+				    fasce_eta_Sheet = Source{[Item="fasce_eta",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(fasce_eta_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Eta", Int64.Type}, {"Fascia_eta", type text}, {"Ordine_fascia", Int64.Type}, {"Classe", type text}, {"Nota", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Nota"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

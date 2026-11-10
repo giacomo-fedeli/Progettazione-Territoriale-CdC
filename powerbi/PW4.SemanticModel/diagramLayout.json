@@ -1,0 +1,243 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 56.865912101650181
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 376.35289731108094,
+            "y": 572.60400158030734
+          },
+          "nodeIndex": "Fact_PS_2022",
+          "nodeLineageTag": "e1d11d28-0a42-4f17-9ee7-364a6bb6a551",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 441.97384452330721,
+            "y": 3.3349972679993911
+          },
+          "nodeIndex": "Dim_Paesi_Cittadinanze",
+          "nodeLineageTag": "0568ae16-2aab-4aa7-acd6-104c38e3bc07",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 976.84357243323529,
+            "y": 1102.5194616522574
+          },
+          "nodeIndex": "Dim_Comuni_Residenze",
+          "nodeLineageTag": "169f7c60-2c79-47d7-abbb-2b827b8b00dc",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 587.22412793475792,
+            "y": 383.21219132136997
+          },
+          "nodeIndex": "DIm_Pazienti",
+          "nodeLineageTag": "f75b1a25-e590-42ba-8e3d-e17b760648a5",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 7.8493954988454959,
+            "y": 195.16749754529457
+          },
+          "nodeIndex": "Dim_Pronto_Soccorso",
+          "nodeLineageTag": "c334a8af-90e2-40df-83fa-b273e885da5d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 762.76803981625289
+          },
+          "nodeIndex": "DIm_Diagnosi",
+          "nodeLineageTag": "a57dc5b8-4f71-443d-b2d7-99c759aa77c9",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 795.1674881771437,
+            "y": 923.65259433150845
+          },
+          "nodeIndex": "Dim_Reparti",
+          "nodeLineageTag": "fa32c5b7-b45a-4194-a0a7-d9b92d747988",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 1429.8086336484487,
+            "y": 734.01388102810336
+          },
+          "nodeIndex": "Dim_Esito_Trattamento",
+          "nodeLineageTag": "5d8a7a6d-d79c-403c-a08b-2bd36681f281",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 728.56299150179211,
+            "y": 60.495649535283235
+          },
+          "nodeIndex": "Dim_Fasce_Eta",
+          "nodeLineageTag": "c4482540-bac2-46c6-ab6b-db8788136f87",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 894.93507270189662,
+            "y": 302.80156772664486
+          },
+          "nodeIndex": "DIm_Fasce_Orarie",
+          "nodeLineageTag": "2ba9ca5e-bbdb-4e09-a21b-1e24c69974fa",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 147.56511920857565,
+            "y": 0
+          },
+          "nodeIndex": "Dim_Mod_Arrivo",
+          "nodeLineageTag": "1045fb76-cccf-41de-9320-eb1b75446ea2",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1151.3685087652041,
+            "y": 532.21889327730253
+          },
+          "nodeIndex": "Dim_Problema_Principale",
+          "nodeLineageTag": "7e10a13e-bc35-4a31-b62f-11b81ed28c55",
+          "size": {
+            "height": 145,
+            "width": 149.96126831058791
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 588.0380843805525
+          },
+          "nodeIndex": "Dim_Regime_Erogazione",
+          "nodeLineageTag": "6a80fd15-9878-4a5c-ba9e-7224f6f7ec13",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 1085.8637883952406,
+            "y": 832.39139820230628
+          },
+          "nodeIndex": "Dim_Responsabile_Invio",
+          "nodeLineageTag": "851b317b-9ee2-4f98-a9ae-c4dfbaaef8c9",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 634.3787997003169,
+            "y": 1216.3656566398706
+          },
+          "nodeIndex": "Dim_Ticket",
+          "nodeLineageTag": "5d846464-debf-4330-9d60-4b47d8946351",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 169.52983382637285,
+            "y": 1090.7217223219714
+          },
+          "nodeIndex": "Dim_Triage",
+          "nodeLineageTag": "61048668-914a-4692-b030-14797643d6bf",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 414.44954121949297,
+            "y": 922.3378239753697
+          },
+          "nodeIndex": "Dim_Calendario",
+          "nodeLineageTag": "0e60ed26-1315-4a4e-8299-254f86f2e647",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 17
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 49.590342827053895,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

@@ -1,0 +1,60 @@
+table Dim_Responsabile_Invio
+	lineageTag: 851b317b-9ee2-4f98-a9ae-c4dfbaaef8c9
+
+	column PK_Codice_Responsabile_Invio
+		dataType: int64
+		formatString: 0
+		lineageTag: 7bae4a55-8690-4a12-bee6-da78787d1348
+		summarizeBy: none
+		sourceColumn: PK_Codice_Responsabile_Invio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrizione
+		dataType: string
+		lineageTag: e38320ad-ba25-433c-b2a1-3194b35e7647
+		summarizeBy: none
+		sourceColumn: Descrizione
+
+		annotation SummarizationSetBy = Automatic
+
+	column Etichetta_breve
+		dataType: string
+		lineageTag: 3219a137-3c37-4873-a4b2-b5936abb6a52
+		summarizeBy: none
+		sourceColumn: Etichetta_breve
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fonte
+		dataType: string
+		lineageTag: 339e62dd-8578-491b-8f96-abba8a6e657b
+		summarizeBy: none
+		sourceColumn: Fonte
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nota
+		dataType: string
+		lineageTag: 9f646385-0c4e-4e22-bc47-044c3667288d
+		summarizeBy: none
+		sourceColumn: Nota
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Responsabile_Invio = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\lookup_codifiche_PS_2022_team.xlsx"), null, true),
+				    resp_inv_Sheet = Source{[Item="resp_inv",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(resp_inv_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Codice", Int64.Type}, {"Descrizione", type text}, {"Etichetta_breve", type text}, {"Fonte", type text}, {"Nota", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Codice", "PK_Codice_Responsabile_Invio"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

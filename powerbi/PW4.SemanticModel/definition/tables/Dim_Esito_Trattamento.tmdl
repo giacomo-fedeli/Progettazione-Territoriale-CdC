@@ -1,0 +1,68 @@
+table Dim_Esito_Trattamento
+	lineageTag: 5d8a7a6d-d79c-403c-a08b-2bd36681f281
+
+	column PK_Esito_Trattamento
+		dataType: int64
+		formatString: 0
+		lineageTag: dabf9612-2791-4760-826b-8cb96d5592c2
+		summarizeBy: none
+		sourceColumn: PK_Esito_Trattamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrizione
+		dataType: string
+		lineageTag: 8c4dcdb2-8679-4613-8a36-7f408482f3a8
+		summarizeBy: none
+		sourceColumn: Descrizione
+
+		annotation SummarizationSetBy = Automatic
+
+	column Etichetta_breve
+		dataType: string
+		lineageTag: 6bd522c1-1f52-435e-9809-09d193c21087
+		summarizeBy: none
+		sourceColumn: Etichetta_breve
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gruppo_esito
+		dataType: string
+		lineageTag: 1d2953e5-a0b4-45ce-a08d-bc25f98d9725
+		summarizeBy: none
+		sourceColumn: Gruppo_esito
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fonte
+		dataType: string
+		lineageTag: 129a1ea8-9bfc-4add-8aa3-194b108ce8e4
+		summarizeBy: none
+		sourceColumn: Fonte
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nota
+		dataType: string
+		lineageTag: df368149-8fdb-433b-9b0c-2f6fb58a9061
+		summarizeBy: none
+		sourceColumn: Nota
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Esito_Trattamento = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\lookup_codifiche_PS_2022_team.xlsx"), null, true),
+				    esito_tratt_Sheet = Source{[Item="esito_tratt",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(esito_tratt_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Codice", Int64.Type}, {"Descrizione", type text}, {"Etichetta_breve", type text}, {"Gruppo_esito", type text}, {"Fonte", type text}, {"Nota", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Codice", "PK_Esito_Trattamento"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

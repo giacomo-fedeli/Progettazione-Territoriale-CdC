@@ -1,0 +1,60 @@
+table Dim_Triage
+	lineageTag: 61048668-914a-4692-b030-14797643d6bf
+
+	column Codice
+		dataType: string
+		lineageTag: 849d212f-8b9e-44d4-994e-b3d05f121fc2
+		summarizeBy: none
+		sourceColumn: Codice
+
+		annotation SummarizationSetBy = Automatic
+
+	column Colore
+		dataType: string
+		lineageTag: 620ec2bd-7a87-4581-81e1-d86aa109d4c0
+		summarizeBy: none
+		sourceColumn: Colore
+
+		annotation SummarizationSetBy = Automatic
+
+	column Significato
+		dataType: string
+		lineageTag: f4c1b81a-dd68-4612-a149-16c40e517069
+		summarizeBy: none
+		sourceColumn: Significato
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gruppo
+		dataType: string
+		lineageTag: 813b3766-5e57-4802-be33-307e9f460ca3
+		summarizeBy: none
+		sourceColumn: Gruppo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordine
+		dataType: int64
+		formatString: 0
+		lineageTag: bbdc5d8f-dc0a-43e3-ace3-2de938e9314c
+		summarizeBy: none
+		sourceColumn: Ordine
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Triage = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\lookup_codifiche_PS_2022_team.xlsx"), null, true),
+				    triage_Sheet = Source{[Item="triage",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(triage_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Codice", type text}, {"Colore", type text}, {"Significato", type text}, {"Gruppo", type text}, {"Ordine", Int64.Type}, {"Fonte", type text}, {"Nota", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Fonte", "Nota"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

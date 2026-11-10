@@ -1,0 +1,42 @@
+table DIm_Diagnosi
+	lineageTag: a57dc5b8-4f71-443d-b2d7-99c759aa77c9
+
+	column PK_Codice_Diagnosi
+		dataType: string
+		lineageTag: 7e5382a5-88a1-4139-888f-aec4e3b91725
+		summarizeBy: none
+		sourceColumn: PK_Codice_Diagnosi
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrizione
+		dataType: string
+		lineageTag: 09843d27-fcd1-4d83-82b9-2cb6b5b98165
+		summarizeBy: none
+		sourceColumn: Descrizione
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria
+		dataType: string
+		lineageTag: 5378453d-af2e-4f0d-bfd9-1e7d54dbeef7
+		summarizeBy: none
+		sourceColumn: Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIm_Diagnosi = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "sorgenti\03_Codifiche_Diagnosi_e_Problema_principale.xlsx"), null, true),
+				    Diagnosi_Sheet = Source{[Item="Diagnosi",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Diagnosi_Sheet, [PromoteAllScalars=true]),
+				    #"Renamed Columns" = Table.RenameColumns(#"Promoted Headers",{{"Column3", "Categoria"}, {"descrizione", "Descrizione"}, {"codice", "PK_Codice_Diagnosi"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

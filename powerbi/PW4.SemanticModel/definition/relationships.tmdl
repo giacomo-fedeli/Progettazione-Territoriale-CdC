@@ -1,0 +1,128 @@
+relationship c914f375-57f5-4055-a77b-e815894a86fc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_PS_2022.data_ora_accettazione
+	toColumn: LocalDateTable_e475520f-c019-49ef-b19a-38b5642d4f3b.Date
+
+relationship 0f2c1eba-f76d-44a3-85d3-fa25fbab0bb3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_PS_2022.data_ora_dimissione
+	toColumn: LocalDateTable_061509ff-3b44-439c-ac8e-a72eafcdccaa.Date
+
+relationship AutoDetected_5d0f7b64-061a-41da-8c10-231e309a33fc
+	fromColumn: Fact_PS_2022.FK_Paziente
+	toColumn: DIm_Pazienti.PK_Paziente
+
+relationship d99ffbf9-e018-ec5e-3330-b11df0d4a9ab
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.FK_Codice_Identificativo_PS
+	toColumn: Dim_Pronto_Soccorso.PK_Codice_Identificativo_PS
+
+relationship 0f253d41-7a04-95ad-a667-a863496e0939
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.FK_Paese_Cittadinanza
+	toColumn: Dim_Paesi_Cittadinanze.PK_Codice_Paese
+
+relationship 97a256cd-fc18-a0b4-5555-be7ef3ee1535
+	fromColumn: Fact_PS_2022.FK_Codice_Comune_Residenza
+	toColumn: Dim_Comuni_Residenze.PK_Codice_Comune
+
+relationship f0c41176-f793-ecca-5e0a-cee77173e51f
+	fromColumn: Fact_PS_2022.FK_Codice_Diagnosi_Primaria
+	toColumn: DIm_Diagnosi.PK_Codice_Diagnosi
+
+relationship 9206a6ac-c51c-7d9a-cfb1-83a9e0af0b4a
+	isActive: false
+	fromColumn: Fact_PS_2022.FK_Codice_Diagnosi_Secondaria
+	toColumn: DIm_Diagnosi.PK_Codice_Diagnosi
+
+relationship AutoDetected_426c3e0f-846d-4976-904b-a3e5e72a8108
+	fromColumn: Fact_PS_2022.FK_Codice_Reparto
+	toColumn: Dim_Reparti.PK_Codice_Reparto
+
+relationship AutoDetected_48982852-13c0-4fc3-a97c-b3744552056b
+	fromColumn: Fact_PS_2022.FK_Esito_Trattamento
+	toColumn: Dim_Esito_Trattamento.PK_Esito_Trattamento
+
+relationship 9bdfc208-90ff-b2d0-fe82-b883f7307fcf
+	crossFilteringBehavior: bothDirections
+	fromColumn: DIm_Pazienti.anni_compiuti_2022
+	toColumn: Dim_Fasce_Eta.Eta
+
+relationship 6e3427cb-d6af-b1db-5857-dcbc1a08f974
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.ora_intera_accettazione
+	toColumn: DIm_Fasce_Orarie.Ora
+
+relationship bdc141ca-4a97-39d8-bc41-ba1d5f0ac344
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.ora_intera_dimissione
+	toColumn: DIm_Fasce_Orarie.Ora
+
+relationship c4f68ac1-2bf3-0158-cc1d-0725787c63cf
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.ora_intera_prcar
+	toColumn: DIm_Fasce_Orarie.Ora
+
+relationship AutoDetected_4931ecb9-d30a-43ba-bfa2-35a752a77083
+	fromColumn: Fact_PS_2022.FK_Codice_Mod_Arrivo
+	toColumn: Dim_Mod_Arrivo.PK_Codice_Mod_Arrivo
+
+relationship AutoDetected_7e7010a8-93bb-48c8-99f1-6322d99483bb
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.FK_Codice_Problema_Principale
+	toColumn: Dim_Problema_Principale.PK_Codice_Problema_Principale
+
+relationship AutoDetected_e5f528ef-ca98-4479-9ff3-cc69a9f8a2f8
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.FK_Codice_Regime_Erogazione
+	toColumn: Dim_Regime_Erogazione.PK_Codice_Regime_Erogazione
+
+relationship AutoDetected_f8f91b2d-d440-4d3b-80fd-93ae360457d1
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.FK_Codice_Responsabile_Invio
+	toColumn: Dim_Responsabile_Invio.PK_Codice_Responsabile_Invio
+
+relationship 8da3d3d5-db7f-8591-bf74-912069a363f6
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.FK_Codice_Ticket
+	toColumn: Dim_Ticket.PK_Codice_Ticket
+
+relationship 692868b0-fa47-64e3-5037-bf3aff927ed1
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.triage_ingresso
+	toColumn: Dim_Triage.Codice
+
+relationship ed246b90-e03a-6c24-b02d-168e906c4cd9
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.triage_uscita
+	toColumn: Dim_Triage.Codice
+
+relationship e48cc97c-2a70-4117-a263-d307e0d48166
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Calendario.Data
+	toColumn: LocalDateTable_9ff82a44-6efd-4a52-8805-977e4906c5d9.Date
+
+relationship 9a43a2ae-8591-b6d6-cf85-f0750f082b5c
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.data_accettazione
+	toColumn: Dim_Calendario.Data
+
+relationship ef6d8482-f4bd-4252-bbe9-e68a203b411e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_PS_2022.data_ora_prcar
+	toColumn: LocalDateTable_41be5900-a120-4e32-b4b1-5d6ad675d34a.Date
+
+relationship 7ff3e5e9-db14-7939-5815-79b454725171
+	isActive: false
+	fromColumn: Fact_PS_2022.data_prcar
+	toColumn: Dim_Calendario.Data
+
+relationship 13d2b6d7-c04b-5fa4-d625-d056e9fe144d
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: Fact_PS_2022.data_dimissione
+	toColumn: Dim_Calendario.Data
+

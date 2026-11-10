@@ -1,0 +1,36 @@
+table Dim_Reparti
+	lineageTag: fa32c5b7-b45a-4194-a0a7-d9b92d747988
+
+	column PK_Codice_Reparto
+		dataType: int64
+		formatString: 0
+		lineageTag: 38d801b3-d6ff-4adb-a9ca-5edfa0bd7ed4
+		summarizeBy: none
+		sourceColumn: PK_Codice_Reparto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrizione
+		dataType: string
+		lineageTag: 20f11992-3e70-40c2-8561-9f09c4845c65
+		summarizeBy: none
+		sourceColumn: Descrizione
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Reparti = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\lookup_codifiche_PS_2022_team.xlsx"), null, true),
+				    #"Codice reparto modificato_Sheet" = Source{[Item="Codice reparto modificato",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Codice reparto modificato_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Codice", Int64.Type}, {"Descrizione", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Codice", "PK_Codice_Reparto"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

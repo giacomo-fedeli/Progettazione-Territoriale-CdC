@@ -1,0 +1,36 @@
+table Dim_Problema_Principale
+	lineageTag: 7e10a13e-bc35-4a31-b62f-11b81ed28c55
+
+	column PK_Codice_Problema_Principale
+		dataType: int64
+		formatString: 0
+		lineageTag: f1126858-0f53-4458-a5ca-5ea9bf19d12a
+		summarizeBy: none
+		sourceColumn: PK_Codice_Problema_Principale
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrizione
+		dataType: string
+		lineageTag: 1d2552fd-b0ad-4d3c-bb24-b67ede1724db
+		summarizeBy: none
+		sourceColumn: Descrizione
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Problema_Principale = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(PercorsoDati & "elaborati\lookup_codifiche_PS_2022_team.xlsx"), null, true),
+				    problemaprincipale_Sheet = Source{[Item="problemaprincipale",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(problemaprincipale_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Codice", Int64.Type}, {"Descrizione", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Codice", "PK_Codice_Problema_Principale"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
