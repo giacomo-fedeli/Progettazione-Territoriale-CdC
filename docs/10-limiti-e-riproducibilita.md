@@ -12,7 +12,7 @@ La traccia chiede metodologie «documentate e replicabili»: qui diciamo con one
 - **Nessuna informazione clinica oltre ai codici**: diagnosi ICD-9, triage, esito. Non sappiamo se il paziente aveva un medico di famiglia, se era cronico stabile, se avrebbe accettato la CdC.
 - **Anomalie:** 1.526 accessi senza dimissione, 153 senza triage, 1.747 arrivi «non rilevato», 22 residenze non utilizzabili, 2.483 accessi con diagnosi assente o senza capitolo ([03](03-anomalie-e-decisioni.md)).
 - **Ticket e regime** non coerenti in 185 accessi: non corretti.
-- **Personale PS Del Ponte:** la traccia dà una sola riga di personale per «030003 / 03090102» (ostetrico-ginecologico e pediatrico). Il file a 21 righe assegna a entrambi gli stessi numeri (2 medici, 6 infermieri, 3 OSS al mattino…). Se l'organico è in realtà condiviso, medici e infermieri dei due PS sono **sovrastimati** nello studio delle code.
+- **Personale PS Del Ponte:** la traccia dà una sola riga di personale per «030003 / 03090102» (ostetrico-ginecologico e pediatrico). Il file a 21 righe assegna a entrambi gli stessi numeri (2 medici, 6 infermieri, 3 OSS al mattino…). Se l'organico è in realtà condiviso, medici e infermieri dei due PS sono **sovrastimati**.
 
 ### Classificazione della domanda (SP2)
 - Il risultato è una **stima teorica**, non una previsione di quanti pazienti andrebbero in CdC.
@@ -29,9 +29,6 @@ La traccia chiede metodologie «documentate e replicabili»: qui diciamo con one
 - **Rete DG** valutata con le **nostre** regole (bacino = CdC più vicina): la Direzione potrebbe assegnare i comuni in altro modo.
 - **Valore PS non erogato** è una tariffa, **non un risparmio**. Le CdC costano più di quanto valgono le prestazioni PS evitate (3,86 M€ contro 1,14 M€): il loro valore sta nell'appropriatezza e nel tempo dei pazienti, non nel risparmio.
 - **Stime teoriche, non effetti causali**: la traccia lo richiede.
-
-### Studio delle code
-- Modello **M/M/c non calibrato** sulle attese osservate; sei mesi di dati; tempo di visita e soglia di attesa sono parametri scelti (20 e 15 minuti).
 
 ### Modello e report
 - **Filtri bidirezionali** su 9 relazioni: da tenere sotto controllo se si aggiungono visual.
@@ -70,7 +67,7 @@ Il file `PW4 15` legge quasi tutte le tabelle da **percorsi assoluti del PC di S
 3. Colonne `Compatibile_CdC` nelle tabelle triage, esito e diagnosi (regole in [06](06-domanda-potenziale-cdc.md)).
 4. Power Query carica le tabelle e crea le colonne derivate ([05](05-modello-dati.md)).
 5. Le colonne calcolate in DAX (`Classificazione3_CdC` ecc.) e le misure sono nel modello (file TMDL).
-6. Controllare i **numeri di controllo** ([04, sezione 5](04-kpi-e-misure.md)).
+6. Controllare i **numeri di controllo** ([04, sezione 4](04-kpi-e-misure.md)).
 
 ### 2.3 SP3 e SP4
 Vedi [07, sezione 9](07-rete-cdc-e-confronto.md): installare i pacchetti, eseguire `SP3_rete_CdC.ipynb` con *Run All*, aggiornare Power BI. Se cambia la fact, rilanciare prima `prepara_dati.py`.
@@ -99,7 +96,6 @@ Il repository `PW4-CaseDellaComunita-G5/` ha oggi **un solo commit** («Struttur
 | Piano SP0 aggiornato (17/11) | `SP0/` | `S0_Pianificazione/` | Sostituisce i file `…_tmp0.xml` del 13/11: la cartella `S0_Pianificazione` del repository è superata |
 | Dati elaborati | PC di Shah e `coda/fatti_ridotta (1).xlsx` | `dati/elaborati/` | Vedi punto 2.1 |
 | Storia della dashboard (bozza per l'esposizione) | `Storia_dashboard_PW4.md` | `presentazione/` | È una bozza di discorso, non documentazione |
-| Studio delle code (documentazione) | `PoweBI_Base/DOCUMENTAZIONE_STUDIO_CODE_CDC.md`, `coda/Analisi_CdC/` | `analisi/code/` | Documentazione del 13/11: i nomi di alcune misure sono cambiati (vedi sotto) |
 
 **Da non pubblicare:** i PDF della traccia e dei docenti (diritti), i materiali del corso, le cartelle `_backup_prima_…`, i file `.pbix`, i file `.zip`, le cartelle `.pbi/` locali (già nel `.gitignore`), i file personali.
 **Dimensioni:** `01_DB_Excel_PS_2022.xlsx` (12 MB) e `Fact_Finale_PowerBI.xlsx` (18 MB) sono sotto il limite di GitHub (100 MB per file). `*.xlsx` è già marcato come binario in `.gitattributes`.
@@ -133,8 +129,8 @@ Utile per capire perché alcune cose non ci sono più.
 |---|---|
 | 10/11 | Esistono due modelli: una bozza ricca del gruppo (5 pagine) e il **nuovo modello del team** (fact + dimensioni preparate da Shah). Il team sceglie il nuovo come **modello unico**. Si crea lo scheletro del repository |
 | 11/11 | Grafica e navigazione (palette ASST, menu, pagine, filtri). Mappa Azure su Territorio |
-| 12/11 | Riordino: pagine SP1 complete, scarti spostati in pagine TEST. Studio delle code e prima classificazione dei verdi (C/X/U) e scenari CdC |
-| 13/11 | Studio delle code trasferito nel report del team; KPI della Direzionale rifatti come card SVG; colonna `Compatibile_CdC` sui codici ICD-9 |
+| 12/11 | Riordino: pagine SP1 complete, scarti spostati in pagine TEST. Prima classificazione dei verdi (C/X/U) e scenari CdC |
+| 13/11 | KPI della Direzionale rifatti come card SVG; colonna `Compatibile_CdC` sui codici ICD-9 |
 | 16/11 | Regola CdC «Stretta/Larga» (due diagnosi) come imbuto; **notebook SP3** (p-median); poi versione breve e un solo metodo; filtro sulle diagnosi secondarie (20.538 → 20.419) |
 | 17/11 | **Imbuto unico** `Classificazione3_CdC`; eliminate le regole dei verdi e le misure collegate; SP3 e SP4 in Power BI (tabelle `SP3_*`, misure, pagine «Rete CdC» e «Confronto»); pagine 16:9 con sottopagine; piano SP0 rifatto senza picchi |
 | 18/11 | Rifinitura (piramide, Sankey, funnel quota 50%, nota decisionale); codici anomali nascosti nei grafici; regola «max 6 KPI per pagina, nessun KPI ripetuto»; classifica animata (poi spostata dietro un pulsante); tooltip della mappa; filtro on/off CdC; titoli dei grafici che «parlano da soli» |
@@ -144,7 +140,6 @@ Utile per capire perché alcune cose non ci sono più.
 - *Play Axis* sulla Direzionale e su Territorio: filtrava tutta la pagina o andava a scatti; tolto.
 - *Classifica animata come vista principale*: il movimento distrae dai KPI e la differenza dal 5° al 10° comune è rumore (61 accessi); ora è dietro un pulsante.
 - *Grafici a torta*: con più di 3 fette l'occhio non confronta gli angoli; si usano barre, Sankey e piramide.
-- *Studio dei medici da aggiungere/togliere*: i medici non si possono variare nel caso; resta solo come parametro what-if.
 - *Più regole di classificazione in parallelo* (verdi C/X/U, Stretta, Larga): sostituite dall'imbuto unico («un dato, una fonte, un metodo»).
 
 **Torna all'[indice](README.md).**

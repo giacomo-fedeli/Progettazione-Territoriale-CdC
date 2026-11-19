@@ -91,11 +91,6 @@ Un fatto (l'accesso) e le dimensioni di decodifica, con tre copie del calendario
 ### 5.6 La dashboard
 Quattro pagine più il Leggimi, come chiede la traccia, con il destinatario nel sottotitolo. Regole: un titolo che dice l'insight, numeri formattati con unità, colore solo per evidenziare, niente 3D, assi in ordine logico, al massimo 6 KPI per pagina e nessun KPI ripetuto. Descrizione in [08](08-dashboard-pagine.md). Definizione dei KPI in [04](04-kpi-e-misure.md).
 
-### 5.7 Studio delle code (facoltativo)
-Modello **M/M/c** (formula di Erlang C) per ogni turno di ogni PS (21 casi), con i parametri del personale della traccia: λ dagli accessi, μ da 20 minuti di visita, c dai medici del turno. Serve a vedere **in quali turni l'attesa del modello supera una soglia** (15 minuti) e a simulare cosa cambia se le CdC tolgono accessi (scenari) o se si aggiungono medici.
-- **Esito:** 8 turni critici su 21 oggi; restano 8 con quota 30% e 50%, scendono a 6 con 70% e a 5 con 100%.
-- **Limite dichiarato:** il modello **non è calibrato** sulle attese osservate (in una verifica del 12/11 la correlazione tra carico del turno e attese osservate era vicina a zero: da ricontrollare) ed è su sei mesi. Va letto come **stima teorica**, non come previsione. La traccia lo indica come approfondimento facoltativo.
-
 ---
 
 ## 6. SP2 – Domanda potenziale

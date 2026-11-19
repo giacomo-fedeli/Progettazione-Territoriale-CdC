@@ -11,5 +11,4 @@ Checklist:
 - [ ] Codici bianchi (triage in uscita): numero, incidenza, stima del ticket €25 distinta dagli importi registrati
 - [ ] Attese e permanenza: mediana e 90° percentile per triage in ingresso e fascia oraria
 - [ ] Matrice giorno × ora dei pazienti presenti
-- [ ] (facoltativo) Modello di code con assunzioni e parametri → [`../analisi/code/`](../analisi/code/)
 - [ ] Screenshot delle pagine in `img/`

@@ -221,8 +221,7 @@ La traccia chiede di variare almeno la quota presa in carico. Abbiamo variato **
 
 ### Impatto sul Pronto Soccorso (stime teoriche)
 
-Con la quota base del 50% gli accessi deviati sarebbero 10.210, cioè **−13,5%** degli accessi PS (teorico: tutti i compatibili, a tutte le ore). La rete di 6 CdC ne gestisce il **10,0%**, perché considera solo il territorio, gli orari delle spoke e la capacità.
-Togliere il 30–50% dei compatibili **non riduce** i turni critici dello studio delle code (restano 8 su 21): scendono solo dal 70% in su (6) e al 100% (5). **Le CdC da sole non bastano**: servono anche medici nei turni peggiori. Vedi [06](06-domanda-potenziale-cdc.md).
+Con la quota base del 50% gli accessi deviati sarebbero 10.210, cioè **−13,5%** degli accessi PS (teorico: tutti i compatibili, a tutte le ore). La rete di 6 CdC ne gestisce il **10,0%**, perché considera solo il territorio, gli orari delle spoke e la capacità. Vedi [06](06-domanda-potenziale-cdc.md).
 
 ---
 

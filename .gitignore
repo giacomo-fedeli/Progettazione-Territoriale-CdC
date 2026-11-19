@@ -18,3 +18,6 @@ venv/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# elenco locale di misure da non documentare (vedi docs/strumenti/genera_catalogo_misure.py)
+docs/strumenti/escludi_misure.txt

@@ -129,22 +129,21 @@ Una pagina sola dal 19/11/2026: tolte la nota decisionale (il testo resta in [07
 |---|---|---|
 | Fonti | Flusso dei 7 PS (75.664 accessi), codifiche ICD-9, ISTAT, DM 77/2022 e AGENAS, costi ACN e RGS (il resto è IPOTESI) | [02 – Fonti](02-fonti.md) |
 | Anomalie e decisioni | 1.526 senza dimissione; 2.483 con diagnosi assente o senza capitolo; 1.747 arrivi «non rilevato»; 153 senza triage; 22 residenze non utilizzabili; 3 pazienti con sesso diverso; nessun accesso cancellato | [03 – Anomalie](03-anomalie-e-decisioni.md) |
-| Numeri di controllo | Accessi totali, pazienti distinti, valore totale, accessi senza dimissione, codici bianchi (misure vive del modello, formato italiano) | [04, sezione 5](04-kpi-e-misure.md#5-numeri-di-controllo-pagina-leggimi) |
+| Numeri di controllo | Accessi totali, pazienti distinti, valore totale, accessi senza dimissione, codici bianchi (misure vive del modello, formato italiano) | [04, sezione 4](04-kpi-e-misure.md#4-numeri-di-controllo-pagina-leggimi) |
 | Definizione dei KPI | I 6 KPI della Direzionale con formula e valore | [04 – KPI e misure](04-kpi-e-misure.md) e [04b – Catalogo delle misure](04b-catalogo-misure.md) |
 | Metodo e ipotesi | Imbuto unico (20.419 compatibili, 1.245 non classificabili), quota 50%, rete di 6 sedi, stime teoriche | [01 – Metodo](01-metodo.md) |
 
 **Indirizzo dei pulsanti.** I pulsanti non hanno l'indirizzo scritto dentro: lo leggono dalle misure della cartella `9 Grafica\GitHub` del modello (una per pulsante, tutte costruite da `GitHub indirizzo base`). Oggi `GitHub indirizzo base` vale `https://github.com/giacomo-fedeli/Progettazione-Territoriale-CdC/blob/main/docs/` (con la barra finale): ogni pulsante apre il documento giusto di questa cartella nell'anteprima di GitHub. Se il repository cambia, basta cambiare **quella sola misura**.
 
-**Le due sottopagine** («Imbuto CdC e code» e «Rete CdC (SP3 e SP4)») hanno lo stesso stile: due riquadri con titolo, tre numeri grandi, poche righe di sintesi e un pulsante GitHub.
+**Le due sottopagine** («Imbuto CdC e code» e «Rete CdC (SP3 e SP4)») hanno lo stesso stile: riquadri con titolo, tre numeri grandi, poche righe di sintesi e un pulsante GitHub.
 
 | Sottopagina | Riquadro | Numeri grandi | Pulsante GitHub apre |
 |---|---|---|---|
 | Imbuto CdC e code | Imbuto CdC | 20.419 compatibili · 1.245 non classificabili · 54.000 non compatibili | [06 – Domanda potenziale](06-domanda-potenziale-cdc.md) |
-| Imbuto CdC e code | Studio delle code e scenari CdC | 8 su 21 turni critici oggi · 6 con quota 70% · 5 con quota 100% | [04, sezione 4](04-kpi-e-misure.md#4-studio-delle-code-facoltativo-sp1) |
 | Rete CdC (SP3 e SP4) | Rete CdC (SP3) | 6 CdC · 93% entro 10 km · 3,86 M€ | [07 – Rete CdC e confronto](07-rete-cdc-e-confronto.md) |
 | Rete CdC (SP3 e SP4) | Confronto con la Direzione (SP4) | 10 CdC · −1,41 M€ · +1.343 visite/anno (Proposta − DG) | [07 – Rete CdC e confronto](07-rete-cdc-e-confronto.md) |
 
-Gli indirizzi sono le misure `GitHub link imbuto`, `GitHub link code` e `GitHub link rete`, costruite anch'esse da `GitHub indirizzo base`.
+Gli indirizzi sono le misure `GitHub link imbuto` e `GitHub link rete`, costruite anch'esse da `GitHub indirizzo base`.
 
 ---
 
@@ -154,7 +153,7 @@ Gli indirizzi sono le misure `GitHub link imbuto`, `GitHub link code` e `GitHub 
 - **Colori dei grafici** (validati per il daltonismo, in questo ordine): `#007A3D`, `#1F6FA8`, `#C27C00`, `#7B5EA7`, `#C8553D`, `#0F9FB5`, `#3F9E3C`, `#A64D79`.
 - **Angoli** arrotondati con raggio 17 px; **font** Segoe UI.
 - **Nomi:** gli oggetti di grafica hanno prefisso `ds_` (menu, intestazione, pulsanti, filtri, card KPI); i filtri che nascondono i codici anomali hanno prefisso `ds_f_anom_`. I visual senza `ds_` sono i grafici di analisi.
-- **Card KPI:** immagini SVG disegnate da misure DAX (vedi [04](04-kpi-e-misure.md), sezione 6).
+- **Card KPI:** immagini SVG disegnate da misure DAX (vedi [04](04-kpi-e-misure.md), sezione 5).
 
 Descrizione dell'evoluzione della dashboard (storia delle scelte) in [10](10-limiti-e-riproducibilita.md), sezione «Come è cambiato il lavoro».
 

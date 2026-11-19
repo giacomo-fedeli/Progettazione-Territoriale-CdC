@@ -205,28 +205,7 @@ DESC = {
     "Accessi mese": "Accessi del mese di riferimento (ignora il filtro mese).",
     "Lettura accessi": "Testo di lettura: ▲ in aumento / ▼ in calo / ● stabile (banda di stabilità ±2%).",
     "Tempo medio permanenza (min)": "Media accettazione → dimissione (formato giorni, non minuti). Non usata nel report: si usano mediana e P90.",
-    "Giorni periodo": "Numero di giorni con dati nel contesto (181 sul periodo intero).",
-    "Ore turno": "Durata del turno in ore: mattina 7, pomeriggio 7, notte 10.",
-    "Lambda (pz/ora)": "Studio code: arrivi per ora = accessi ÷ (giorni × ore del turno).",
-    "Medici": "Studio code: medici presenti nel turno (tabella del personale, dalla traccia).",
-    "Medici scenario": "Studio code: medici del turno più i «Medici Aggiuntivi» scelti con il parametro.",
-    "Mu (pz/ora per medico)": "Studio code: pazienti visti in un'ora da un medico = 60 ÷ tempo di visita.",
-    "Carico": "Studio code: carico offerto a = λ ÷ μ.",
-    "Rho": "Studio code: utilizzo dei medici ρ = λ ÷ (medici × μ). Da 1 in su la coda non si stabilizza.",
-    "P attesa": "Studio code: probabilità di attendere (formula di Erlang C, coda M/M/c).",
-    "Wq modello (min)": "Studio code: attesa media in coda del modello M/M/c, in minuti. Vuota se ρ ≥ 1.",
-    "Medici minimi": "Studio code: medici minimi perché l'attesa del modello resti sotto la soglia scelta.",
-    "Accessi dopo CdC": "Accessi che restano al PS dopo la deviazione verso le CdC (accessi − accessi deviati).",
     "Riduzione accessi PS %": "Accessi deviati ÷ accessi totali. Stima teorica a tutte le ore.",
-    "Lambda dopo CdC (pz/ora)": "Studio code: arrivi per ora dopo la deviazione.",
-    "Stato turno dopo CdC": "Stato del turno dopo la deviazione: Instabile, Critico oppure Ok.",
-    "Turni critici dopo CdC": "Numero di turni (su 21) instabili o con attesa del modello sopra la soglia, dopo la deviazione.",
-    "Turni instabili prima": "Turni con ρ ≥ 1 oggi.",
-    "Turni instabili dopo CdC": "Turni con ρ ≥ 1 dopo la deviazione.",
-    "Medici-turno minimi dopo CdC": "Medici-turno necessari dopo la deviazione verso le CdC.",
-    "Medici-turno mancanti dopo CdC": "Somma dei deficit di medici per turno, dopo la deviazione.",
-    "Medici mancanti dopo CdC": "Medici che mancano nel turno dopo la deviazione (mai negativo).",
-    "Ore-medico liberate a settimana": "Ore-medico in meno a settimana grazie alla deviazione (medici liberati × ore del turno × 7).",
     "Durata Minutti Accettazione-PresaInCarico (min)": "Media arrivo → presa in carico, in minuti. Non usata nel report (si usano mediana e P90).",
     "Durata Minutti Accettazione-Dimissione (min)": "Media arrivo → dimissione, in minuti. Non usata nel report.",
     "Durata Minutti PresaInCarico-Dimissione (min)": "Media presa in carico → dimissione, in minuti. Non usata nel report.",
@@ -243,12 +222,8 @@ DESC = {
     "Valore economico compatibili CdC": "Somma del valore delle prestazioni degli accessi compatibili CdC.",
     "% valore economico  compatibili CdC": "Valore dei compatibili ÷ valore totale delle prestazioni.",
     "Media Mobile 7 Giorni": "Media mobile a 7 giorni degli accessi giornalieri (toglie l'effetto del giorno della settimana).",
-    "Medici Aggiuntivi Value": "Parametro what-if: medici in più per turno (0-3), scelto con lo slicer «Medici Aggiuntivi».",
-    "Soglia Attesa Value": "Parametro what-if: soglia di attesa in minuti (5-60, default 15).",
-    "Tempo Visita Value": "Parametro what-if: tempo di visita in minuti (10-40, default 20).",
     "Presenti (media)": "Pazienti presenti per ora, media sui giorni (tabella Tab_Presenti_Ora_Istituto).",
     "In coda (media)": "Pazienti arrivati ma non ancora presi in carico, in media per ora.",
-    "Accessi (media per ora)": "Arrivi medi per ora e per PS (usata nello studio code).",
     "Personale (media)": "Personale presente in media per ora e per PS, dalla tabella dei turni.",
     "Personale (tab)": "Personale presente per ora, dalla tabella calcolata.",
     "Coda per operatore": "Pazienti in coda ÷ personale presente.",
@@ -292,19 +267,31 @@ GROUPS = [
         "Valore economico compatibili CdC", "% valore economico  compatibili CdC", "Quota CdC base dati",
         "FNL Step 0 - Accessi Totali", "FNL Step 1 - Triage Ingresso", "FNL Step 2 - + Diagnosi", "FNL Step 3 - + Esito", "FNL Step 4 - + Durata",
         "FNL Step 5 - + Triage Uscita", "FNL Step 6 - + Diagnosi Secondaria", "FNL Step 7 - Episodio Compatibile CdC", "FNL Valore"]),
-    ("G. Scenari CdC e studio delle code (M/M/c)", [
-        "Quota CdC compatibili", "Quota CdC non classificabili", "Scenario CdC attivo", "Accessi deviati alle CdC", "Accessi dopo CdC",
-        "Riduzione accessi PS %", "Giorni periodo", "Ore turno", "Lambda (pz/ora)", "Medici", "Medici scenario", "Mu (pz/ora per medico)", "Carico",
-        "Rho", "P attesa", "Wq modello (min)", "Medici minimi", "Lambda dopo CdC (pz/ora)", "Rho dopo CdC", "Wq dopo CdC (min)",
-        "Stato turno prima", "Stato turno dopo CdC", "Medici minimi dopo CdC", "Medici liberati dalle CdC", "Medici mancanti prima",
-        "Medici mancanti dopo CdC", "Turni PS-turno (n)", "Turni critici prima", "Turni critici dopo CdC", "Turni instabili prima",
-        "Turni instabili dopo CdC", "Medici-turno in organico", "Medici-turno minimi prima", "Medici-turno minimi dopo CdC",
-        "Medici-turno mancanti prima", "Medici-turno mancanti dopo CdC", "Ore-medico liberate a settimana",
-        "Medici Aggiuntivi Value", "Soglia Attesa Value", "Tempo Visita Value"]),
+    ("G. Scenari CdC (quota di presa in carico)", [
+        "Quota CdC compatibili", "Quota CdC non classificabili", "Scenario CdC attivo", "Accessi deviati alle CdC",
+        "Riduzione accessi PS %"]),
     ("H. Rete CdC (SP3)", None),  # cartella «SP3 Rete CdC»
     ("I. Confronto con la Direzione Generale (SP4)", None),  # cartella «SP4 Confronto»
     ("L. Controlli per la pagina Leggimi", None),  # cartella «8 Controlli (Leggimi)»
 ]
+
+
+# Elenco facoltativo di misure da non documentare: un nome per riga in `escludi_misure.txt` (file locale, non
+# pubblicato). Si escludono anche le misure che le richiamano ([Nome] nel DAX).
+_FILE_ESCLUSE = Path(__file__).with_name("escludi_misure.txt")
+MISURE_ESCLUSE = set(_FILE_ESCLUSE.read_text(encoding="utf-8").splitlines()) - {""} if _FILE_ESCLUSE.exists() else set()
+
+
+def senza_misure_escluse(measures):
+    esclusi = set(MISURE_ESCLUSE)
+    cambiato = True
+    while cambiato:
+        cambiato = False
+        for m in measures:
+            if m["name"] not in esclusi and any(f"[{e}]" in m["expr"] for e in esclusi):
+                esclusi.add(m["name"])
+                cambiato = True
+    return [m for m in measures if m["name"] not in esclusi], esclusi
 
 
 def is_presentazione(m):
@@ -324,6 +311,7 @@ def md_escape(s):
 def main():
     model_def, report_def, out = (Path(a) for a in sys.argv[1:4])
     measures = read_measures(model_def)
+    measures, esclusi = senza_misure_escluse(measures)
     by_name = OrderedDict((m["name"], m) for m in measures)
     usage = read_usage(report_def, list(by_name))
 
@@ -398,7 +386,7 @@ def main():
     w("> **File generato** dallo script [`strumenti/genera_catalogo_misure.py`](strumenti/genera_catalogo_misure.py) "
       "leggendo i file del modello (TMDL) e del report (PBIR). Non modificarlo a mano: cambia il modello e rilancia lo script.")
     w("")
-    w(f"Il modello ha **{len(measures)} misure**: **{len(calc)} di calcolo** (questo catalogo, con formula DAX) e "
+    w(f"Il catalogo descrive **{len(measures)} misure**: **{len(calc)} di calcolo** (questo catalogo, con formula DAX) e "
       f"**{len(pres)} di presentazione** (SVG delle card KPI, colori, testi dei sottotitoli: non calcolano numeri di business, vedi sezione M).")
     w("")
     w("Per le definizioni dei KPI in linguaggio semplice leggi prima [04 – KPI e misure](04-kpi-e-misure.md). "
@@ -409,7 +397,10 @@ def main():
     w("- *Formato*: formato numerico DAX (`#,0` = intero con separatore, `0.0%` = percentuale con un decimale, …).")
     w("- *Dove si vede*: pagine del report che usano la misura in un visual. «Indiretta» = non è in un visual ma la usa un'altra misura. «Non usata» = né in un visual né in altre misure.")
     w("")
-    w("Tutte le misure stanno nella tabella `_Misure`, tranne 10 che stanno nelle tabelle di supporto `FNL_Fasi`, `Medici Aggiuntivi`, `Soglia Attesa`, `Tempo Visita` (parametri what-if) e `Tab_Presenti_Ora_Istituto`.")
+    fuori = [m for m in measures if m["table"] != "_Misure"]
+    tabelle = sorted({m["table"] for m in fuori})
+    w(f"Tutte le misure stanno nella tabella `_Misure`, tranne {len(fuori)} che stanno nelle tabelle di supporto "
+      + ", ".join(f"`{t}`" for t in tabelle) + ".")
     w("")
 
     unused = []

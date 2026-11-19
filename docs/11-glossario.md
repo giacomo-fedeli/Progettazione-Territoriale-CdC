@@ -27,7 +27,6 @@ Sigle e termini usati nel progetto, in ordine alfabetico.
 | **Domanda presa in carico** | La parte della domanda compatibile che le CdC riescono davvero ad assorbire: quota (ipotesi) × domanda compatibile |
 | **EAC** | *Estimate at completion* = AC + (BAC − EV): costo finale previsto se il lavoro che resta costa quanto previsto |
 | **Episodio** | Sinonimo di accesso nel flusso |
-| **Erlang C** | Formula della probabilità di attendere in una coda M/M/c |
 | **Esito** | Come finisce l'accesso: dimissione a domicilio, ricovero, trasferimento, abbandono… |
 | **EV** | *Earned value* = Σ (% di completamento × budget) |
 | **FTE** | *Full time equivalent*: un lavoratore a tempo pieno. Qui 1.500 ore all'anno |
@@ -38,8 +37,6 @@ Sigle e termini usati nel progetto, in ordine alfabetico.
 | **ICD-9-CM** | Classificazione internazionale delle diagnosi usata nel flusso |
 | **ISTAT (codice a 6 cifre)** | Codice del comune; collega gli accessi ai comuni e alla popolazione |
 | **KPI** | *Key performance indicator*: numero che risponde a una domanda della Direzione |
-| **λ, μ, ρ, Wq** | Arrivi per ora, pazienti visti per ora da un medico, utilizzo dei medici, attesa media in coda ([04](04-kpi-e-misure.md), sezione 4) |
-| **M/M/c** | Coda con arrivi casuali, tempi di visita casuali e `c` serventi (qui i medici) |
 | **Mediana** | Il valore centrale: metà dei casi sta sotto, metà sopra |
 | **Misura** | Formula DAX che calcola un numero al volo, secondo i filtri della pagina |
 | **PBIP** | Formato di progetto Power BI fatto di file di testo, adatto a Git |

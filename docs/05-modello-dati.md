@@ -42,7 +42,7 @@ Il modello ha 42 relazioni: **29 volute** e 13 automatiche create da Power BI pe
 - 3 verso i calendari, 3 verso le fasce orarie, 3 verso i turni del personale.
 - `DIm_Pazienti[anni_compiuti_2022]` → `Dim_Fasce_Eta[Eta]`: l'età del paziente decide la fascia.
 - `SP3_Assegnazione`, `SP3_CdC`, `SP3_Scenari` → `SP3_Rete[Scenario]`: il filtro «Proposta / Direzione Generale». `SP3_Assegnazione` **non** ha una relazione con i comuni: il legame passa dalla misura `SP3 Domanda compatibile rete`, che usa `TREATAS` sul codice ISTAT.
-- `Dim_Turni_Accettazione[codice_istituto]` → `Tab_Presenti_Ora_Istituto[Istituto]`: molti-a-molti, usata nello studio delle code.
+- `Dim_Turni_Accettazione[codice_istituto]` → `Tab_Presenti_Ora_Istituto[Istituto]`: molti-a-molti.
 - **Filtro bidirezionale** su 9 relazioni (PS, paesi, fasce orarie di accettazione, problema principale, regime, responsabile invio, ticket, triage in ingresso, fasce d'età). Funziona, ma è un punto da controllare se si aggiungono visual (rischio di ambiguità).
 
 ---
@@ -160,7 +160,6 @@ Le durate sono salvate come **frazioni di giorno** (formato durata). Le misure l
 | `FNL_Fasi` | DAX | Le fasi del funnel «da 75.664 a 20.419» |
 | `Scenario CdC` | DAX | 6 scenari di quota presa in carico: 0, 30, 50, 70, 100%, e 70% + 30% dei non classificabili |
 | `Quota CdC passi` | DAX | I tre passi che giustificano la quota base del 50% |
-| `Medici Aggiuntivi`, `Soglia Attesa`, `Tempo Visita` | DAX (what-if) | Parametri dello studio delle code |
 | `Ore_presenza` | DAX | 4.344 righe = 181 giorni × 24 ore (griglia per il 90° percentile dei presenti) |
 | `Tab_Presenti_Ora` | DAX | Pazienti presenti per giorno della settimana × ora (168 righe) |
 | `Tab_Presenti_Ora_Istituto` | DAX | Presenti, in coda e personale per PS × giorno × ora (1.176 righe) |

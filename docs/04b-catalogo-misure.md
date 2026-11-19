@@ -2,7 +2,7 @@
 
 > **File generato** dallo script [`strumenti/genera_catalogo_misure.py`](strumenti/genera_catalogo_misure.py) leggendo i file del modello (TMDL) e del report (PBIR). Non modificarlo a mano: cambia il modello e rilancia lo script.
 
-Il modello ha **271 misure**: **183 di calcolo** (questo catalogo, con formula DAX) e **88 di presentazione** (SVG delle card KPI, colori, testi dei sottotitoli: non calcolano numeri di business, vedi sezione M).
+Il catalogo descrive **233 misure**: **147 di calcolo** (questo catalogo, con formula DAX) e **86 di presentazione** (SVG delle card KPI, colori, testi dei sottotitoli: non calcolano numeri di business, vedi sezione M).
 
 Per le definizioni dei KPI in linguaggio semplice leggi prima [04 – KPI e misure](04-kpi-e-misure.md). Questo catalogo serve a chi vuole la formula esatta.
 
@@ -11,7 +11,7 @@ Per le definizioni dei KPI in linguaggio semplice leggi prima [04 – KPI e misu
 - *Formato*: formato numerico DAX (`#,0` = intero con separatore, `0.0%` = percentuale con un decimale, …).
 - *Dove si vede*: pagine del report che usano la misura in un visual. «Indiretta» = non è in un visual ma la usa un'altra misura. «Non usata» = né in un visual né in altre misure.
 
-Tutte le misure stanno nella tabella `_Misure`, tranne 10 che stanno nelle tabelle di supporto `FNL_Fasi`, `Medici Aggiuntivi`, `Soglia Attesa`, `Tempo Visita` (parametri what-if) e `Tab_Presenti_Ora_Istituto`.
+Tutte le misure stanno nella tabella `_Misure`, tranne 6 che stanno nelle tabelle di supporto `FNL_Fasi`, `Tab_Presenti_Ora_Istituto`.
 
 ## A. Volumi, pazienti e valore
 
@@ -319,7 +319,6 @@ SUMX ( Fact_PS_2022, RELATED ( Dim_Ticket[Importo_eur] ) )
 | `Permanenza P90 (h min)` | Come [Permanenza P90 (min)], ma si legge in ore e minuti oltre i 60 minuti (formato dinamico). Per tabelle ed etichette. | – | Attese e code |
 | `Presenti (media)` | Pazienti presenti per ora, media sui giorni (tabella Tab_Presenti_Ora_Istituto). | – | non usata |
 | `In coda (media)` | Pazienti arrivati ma non ancora presi in carico, in media per ora. | – | indiretta (via Coda per operatore) |
-| `Accessi (media per ora)` | Arrivi medi per ora e per PS (usata nello studio code). | – | non usata |
 | `Personale (media)` | Personale presente in media per ora e per PS, dalla tabella dei turni. | – | non usata |
 | `Personale (tab)` | Personale presente per ora, dalla tabella calcolata. | – | indiretta (via Coda per operatore) |
 | `Coda per operatore` | Pazienti in coda ÷ personale presente. | – | non usata |
@@ -516,30 +515,6 @@ AVERAGEX (
     VALUES ( Tab_Presenti_Ora_Istituto[Giorno_sett_num] ),
     CALCULATE ( SUM ( Tab_Presenti_Ora_Istituto[Pazienti_in_coda_media] ) )
 )
-```
-
-**Accessi (media per ora)**
-
-```dax
-VAR h = SELECTEDVALUE ( Tab_Presenti_Ora_Istituto[Ora] )
-VAR ist = VALUES ( Tab_Presenti_Ora_Istituto[Istituto] )
-VAR gg = VALUES ( Tab_Presenti_Ora_Istituto[Giorno_sett_num] )
-VAR accessi =
-    CALCULATE (
-        COUNTROWS ( Fact_PS_2022 ),
-        Fact_PS_2022[ora_intera_accettazione] = h,
-        TREATAS ( ist, Fact_PS_2022[FK_Codice_Identificativo_PS] ),
-        TREATAS ( gg, Dim_Calendario_Accettazione[Giorno_sett_num] ),
-        Dim_Calendario_Accettazione[In_periodo_dati] = TRUE ()
-    )
-VAR giorni =
-    CALCULATE (
-        COUNTROWS ( Dim_Calendario_Accettazione ),
-        TREATAS ( gg, Dim_Calendario_Accettazione[Giorno_sett_num] ),
-        Dim_Calendario_Accettazione[In_periodo_dati] = TRUE ()
-    )
-RETURN
-    IF ( NOT ISBLANK ( h ), DIVIDE ( accessi, giorni ) )
 ```
 
 **Personale (media)**
@@ -1004,138 +979,17 @@ SWITCH(
 
 </details>
 
-## G. Scenari CdC e studio delle code (M/M/c)
+## G. Scenari CdC (quota di presa in carico)
 
 | Misura | Cosa misura | Formato | Dove si vede |
 |---|---|---|---|
-| `Giorni periodo` | Numero di giorni con dati nel contesto (181 sul periodo intero). | `0` | indiretta (via Lambda (pz/ora), Lambda dopo CdC (pz/ora)) |
-| `Ore turno` | Durata del turno in ore: mattina 7, pomeriggio 7, notte 10. | `0` | indiretta (via Lambda (pz/ora), Lambda dopo CdC (pz/ora)) |
-| `Lambda (pz/ora)` | Studio code: arrivi per ora = accessi ÷ (giorni × ore del turno). | `0.00` | indiretta (via Carico, Medici minimi) |
-| `Medici` | Studio code: medici presenti nel turno (tabella del personale, dalla traccia). | `0` | indiretta (via Medici scenario) |
-| `Medici scenario` | Studio code: medici del turno più i «Medici Aggiuntivi» scelti con il parametro. | `0` | indiretta (via Medici mancanti dopo CdC, Medici mancanti prima) |
-| `Mu (pz/ora per medico)` | Studio code: pazienti visti in un'ora da un medico = 60 ÷ tempo di visita. | – | indiretta (via Carico, Medici minimi) |
-| `Carico` | Studio code: carico offerto a = λ ÷ μ. | `0.00` | indiretta (via P attesa, Rho) |
-| `Rho` | Studio code: utilizzo dei medici ρ = λ ÷ (medici × μ). Da 1 in su la coda non si stabilizza. | `0.00` | indiretta (via P attesa, Stato turno prima) |
-| `P attesa` | Studio code: probabilità di attendere (formula di Erlang C, coda M/M/c). | `0.00` | indiretta (via Wq modello (min)) |
-| `Wq modello (min)` | Studio code: attesa media in coda del modello M/M/c, in minuti. Vuota se ρ ≥ 1. | `#,0.0` | indiretta (via Stato turno prima) |
-| `Medici minimi` | Studio code: medici minimi perché l'attesa del modello resti sotto la soglia scelta. | `0` | indiretta (via Medici liberati dalle CdC, Medici mancanti prima) |
 | `Quota CdC compatibili` | Quota dei verdi compatibili (in orario CdC) che la CdC riesce davvero a prendere in carico. Viene dallo scenario scelto; senza scelta vale 50% (esempio della traccia). | `0%` | Domanda potenziale |
 | `Quota CdC non classificabili` | Quota dei verdi non classificabili (in orario CdC) assorbita dalla CdC. Vale 0 tranne nello scenario Ampio. | `0%` | indiretta (via Accessi deviati alle CdC) |
-| `Scenario CdC attivo` | Nome dello scenario scelto (per titoli e commenti). | – | indiretta (via Lettura scenario CdC) |
+| `Scenario CdC attivo` | Nome dello scenario scelto (per titoli e commenti). | – | non usata |
 | `Accessi deviati alle CdC` | Domanda presa in carico (traccia SP2): quota dello scenario × accessi compatibili, più l'eventuale quota dei non classificabili (solo scenario 5). Tutte le ore: le CdC hub sono aperte h24 (DM 77). | `#,0` | + 1 sottopagina |
-| `Accessi dopo CdC` | Accessi che restano al PS dopo la deviazione verso le CdC (accessi − accessi deviati). | `#,0` | indiretta (via Lambda dopo CdC (pz/ora)) |
-| `Riduzione accessi PS %` | Accessi deviati ÷ accessi totali. Stima teorica a tutte le ore. | `0.0%` | indiretta (via Lettura scenario CdC) |
-| `Lambda dopo CdC (pz/ora)` | Studio code: arrivi per ora dopo la deviazione. | `0.00` | indiretta (via Medici minimi dopo CdC, Rho dopo CdC) |
-| `Rho dopo CdC` | Utilizzo dei medici dopo la deviazione (lambda' / (c x mu)). | `0.00` | indiretta (via Stato turno dopo CdC) |
-| `Wq dopo CdC (min)` | Attesa media in coda (Erlang C, M/M/c) dopo la deviazione. Vuota se il sistema e' instabile (rho >= 1). | `#,0.0` | indiretta (via Stato turno dopo CdC) |
-| `Stato turno prima` | Stato del turno oggi: Instabile (rho >= 1), Critico (attesa del modello sopra la soglia) oppure Ok. | – | indiretta (via Turni critici prima, Turni instabili prima) |
-| `Stato turno dopo CdC` | Stato del turno dopo la deviazione: Instabile, Critico oppure Ok. | – | indiretta (via Turni critici dopo CdC, Turni instabili dopo CdC) |
-| `Medici minimi dopo CdC` | Numero minimo di medici perche' l'attesa del modello resti sotto la soglia, dopo la deviazione verso le CdC. | `0` | indiretta (via Medici liberati dalle CdC, Medici mancanti dopo CdC) |
-| `Medici liberati dalle CdC` | Medici in meno necessari nel turno grazie alla deviazione (medici minimi prima - dopo). | `0` | indiretta (via Ore-medico liberate a settimana) |
-| `Medici mancanti prima` | Medici che mancano oggi per stare sotto la soglia (minimi - in organico, mai negativo). | `0` | indiretta (via Medici-turno mancanti prima) |
-| `Medici mancanti dopo CdC` | Medici che mancano nel turno dopo la deviazione (mai negativo). | `0` | indiretta (via Medici-turno mancanti dopo CdC) |
-| `Turni PS-turno (n)` | Numero di combinazioni PS x turno nel contesto (21 in totale). | `0` | indiretta (via Lettura scenario CdC) |
-| `Turni critici prima` | Turni PS x turno instabili (rho>=1) o con attesa del modello sopra la soglia, oggi. | `0` | indiretta (via Lettura scenario CdC) |
-| `Turni critici dopo CdC` | Numero di turni (su 21) instabili o con attesa del modello sopra la soglia, dopo la deviazione. | `0` | indiretta (via Lettura scenario CdC) |
-| `Turni instabili prima` | Turni con ρ ≥ 1 oggi. | `0` | non usata |
-| `Turni instabili dopo CdC` | Turni con ρ ≥ 1 dopo la deviazione. | `0` | non usata |
-| `Medici-turno in organico` | Somma dei medici presenti nei turni (un medico in un turno = 1 medico-turno). Include i Medici Aggiuntivi dello scenario. | `0` | non usata |
-| `Medici-turno minimi prima` | Medici-turno necessari oggi per stare sotto la soglia di attesa (modello Erlang C). | `0` | non usata |
-| `Medici-turno minimi dopo CdC` | Medici-turno necessari dopo la deviazione verso le CdC. | `0` | non usata |
-| `Medici-turno mancanti prima` | Dove i medici in organico sono meno dei minimi (somma dei soli deficit, i turni in surplus non compensano). | `0` | indiretta (via Lettura medici mancanti) |
-| `Medici-turno mancanti dopo CdC` | Somma dei deficit di medici per turno, dopo la deviazione. | `0` | indiretta (via Lettura medici mancanti) |
-| `Ore-medico liberate a settimana` | Ore-medico in meno a settimana grazie alla deviazione (medici liberati × ore del turno × 7). | `#,0` | non usata |
-| `Medici Aggiuntivi Value` | Parametro what-if: medici in più per turno (0-3), scelto con lo slicer «Medici Aggiuntivi». | `0` | indiretta (via Medici scenario) |
-| `Soglia Attesa Value` | Parametro what-if: soglia di attesa in minuti (5-60, default 15). | `0` | indiretta (via Lettura medici mancanti, Medici minimi dopo CdC) |
-| `Tempo Visita Value` | Parametro what-if: tempo di visita in minuti (10-40, default 20). | `0` | indiretta (via Lettura medici mancanti, Mu (pz/ora per medico)) |
+| `Riduzione accessi PS %` | Accessi deviati ÷ accessi totali. Stima teorica a tutte le ore. | `0.0%` | non usata |
 
-<details><summary>Formule DAX · G. Scenari CdC e studio delle code (M/M/c)</summary>
-
-**Giorni periodo**
-
-```dax
-CALCULATE(COUNTROWS(Dim_Calendario_Accettazione),
-    Dim_Calendario_Accettazione[In_periodo_dati] = TRUE())
-```
-
-**Ore turno**
-
-```dax
-VAR t = RIGHT(SELECTEDVALUE(Fact_PS_2022[FK_PS_Turno_Accettazione]), 1)
-  RETURN SWITCH(t, "M", 7, "P", 7, "N", 10)
-```
-
-**Lambda (pz/ora)**
-
-```dax
-DIVIDE([Accessi], [Giorni periodo] * [Ore turno])
-```
-
-**Medici**
-
-```dax
-SUMX(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]),
-    LOOKUPVALUE(Dim_Turni_Accettazione[Medici],
-      Dim_Turni_Accettazione[PK_PS_Turno],
-      Fact_PS_2022[FK_PS_Turno_Accettazione]))
-```
-
-**Medici scenario**
-
-```dax
-IF(HASONEVALUE(Fact_PS_2022[FK_PS_Turno_Accettazione]),
-    [Medici] + [Medici Aggiuntivi Value])
-```
-
-**Mu (pz/ora per medico)**
-
-```dax
-60 / [Tempo Visita Value]
-```
-
-**Carico**
-
-```dax
-DIVIDE([Lambda (pz/ora)], [Mu (pz/ora per medico)])
-```
-
-**Rho**
-
-```dax
-DIVIDE([Carico], [Medici scenario])
-```
-
-**P attesa**
-
-```dax
-VAR c = [Medici scenario]  VAR a = [Carico]
-  VAR p = POISSON.DIST(c, a, FALSE) * c / (c - a)
-  RETURN IF(NOT ISBLANK([Rho]) && [Rho] < 1,
-      DIVIDE(p, POISSON.DIST(c - 1, a, TRUE) + p))
-```
-
-**Wq modello (min)**
-
-```dax
-IF(NOT ISBLANK([Rho]) && [Rho] < 1,
-    DIVIDE([P attesa],
-      [Medici scenario] * [Mu (pz/ora per medico)] - [Lambda (pz/ora)]) * 60)
-```
-
-**Medici minimi**
-
-```dax
-VAR lam = [Lambda (pz/ora)]
-VAR mu  = [Mu (pz/ora per medico)]
-VAR a   = DIVIDE(lam, mu)
-VAR ok  = FILTER(GENERATESERIES(1, 10, 1),
-  VAR c = [Value]
-  VAR p = POISSON.DIST(c, a, FALSE) * c / (c - a)
-  RETURN c > a &&
-    DIVIDE(DIVIDE(p, POISSON.DIST(c - 1, a, TRUE) + p), c * mu - lam) * 60
-      <= [Soglia attesa Value])
-RETURN MINX(ok, [Value])
-```
+<details><summary>Formule DAX · G. Scenari CdC (quota di presa in carico)</summary>
 
 **Quota CdC compatibili**
 
@@ -1162,174 +1016,10 @@ COALESCE ( [Quota CdC compatibili] * [Accessi compatibili CdC], 0 )
     + COALESCE ( [Quota CdC non classificabili] * [Accessi non classificabili CdC], 0 )
 ```
 
-**Accessi dopo CdC**
-
-```dax
-[Accessi] - [Accessi deviati alle CdC]
-```
-
 **Riduzione accessi PS %**
 
 ```dax
 DIVIDE([Accessi deviati alle CdC], [Accessi])
-```
-
-**Lambda dopo CdC (pz/ora)**
-
-```dax
-DIVIDE([Accessi dopo CdC], [Giorni periodo] * [Ore turno])
-```
-
-**Rho dopo CdC**
-
-```dax
-DIVIDE(DIVIDE([Lambda dopo CdC (pz/ora)], [Mu (pz/ora per medico)]), [Medici scenario])
-```
-
-**Wq dopo CdC (min)**
-
-```dax
-VAR c = [Medici scenario]
-VAR lam = [Lambda dopo CdC (pz/ora)]
-VAR mu = [Mu (pz/ora per medico)]
-VAR a = DIVIDE(lam, mu)
-VAR p = DIVIDE(POISSON.DIST(c, a, FALSE) * c, c - a)
-RETURN
-    IF(NOT ISBLANK(c) && NOT ISBLANK(lam) && a < c,
-        DIVIDE(DIVIDE(p, POISSON.DIST(c - 1, a, TRUE) + p), c * mu - lam) * 60)
-```
-
-**Stato turno prima**
-
-```dax
-VAR rho = [Rho]
-VAR w = [Wq modello (min)]
-RETURN IF(ISBLANK(rho), BLANK(), IF(rho >= 1, "Instabile", IF(w > [Soglia Attesa Value], "Critico", "Ok")))
-```
-
-**Stato turno dopo CdC**
-
-```dax
-VAR rho = [Rho dopo CdC]
-VAR w = [Wq dopo CdC (min)]
-RETURN IF(ISBLANK(rho), BLANK(), IF(rho >= 1, "Instabile", IF(w > [Soglia Attesa Value], "Critico", "Ok")))
-```
-
-**Medici minimi dopo CdC**
-
-```dax
-VAR lam = [Lambda dopo CdC (pz/ora)]
-VAR mu = [Mu (pz/ora per medico)]
-VAR a = DIVIDE(lam, mu)
-VAR soglia = [Soglia Attesa Value]
-VAR ok =
-    FILTER(GENERATESERIES(1, 10, 1),
-        VAR c = [Value]
-        VAR p = DIVIDE(POISSON.DIST(c, a, FALSE) * c, c - a)
-        RETURN c > a && DIVIDE(DIVIDE(p, POISSON.DIST(c - 1, a, TRUE) + p), c * mu - lam) * 60 <= soglia)
-RETURN IF(NOT ISBLANK(lam), MINX(ok, [Value]))
-```
-
-**Medici liberati dalle CdC**
-
-```dax
-IF(NOT ISBLANK([Medici minimi]) && NOT ISBLANK([Medici minimi dopo CdC]), [Medici minimi] - [Medici minimi dopo CdC])
-```
-
-**Medici mancanti prima**
-
-```dax
-IF(NOT ISBLANK([Medici minimi]), MAX(0, [Medici minimi] - [Medici scenario]))
-```
-
-**Medici mancanti dopo CdC**
-
-```dax
-IF(NOT ISBLANK([Medici minimi dopo CdC]), MAX(0, [Medici minimi dopo CdC] - [Medici scenario]))
-```
-
-**Turni PS-turno (n)**
-
-```dax
-COUNTROWS(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]))
-```
-
-**Turni critici prima**
-
-```dax
-SUMX(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]), IF([Stato turno prima] IN {"Instabile", "Critico"}, 1, 0))
-```
-
-**Turni critici dopo CdC**
-
-```dax
-SUMX(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]), IF([Stato turno dopo CdC] IN {"Instabile", "Critico"}, 1, 0))
-```
-
-**Turni instabili prima**
-
-```dax
-SUMX(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]), IF([Stato turno prima] = "Instabile", 1, 0))
-```
-
-**Turni instabili dopo CdC**
-
-```dax
-SUMX(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]), IF([Stato turno dopo CdC] = "Instabile", 1, 0))
-```
-
-**Medici-turno in organico**
-
-```dax
-SUMX(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]), [Medici scenario])
-```
-
-**Medici-turno minimi prima**
-
-```dax
-SUMX(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]), [Medici minimi])
-```
-
-**Medici-turno minimi dopo CdC**
-
-```dax
-SUMX(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]), [Medici minimi dopo CdC])
-```
-
-**Medici-turno mancanti prima**
-
-```dax
-SUMX(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]), [Medici mancanti prima])
-```
-
-**Medici-turno mancanti dopo CdC**
-
-```dax
-SUMX(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]), [Medici mancanti dopo CdC])
-```
-
-**Ore-medico liberate a settimana**
-
-```dax
-SUMX(VALUES(Fact_PS_2022[FK_PS_Turno_Accettazione]), [Medici liberati dalle CdC] * [Ore turno]) * 7
-```
-
-**Medici Aggiuntivi Value**
-
-```dax
-SELECTEDVALUE('Medici Aggiuntivi'[Medici Aggiuntivi], 0)
-```
-
-**Soglia Attesa Value**
-
-```dax
-SELECTEDVALUE('Soglia Attesa'[Soglia Attesa], 15)
-```
-
-**Tempo Visita Value**
-
-```dax
-SELECTEDVALUE('Tempo Visita'[Tempo Visita], 20)
 ```
 
 </details>
@@ -1708,7 +1398,7 @@ Servono solo a disegnare il report: card KPI in SVG (numero, freccia di variazio
 
 | Cartella nel modello | N. misure | Esempi |
 |---|---:|---|
-| (senza cartella) | 8 | Lettura accessi, Lettura scenario CdC, Lettura medici mancanti … |
+| (senza cartella) | 6 | Lettura accessi, KPI card attesa mediana, KPI card accessi … |
 | 7 KPI Direzionale | 13 | KPI sub accessi, KPI sub accessi vs media, Lettura valore … |
 | SP4 Confronto | 1 | SP4 Lettura confronto |
 | Grafica KPI | 4 | KPI stile colore, KPI stile su, KPI stile giu … |
@@ -1731,8 +1421,6 @@ Servono solo a disegnare il report: card KPI in SVG (numero, freccia di variazio
 **(senza cartella)**
 
 - `Lettura accessi`
-- `Lettura scenario CdC`
-- `Lettura medici mancanti`
 - `KPI card attesa mediana`
 - `KPI card accessi`
 - `KPI card codici bianchi`
@@ -1888,15 +1576,10 @@ Misure di calcolo che, leggendo i file del report e del modello, non compaiono i
 - `% attesa oltre 1 ora`
 - `% permanenza oltre 6 ore`
 - `Presenti (media)`
-- `Accessi (media per ora)`
 - `Personale (media)`
 - `Coda per operatore`
-- `Turni instabili prima`
-- `Turni instabili dopo CdC`
-- `Medici-turno in organico`
-- `Medici-turno minimi prima`
-- `Medici-turno minimi dopo CdC`
-- `Ore-medico liberate a settimana`
+- `Scenario CdC attivo`
+- `Riduzione accessi PS %`
 - `SP3 Presa in carico`
 - `SP3 Capacita`
 - `SP3 Minuti medi`

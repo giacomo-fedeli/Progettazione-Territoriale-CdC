@@ -36,7 +36,7 @@ Questa cartella contiene la documentazione di **tutto il lavoro fatto**: metodo,
 | 01 | [Metodo](01-metodo.md) | Dal problema alla raccomandazione, passo per passo, con i principi di lavoro e i controlli |
 | 02 | [Fonti](02-fonti.md) | File → tabella del modello; fonti normative, scientifiche e istituzionali; parametri con fonte o **IPOTESI** |
 | 03 | [Anomalie e decisioni](03-anomalie-e-decisioni.md) | 14 anomalie con numeri verificati, decisione e motivo; controlli che non sono anomalie |
-| 04 | [KPI e misure](04-kpi-e-misure.md) | Tabella «Dalla domanda al KPI», KPI di ogni pagina, studio delle code, numeri di controllo |
+| 04 | [KPI e misure](04-kpi-e-misure.md) | Tabella «Dalla domanda al KPI», KPI di ogni pagina, numeri di controllo |
 | 04b | [Catalogo delle misure](04b-catalogo-misure.md) | Tutte le 299 misure del modello con formula DAX (**generato** dallo script) |
 | 05 | [Modello dati](05-modello-dati.md) | Schema a stella, relazioni, data dictionary della fact e delle dimensioni |
 | 06 | [Domanda potenziale](06-domanda-potenziale-cdc.md) | SP2: criteri, regole, imbuto, tre classi, quota presa in carico |
@@ -50,7 +50,7 @@ Questa cartella contiene la documentazione di **tutto il lavoro fatto**: metodo,
 
 ## I numeri chiave
 
-Tutti ricalcolati dal file originale e dal modello (vedi [04, sezione 5](04-kpi-e-misure.md)).
+Tutti ricalcolati dal file originale e dal modello (vedi [04, sezione 4](04-kpi-e-misure.md)).
 
 | | |
 |---|---|

@@ -30,7 +30,7 @@ Metodo, fonti, anomalie e decisioni, definizione dei KPI e delle misure, modello
 ```
 powerbi/          UNICO modello Power BI (PBIP) che cresce da S1 a S4
 dati/             sorgenti fornite, dimensioni, criteri S2, scenari S3/S4
-analisi/          script replicabili (code / localizzazione), se usati
+analisi/          script replicabili (localizzazione), se usati
 S0_ … S4_         documenti PDF consegnati per ogni sottoprova
 presentazione/    slide finali
 riferimenti/      bibliografia (fonti citate, non i PDF)

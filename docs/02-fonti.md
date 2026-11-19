@@ -16,10 +16,9 @@ Alla fine c'è la tabella di ogni parametro dell'SP3 con la sua fonte, oppure co
 | `01_DB_Excel_PS_2022.xlsx` | Flusso dei Pronto Soccorso: 75.664 accessi, 25 colonne, foglio `PS_2022`. Dal 01/01/2022 al 30/06/2022, 7 PS dell'ASST dei Sette Laghi, 58.320 pazienti | `dati/sorgenti/` | Tabella dei fatti |
 | `03_Codifiche_Diagnosi_e_Problema_principale.xlsx` | Codebook ICD-9-CM: foglio `Diagnosi` (16.228 codici) e foglio `Problema principale` | `dati/sorgenti/` | Dimensioni diagnosi e problema principale |
 | `codifiche flusso.pdf` | Data dictionary del flusso (campi e codici) | non caricato (materiale del corso) | Decodifiche: triage, arrivo, esito, regime, ticket, reparti, cittadinanza |
-| Tabella del personale per turno | Medici / infermieri / OSS presenti per PS e turno M/P/N (nel testo della traccia, p. 3). In Excel: 21 righe = 7 PS × 3 turni | `dati/dimensioni/dim_turni.xlsx` (versione base). Il modello usa `Personale_PS_Turno.xlsx`, che aggiunge `Totale_Personale` e gli orari dei turni | Tabelle `Dim_Turni_*` e studio delle code |
+| Tabella del personale per turno | Medici / infermieri / OSS presenti per PS e turno M/P/N (nel testo della traccia, p. 3). In Excel: 21 righe = 7 PS × 3 turni | `dati/dimensioni/dim_turni.xlsx` (versione base). Il modello usa `Personale_PS_Turno.xlsx`, che aggiunge `Totale_Personale` e gli orari dei turni | Tabelle `Dim_Turni_*` |
 | `case della comunità e domanda potenziale.pdf` | Funzioni delle CdC e criteri di esclusione degli accessi | non caricato | Criteri della domanda potenziale ([06](06-domanda-potenziale-cdc.md)) |
 | `sottoprova 4_configurazione CdC direzione.pdf` | 10 comuni (con indirizzo) scelti dalla Direzione Generale | non caricato | Rete DG ([07](07-rete-cdc-e-confronto.md)) |
-| `04_Queuing_Model_1/2/3.pdf` e dispensa sulla teoria delle code | Teoria delle code per i Pronto Soccorso | non caricati | Studio delle code (facoltativo) |
 | Traccia `ITS_DATA_ANALYST_E2 - PW4.pdf` | Richieste di ogni sottoprova | non caricata | Tutto |
 
 > I PDF e i materiali dei docenti non si caricano su GitHub (diritti): si citano in [`../riferimenti/bibliografia.md`](../riferimenti/bibliografia.md).
@@ -86,7 +85,6 @@ Il parametro Power Query `Cartella_SP3` punta alla cartella `SP3_rete_CdC/output
 | `FNL_Fasi` | Le 8 fasi del funnel «da 75.664 a 20.419» |
 | `Scenario CdC` | 6 scenari di quota presa in carico (0/30/50/70/100% e «70% + 30% dei non classificabili») |
 | `Quota CdC passi` | I 3 passi che giustificano la quota base del 50% |
-| `Medici Aggiuntivi`, `Soglia Attesa`, `Tempo Visita` | Parametri «what-if» dello studio delle code (valori 0–3, 5–60, 10–40) |
 | `Ore_presenza` | Griglia giorno × ora (4.344 righe = 181 giorni × 24) |
 | `Tab_Presenti_Ora` | Pazienti presenti per giorno della settimana e ora (168 righe) |
 | `Tab_Presenti_Ora_Istituto` | Stesso calcolo per PS (1.176 righe), con pazienti in coda e personale |
@@ -129,14 +127,7 @@ Il parametro Power Query `Cartella_SP3` punta alla cartella `SP3_rete_CdC/output
 - ReVelle, C. S., & Swain, R. W. (1970). *Central facilities location*. Geographical Analysis, 2(1).
 - Solver **HiGHS** (tramite `scipy.optimize.milp`): programmazione lineare intera esatta.
 
-### 4.4 Per lo studio delle code (facoltativo, SP1)
-
-1. Vass, H., & Szabo, Z. K. (2015). *Application of queuing model to patient flow in emergency department. Case study*. Procedia Economics and Finance, 32, 479–487.
-2. Bittencourt, O., Verter, V., & Yalovsky, M. (2018). *Hospital capacity management based on the queueing theory*. International Journal of Productivity and Performance Management, 67(2), 224–238.
-3. Wang, C. H., Tian, R., Hu, K., Chen, Y. T., & Ku, T. H. (2025). *A Markov decision optimization of medical service resources for two-class patient queues in emergency departments via particle swarm optimization algorithm*. Scientific Reports, 15(1), 2942.
-4. Lezioni 1–3 sulla teoria delle code (materiale del corso).
-
-### 4.5 Letteratura usata per controllare la quota del 50% e la quota «non urgenti»
+### 4.4 Letteratura usata per controllare la quota del 50% e la quota «non urgenti»
 
 Questi riferimenti sono usati **solo come controllo esterno** nella presentazione, non per calcolare i numeri del report.
 

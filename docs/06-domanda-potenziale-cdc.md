@@ -192,14 +192,14 @@ La traccia vuole le due cose **distinte**:
 
 La quota è un'**ipotesi dichiarata** e si sceglie con lo slicer «Scenario CdC». La tabella `Scenario CdC` ha sei scenari. I risultati sono **stime teoriche, non effetti causali** (la traccia lo richiede).
 
-| Scenario | Quota | Accessi deviati | Riduzione accessi PS | Turni critici dopo (su 21) |
-|---|---:|---:|---:|---:|
-| 0 · Oggi | 0% | 0 | 0,0% | 8 |
-| 1 · Prudente | 30% | 6.126 | 8,1% | 8 |
-| 2 · **Base** | **50%** | **10.210** | **13,5%** | 8 |
-| 3 · Ottimistico | 70% | 14.293 | 18,9% | 6 |
-| 4 · Massimo teorico | 100% | 20.419 | 27,0% | 5 |
-| 5 · Ampio | 70% dei compatibili + 30% dei non classificabili | 14.667 | 19,4% | 6 |
+| Scenario | Quota | Accessi deviati | Riduzione accessi PS |
+|---|---:|---:|---:|
+| 0 · Oggi | 0% | 0 | 0,0% |
+| 1 · Prudente | 30% | 6.126 | 8,1% |
+| 2 · **Base** | **50%** | **10.210** | **13,5%** |
+| 3 · Ottimistico | 70% | 14.293 | 18,9% |
+| 4 · Massimo teorico | 100% | 20.419 | 27,0% |
+| 5 · Ampio | 70% dei compatibili + 30% dei non classificabili | 14.667 | 19,4% |
 
 La riduzione del 13,5% qui è **teorica**: conta tutti i compatibili, a tutte le ore. La rete di 6 CdC dell'SP3 ne gestisce meno (10,0%) perché considera solo il territorio, gli orari delle spoke e la capacità: vedi [07](07-rete-cdc-e-confronto.md).
 

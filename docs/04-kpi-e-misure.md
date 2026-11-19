@@ -131,29 +131,9 @@ Lo scostamento è **Proposta − Direzione Generale**, come chiede la traccia (p
 
 ---
 
-## 4. Studio delle code (facoltativo, SP1)
+<a id="5-numeri-di-controllo-pagina-leggimi"></a>
 
-Modello **M/M/c** (formula di Erlang C): arrivi di Poisson, tempi di visita esponenziali, `c` medici in parallelo. Si applica a ogni turno di ogni PS (21 casi).
-
-| Simbolo | Misura | Definizione |
-|---|---|---|
-| λ | `Lambda (pz/ora)` | Accessi ÷ (giorni × ore del turno); turni: M 7 h, P 7 h, N 10 h |
-| μ | `Mu (pz/ora per medico)` | 60 ÷ tempo di visita (default 20 minuti → 3 pazienti/ora) |
-| c | `Medici scenario` | Medici del turno (tabella del personale) + medici aggiuntivi (parametro 0–3) |
-| ρ | `Rho` | λ ÷ (c × μ): utilizzo dei medici. Con ρ ≥ 1 la coda non si stabilizza («Instabile») |
-| Wq | `Wq modello (min)` | Attesa media in coda del modello. Vuota se ρ ≥ 1 |
-| Medici minimi | `Medici minimi` | Il più piccolo c con Wq ≤ soglia (parametro 5–60 minuti, default 15) |
-| Turno critico | `Turni critici prima` / `dopo CdC` | ρ ≥ 1 oppure Wq sopra la soglia |
-
-**Risultato** (tempo di visita 20 minuti, soglia 15 minuti, medici aggiuntivi 0): turni critici **8 su 21** oggi. Dopo la deviazione verso le CdC restano 8 con quota 30% e 50%; scendono a 6 con 70% e a 5 con 100%.
-
-**Dove si vede.** Nel report non c'è una pagina con i grafici delle code. Il calcolo sta nelle misure del modello (con i parametri tempo di visita, soglia e medici aggiuntivi) e in uno script Python indipendente (`coda/Analisi_CdC/python`, nella cartella di lavoro). I numeri principali si leggono nel Leggimi, sottopagina «Imbuto CdC e code».
-
-**Limiti:** il modello **non è calibrato** sulle attese osservate; usa solo sei mesi di dati; sono stime teoriche, non effetti causali. L'organico dei due PS Del Ponte (ostetrico-ginecologico e pediatrico) è indicato dalla traccia come una sola riga: il file lo assegna a entrambi (vedi [10](10-limiti-e-riproducibilita.md)).
-
----
-
-## 5. Numeri di controllo (pagina Leggimi)
+## 4. Numeri di controllo (pagina Leggimi)
 
 Misure della cartella *8 Controlli (Leggimi)*: ignorano tutti i filtri, quindi sono sempre uguali.
 
@@ -169,9 +149,9 @@ I cinque valori sono stati ricalcolati con Python dal file originale e coincidon
 
 ---
 
-## 6. Come sono costruite le card KPI
+## 5. Come sono costruite le card KPI
 
-Ogni card KPI è un'immagine SVG disegnata da una misura DAX (numero grande, freccia di variazione, linea mensile). Sono le **88 misure di presentazione** del modello: non calcolano numeri di business, mostrano il valore di una misura di calcolo.
+Ogni card KPI è un'immagine SVG disegnata da una misura DAX (numero grande, freccia di variazione, linea mensile). Sono le **86 misure di presentazione** del catalogo: non calcolano numeri di business, mostrano il valore di una misura di calcolo.
 Esempio: `KPI card Direzionale accessi` disegna l'intera card «Accessi»: numero grande (valore di `Accessi`), variazione sul mese prima e linea mensile.
 
 Ogni pagina ha sei card al massimo (Attese e code ne ha quattro, Territorio quattro, Domanda quattro). La linea mensile ignora il filtro del periodo e rispetta gli altri filtri.
