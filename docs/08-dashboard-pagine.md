@@ -18,7 +18,7 @@ Report di riferimento: **`PW4 15.pbip`**, 1920×1080 (16:9). Le pagine sono 16: 
 | **Domanda potenziale** | Direzione Strategica | SP2 | Classi e distribuzione |
 | **Rete CdC** | Direzione Strategica | SP3 | – |
 | **Confronto** | Direzione Strategica | SP4 | nessuna (dal 19/11 tutto in una pagina) |
-| **Leggimi** | Tutti | metodo | Imbuto CdC e code · Rete CdC (SP3 e SP4) |
+| **Leggimi** | Tutti | metodo | Imbuto CdC · Rete CdC (SP3 e SP4) |
 
 **Pagine tooltip:** «Tooltip · comune» (400×300, per la mappa di Territorio) e «Tooltip · paziente» (600×450).
 
@@ -135,11 +135,11 @@ Una pagina sola dal 19/11/2026: tolte la nota decisionale (il testo resta in [07
 
 **Indirizzo dei pulsanti.** I pulsanti non hanno l'indirizzo scritto dentro: lo leggono dalle misure della cartella `9 Grafica\GitHub` del modello (una per pulsante, tutte costruite da `GitHub indirizzo base`). Oggi `GitHub indirizzo base` vale `https://github.com/giacomo-fedeli/Progettazione-Territoriale-CdC/blob/main/docs/` (con la barra finale): ogni pulsante apre il documento giusto di questa cartella nell'anteprima di GitHub. Se il repository cambia, basta cambiare **quella sola misura**.
 
-**Le due sottopagine** («Imbuto CdC e code» e «Rete CdC (SP3 e SP4)») hanno lo stesso stile: riquadri con titolo, tre numeri grandi, poche righe di sintesi e un pulsante GitHub.
+**Le due sottopagine** («Imbuto CdC» e «Rete CdC (SP3 e SP4)») hanno lo stesso stile: riquadri con titolo, tre numeri grandi, poche righe di sintesi e un pulsante GitHub.
 
 | Sottopagina | Riquadro | Numeri grandi | Pulsante GitHub apre |
 |---|---|---|---|
-| Imbuto CdC e code | Imbuto CdC | 20.419 compatibili · 1.245 non classificabili · 54.000 non compatibili | [06 – Domanda potenziale](06-domanda-potenziale-cdc.md) |
+| Imbuto CdC | Imbuto CdC | 20.419 compatibili · 1.245 non classificabili · 54.000 non compatibili | [06 – Domanda potenziale](06-domanda-potenziale-cdc.md) |
 | Rete CdC (SP3 e SP4) | Rete CdC (SP3) | 6 CdC · 93% entro 10 km · 3,86 M€ | [07 – Rete CdC e confronto](07-rete-cdc-e-confronto.md) |
 | Rete CdC (SP3 e SP4) | Confronto con la Direzione (SP4) | 10 CdC · −1,41 M€ · +1.343 visite/anno (Proposta − DG) | [07 – Rete CdC e confronto](07-rete-cdc-e-confronto.md) |
 
