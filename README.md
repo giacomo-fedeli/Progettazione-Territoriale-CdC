@@ -10,6 +10,10 @@
 3. Come dovrebbe essere configurata una rete territoriale per rispondere a tale domanda
    e come si confronta con la configurazione assunta dalla Direzione Generale?
 
+## Documentazione
+
+Metodo, fonti, anomalie e decisioni, definizione dei KPI e delle misure, modello dati e documenti di ogni sottoprova sono in **[docs/](docs/README.md)** (si leggono direttamente su GitHub).
+
 ## Dove trovare le consegne
 
 | Sottoprova | Cosa chiede la traccia | Deliverable | Stato |
