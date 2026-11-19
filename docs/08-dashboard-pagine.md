@@ -2,7 +2,7 @@
 
 La traccia chiede **quattro pagine più il «Leggimi»**: Direzionale (livello strategico) e Flussi, Attese e code, Territorio (livello tattico). Il gruppo ha aggiunto le pagine delle sottoprove 2, 3 e 4. Il sottotitolo di ogni pagina indica il destinatario.
 
-Report di riferimento: **`PW4 15.pbip`**, 1920×1080 (16:9). Le pagine sono 26: 9 nel menu, 8 sottopagine nascoste, 7 bozze nascoste, 2 tooltip.
+Report di riferimento: **`PW4 15.pbip`**, 1920×1080 (16:9). Le pagine sono 16: 9 nel menu, 5 sottopagine nascoste, 2 tooltip.
 
 ---
 
@@ -13,15 +13,14 @@ Report di riferimento: **`PW4 15.pbip`**, 1920×1080 (16:9). Le pagine sono 26: 
 | **Home** | Copertina | – | – |
 | **Direzionale** | Strategico – Direzione Strategica | SP1 | – |
 | **Flussi** | Tattico – chi organizza i servizi del PS | SP1 | Confronto tra PS · Approfondimento episodi |
-| **Attese e code** | Tattico – chi organizza risorse del PS | SP1 | Personale e coda |
+| **Attese e code** | Tattico – chi organizza risorse del PS | SP1 | – |
 | **Territorio** | Tattico – chi organizza i servizi sul territorio | SP1 | – |
 | **Domanda potenziale** | Direzione Strategica | SP2 | Classi e distribuzione |
 | **Rete CdC** | Direzione Strategica | SP3 | – |
-| **Confronto** | Direzione Strategica | SP4 | Scenari e dettaglio · Impatto sul Pronto Soccorso |
+| **Confronto** | Direzione Strategica | SP4 | nessuna (dal 19/11 tutto in una pagina) |
 | **Leggimi** | Tutti | metodo | Imbuto CdC e code · Rete CdC (SP3 e SP4) |
 
 **Pagine tooltip:** «Tooltip · comune» (400×300, per la mappa di Territorio) e «Tooltip · paziente» (600×450).
-**Pagine bozza** (nascoste, in fondo): test grafici (1/2 e 2/2), test KPI (1/2 e 2/2), classificazione CdC, tabella comuni compatibili, materiale da riordinare. Contengono visual messi da parte, non cancellati.
 
 **Navigazione.** Menu laterale verde a sinistra (logo in alto, «Gruppo 5» e loghi ITS e LIUC in fondo). Nelle sottopagine ci sono i pulsanti «← Torna a…».
 **Filtri.** Periodo (mesi) su Direzionale, Flussi, Attese e code, Territorio e Domanda potenziale, sincronizzato (la Direzionale ha solo questo filtro, come chiede la traccia). Pronto Soccorso su Flussi, Attese e code, Territorio, Domanda potenziale. Pulsante on/off **«Solo accessi compatibili CdC»** su Direzionale, Flussi, Attese e code, Territorio (sincronizzato; non su Domanda potenziale perché ragiona già sui soli compatibili, né su Rete CdC e Confronto che usano le tabelle dello scenario).
@@ -55,8 +54,7 @@ Report di riferimento: **`PW4 15.pbip`**, 1920×1080 (16:9). Le pagine sono 26: 
 | Linea per ora «Arrivi concentrati tra le 9 e le 12» | Picco alle 10 (33 accessi al giorno), minimo alle 4 (4) |
 | Piramide età–sesso | Più donne tra 15 e 44 anni (c'è il PS ostetrico-ginecologico) e dopo i 75 |
 | Barre «Traumi e sintomi non definiti: quasi metà degli accessi (45%)» | Prime 7 categorie ICD-9-CM della diagnosi principale |
-| Colonne «Arrivi con mezzi propri, per codice in ingresso (%)» | I meno gravi arrivano da soli: sono quelli che una CdC può intercettare |
-| Colonne «Ricovero o trasferimento, per fascia d'età (%)» | Dopo i 75 anni quasi 1 accesso su 3 finisce in ricovero: casi da PS |
+| Barre «1,8% dei pazienti fa il 6,7% degli accessi» | Quota dei pazienti e quota degli accessi per frequenza del paziente (1, 2, 3, 4 o più accessi) |
 | Sankey «Triage: dal colore in ingresso al colore in uscita» | Quasi 1 giallo su 2 (49%) esce verde o bianco |
 | 6 card KPI | Accessi al giorno · Accessi per paziente · Arrivi con mezzi propri · Prestazioni per accesso · Valore medio per accesso · Ticket stimato − registrato |
 
@@ -71,10 +69,10 @@ Sottopagine: **Confronto tra PS** (età, triage e sesso per PS in barre al 100%;
 | Matrice giorno × ora «Pazienti presenti in PS: il massimo è il lunedì tra le 11 e le 16 (circa 174)» | Media dei pazienti presenti nello stesso momento; minimo la domenica all'alba (84) |
 | Colonne «Chi è meno grave aspetta di più: 66 minuti i bianchi, 6 i rossi» | Mediana e 90° percentile per triage in ingresso |
 | Colonne «I gialli restano più a lungo: oltre 6 ore di mediana» | Permanenza per triage in ingresso; esclusi gli accessi senza dimissione |
-| Combinato «I picchi di arrivi non allungano i tempi» | Colonne: arrivi per ora; linee: quota che aspetta oltre 1 ora (36,6%) e che resta oltre 6 ore (25,6%) |
+| Barre «Circolo: 1 paziente su 10 resta oltre 30 ore» | Attesa e permanenza, mediana e 90° percentile, per PS |
+| Linee «Permanenza per ora di arrivo (min)» | Permanenza mediana e 90° percentile per ora di arrivo |
 | 4 card KPI | Attesa 90° percentile · Attesa mediana bianchi e verdi · Permanenza mediana · Permanenza mediana bianchi e verdi |
 
-Sottopagine: **Personale e coda** (pazienti in coda e personale presente per ora; «la coda supera i 60 pazienti tra le 10 e le 12») e, dentro **Confronto**, **Impatto sul Pronto Soccorso** (scenari CdC e turni critici).
 Il numero di accessi senza dimissione (**1.526**) è indicato nel Leggimi, come chiede la traccia.
 
 ## 5. Territorio (SP1 – tattico)
@@ -105,20 +103,21 @@ Sottopagina **Classi e distribuzione**: le tre classi per mese; tabella per comu
 |---|---|
 | Mappa dei bacini | Dove aprire le CdC: stella = hub h24, croce = spoke 8–20, quadrato = PS, grigio = fuori territorio |
 | «Perché 6 CdC» | Con 6 CdC il 93% della domanda è entro 10 km (soglia 90%) |
-| «La domanda di ogni CdC, passo per passo» | Teorica → a CdC aperta → 50% presa in carico → entro la capacità |
-| Tabella «Orari, personale, capacità e costi per CdC» | Hub h24 7/7, spoke 8–20 6/7 (DM 77); medici 38,72 €/h (ACN 2026) |
+| «Metà dei pazienti compatibili va in CdC: 15.310 visite all'anno» | Due barre per CdC: accessi compatibili del bacino → visite gestite (quota 50%; le spoke perdono notte e domenica) |
+| Tabella «Varese costa 180 € a visita, Sesto Calende 549 €» | CdC, tipo, orario, visite gestite, costo annuo, costo per visita |
 | 6 card KPI | CdC proposte · Visite gestite/anno · Accessi PS in meno · Km medi · Domanda entro 10 km · Costo annuo |
 
 ## 8. Confronto (SP4)
 
+Una pagina sola dal 19/11/2026: tolte la nota decisionale (il testo resta in [07](07-rete-cdc-e-confronto.md), sezione 7), la tabella che ripeteva i KPI e le due sottopagine.
+
 | Elemento | Messaggio |
 |---|---|
-| 6 card KPI (scostamenti Proposta − DG) | CdC · Km medi · Entro 10 km · Visite gestite/anno · Accessi PS in meno · Costo annuo |
-| Tabella «Le due configurazioni sugli stessi indicatori» | Accessibilità, risposta alla domanda e costi |
-| Due mappe affiancate | Proposta (6 CdC) e Direzione Generale (10 CdC) |
-| **Nota decisionale** | Raccomandazione e tre evidenze (testo in [07](07-rete-cdc-e-confronto.md)) |
-
-Sottopagine: **Scenari e dettaglio** (fasce di distanza, sensibilità 30/50/70%, tutti gli scenari, dotazioni delle sedi) e **Impatto sul Pronto Soccorso** (accessi deviati e turni critici per scenario: «Meno accessi non bastano: i turni critici scendono solo oltre il 70%»).
+| 6 card KPI, Proposta e DG affiancate (✓ = meglio) | CdC · Km medi · Accessi entro 10 km · Visite gestite/anno · Accessi PS in meno · Costo annuo |
+| Mappa interattiva (Azure Map) | Pallini verde scuro = CdC proposte, ambra = CdC della DG (diversi anche per luminosità), grandezza = visite gestite; linee = bacini delle due reti; grigio = comuni fuori territorio; tooltip con tipo, orario, comuni, accessi, visite e costi (misure «Mappa …», strato `sp4_reti_confini.geojson` da `geojson_reti.py`). Il pulsante «▣ Mappe separate» apre a comparsa l'immagine delle due mappe del notebook (segnalibri `ds_bm_mappe_apri/chiudi`, script `mappe_popup.py`) |
+| Tabella «La DG ha 6 spoke aperte solo 8–20…» | Sedi delle due reti: tipo, orario, visite gestite, costo annuo, costo per visita |
+| «Entro 5 km: 58% con la DG, 46% con noi» | Quota della domanda per fascia di distanza |
+| «Con ogni quota gestiamo più visite» | Visite gestite con quota 30, 50, 70% |
 
 ## 9. Leggimi
 

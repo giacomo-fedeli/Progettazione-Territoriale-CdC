@@ -12,7 +12,7 @@ La traccia chiede metodologie «documentate e replicabili»: qui diciamo con one
 - **Nessuna informazione clinica oltre ai codici**: diagnosi ICD-9, triage, esito. Non sappiamo se il paziente aveva un medico di famiglia, se era cronico stabile, se avrebbe accettato la CdC.
 - **Anomalie:** 1.526 accessi senza dimissione, 153 senza triage, 1.747 arrivi «non rilevato», 22 residenze non utilizzabili, 2.483 accessi con diagnosi assente o senza capitolo ([03](03-anomalie-e-decisioni.md)).
 - **Ticket e regime** non coerenti in 185 accessi: non corretti.
-- **Personale PS Del Ponte:** la traccia dà una sola riga di personale per «030003 / 03090102» (ostetrico-ginecologico e pediatrico). Il file a 21 righe assegna a entrambi gli stessi numeri (2 medici, 6 infermieri, 3 OSS al mattino…). Se l'organico è in realtà condiviso, medici e infermieri dei due PS sono **sovrastimati** nello studio delle code e nella pagina «Personale e coda».
+- **Personale PS Del Ponte:** la traccia dà una sola riga di personale per «030003 / 03090102» (ostetrico-ginecologico e pediatrico). Il file a 21 righe assegna a entrambi gli stessi numeri (2 medici, 6 infermieri, 3 OSS al mattino…). Se l'organico è in realtà condiviso, medici e infermieri dei due PS sono **sovrastimati** nello studio delle code.
 
 ### Classificazione della domanda (SP2)
 - Il risultato è una **stima teorica**, non una previsione di quanti pazienti andrebbero in CdC.
@@ -22,7 +22,7 @@ La traccia chiede metodologie «documentate e replicabili»: qui diciamo con one
 
 ### Rete CdC (SP3) e confronto (SP4)
 - **Distanze stimate** (linea d'aria × 1,3), non tempi di percorrenza reali; laghi e valli allungano i percorsi.
-- **Il numero 6 dipende dalla soglia del 90%** entro 10 km (con il 95% sarebbero 8). La **sesta sede è instabile** (cambia con le coordinate dei comuni).
+- **Il numero 6 dipende dalla soglia del 90%** entro 10 km (con il 95% sarebbero 8).
 - **Costo della sede** (100.000 € hub, 50.000 € spoke) e **oneri del 33%** sono ipotesi **senza fonte**.
 - **Un medico per sede** in tutte le sedi: la capacità è molto più alta della domanda (saturazione 5–20%). Il modello non include cronicità, prevenzione, specialistica.
 - **Hub scelta per abitanti**, non per domanda: Sesto Calende è hub ma con saturazione 6,5% e 549 € a visita.
@@ -112,13 +112,13 @@ Il repository `PW4-CaseDellaComunita-G5/` ha oggi **un solo commit** («Struttur
 
 | # | Cosa | Perché |
 |---|---|---|
-| 1 | **Fatto il 19/11:** Leggimi compilato con sintesi e pulsanti GitHub; indirizzo impostato su `https://github.com/giacomo-fedeli/Progettazione-Territoriale-CdC` (misura `GitHub indirizzo base`, cartella `9 Grafica\GitHub`). **Resta:** pubblicare la cartella `docs/` su GitHub e provare ogni pulsante | I pulsanti funzionano solo dopo il push di `docs/` sul ramo `main`. Dettaglio in [08, sezione 9](08-dashboard-pagine.md) |
+| 1 | **Fatto il 19/11:** Leggimi compilato con sintesi e pulsanti GitHub; indirizzo impostato su `https://github.com/giacomo-fedeli/Progettazione-Territoriale-CdC` (misura `GitHub indirizzo base`, cartella `9 Grafica\GitHub`). **Resta:** provare ogni pulsante (la cartella `docs/` è già su GitHub, ramo `main`; il repository è privato, quindi i pulsanti si aprono solo per chi ha accesso) | I pulsanti aprono il documento nell'anteprima di GitHub. Dettaglio in [08, sezione 9](08-dashboard-pagine.md) |
 | 2 | Correggere il titolo del treemap della Direzionale: «9 accessi su 10» | Il valore esatto è 87,6%; meglio «quasi 9 su 10» o «88%» |
-| 3 | **Vedere a schermo** le funzioni scritte nei file ma non verificate: pulsante «Mese per mese» (segnalibri), filtro on/off CdC, grafico combinato Attese, grafici Flussi (arrivo/esito), titoli e linee della revisione «il grafico parla da solo» | Le modifiche del 18/11 sono state validate sui file e con le misure, non guardando il report. Il tooltip della mappa è già stato provato e funziona |
+| 3 | **Vedere a schermo** le funzioni scritte nei file ma non verificate: pulsante «Mese per mese» (segnalibri), filtro on/off CdC, titoli e linee della revisione «il grafico parla da solo» | Le modifiche del 18/11 sono state validate sui file e con le misure, non guardando il report. Il tooltip della mappa è già stato provato e funziona |
 | 4 | Rendere replicabili i percorsi (parametro `PercorsoDati`) e salvare in `dati/elaborati/` i file di Shah | Vedi 2.1 |
 | 5 | Aprire i 3 file XML della SP0 in ProjectLibre; scrivere il PDF della SP0 | Verifica visiva di Gantt e istogramma |
 | 6 | Verificare le fonti della letteratura (Uscher-Pines, Emilia-Romagna, ASSR) sui documenti originali | Oggi abbiamo solo link e un articolo di giornale per ASSR |
-| 7 | Decidere se togliere le 23 misure non usate e le pagine Bozza | Pulizia: nessun numero cambia |
+| 7 | Decidere se togliere le 31 misure non usate (elenco in [04b](04b-catalogo-misure.md)) | Pulizia: nessun numero cambia |
 | 8 | Esportare il `.pbix` finale e allegarlo alla Release su GitHub; creare i tag (`S1`, `S2`, `S3`, `S4`, `finale`) | Come da regole del team nel README del repository |
 | 9 | Segnalare ai docenti: il documento DG dice «9 CdC» ma elenca 10 comuni; ticket e regime non coerenti in 185 accessi | Sono dubbi sui dati forniti |
 | 10 | Presentazione finale (15 minuti + 10 di discussione) | Non ancora fatta; la bozza del discorso è in `Storia_dashboard_PW4.md` |

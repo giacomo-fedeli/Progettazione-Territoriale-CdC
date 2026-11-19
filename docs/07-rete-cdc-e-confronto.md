@@ -81,7 +81,7 @@ Ogni sede costa anche con pochi pazienti, perché il personale deve essere prese
 
 Con 5 sedi si arriva al 77%: aggiungendo la sesta si guadagnano **16 punti**. Oltre la sesta il guadagno è piccolo.
 
-> **Attenzione.** Il numero 6 dipende dalla soglia «90% entro 10 km», che è una **nostra ipotesi**. Con la soglia al 95% sarebbero 8 sedi. Inoltre la sesta sede (a sud-est: Castiglione Olona, Venegono, Tradate) è **instabile**: cambiando le coordinate dei comuni (GeoNames al posto dei centroidi ISTAT) cambia, con differenze di circa 0,15 km. Le altre cinque sono stabili.
+> **Attenzione.** Il numero 6 dipende dalla soglia «90% entro 10 km», che è una **nostra ipotesi**. Con la soglia al 95% sarebbero 8 sedi (tabella sopra).
 
 ---
 
@@ -195,6 +195,8 @@ Il «**valore PS non erogato**» (1,14 M€) è la **tariffa** delle prestazioni
 
 La traccia chiede di variare almeno la quota presa in carico. Abbiamo variato **un'ipotesi alla volta**.
 
+**Dove si vede.** Il calcolo è nel notebook `SP3_rete_CdC/SP3_rete_CdC.ipynb`, sezione 9 «Sensibilità». I 13 scenari sono nel foglio `Scenari` di `SP3_rete_CdC_PowerBI.xlsx` e nella tabella `SP3_Scenari` del modello. Nella dashboard (pagina «Confronto») si vede solo il grafico sulla **quota 30/50/70%**; gli altri scenari (7–10 CdC, sedi per popolazione, Varese e Tradate obbligate, hub 8–20) sono solo nel notebook e nell'Excel.
+
 | Scenario | Rete | CdC | Visite gestite | Km medi | Costo annuo |
 |---|---|---:|---:|---:|---:|
 | Quota 30% | Proposta | 6 | 9.186 | 4,97 | 3,86 M€ |
@@ -224,7 +226,7 @@ Togliere il 30–50% dei compatibili **non riduce** i turni critici dello studio
 
 ---
 
-## 7. Nota decisionale (testo della pagina «Confronto»)
+## 7. Nota decisionale (bozza di testo: non è nella dashboard)
 
 > **Raccomandiamo la rete proposta di 6 CdC (4 hub h24 e 2 spoke), a condizione che si accetti circa 1 km in più di distanza media e si garantiscano trasporti verso la CdC per i comuni oltre 10 km (7% della domanda).**
 > 1. Costa 1,41 M€ in meno all'anno (3,86 contro 5,27 M€): 252 € per visita gestita contro 378 €.
@@ -247,7 +249,7 @@ La traccia chiede: prima frase = raccomandazione e condizioni; al massimo tre ev
 - **Hub scelta per abitanti, non per domanda**: Sesto Calende è hub nella Proposta ma ha saturazione del 6,5% e costa 549 € a visita. Una hub costa 790.072 € contro 352.169 € di una spoke (differenza 437.903 € l'anno), ma la spoke non copre notte e domenica: l'effetto sulle visite gestite non è stato calcolato.
 - **Rete DG** valutata con le nostre regole (bacino = CdC più vicina): la Direzione potrebbe assegnare i comuni in altro modo.
 - **Domanda**: solo il primo semestre 2022 per due; solo chi è andato in PS (manca la domanda latente).
-- **Il 6 dipende dalla soglia del 90%** e la sesta sede è instabile (vedi sopra).
+- **Il 6 dipende dalla soglia del 90%**: con il 95% sarebbero 8 sedi (vedi sopra).
 - **Stime teoriche, non effetti causali**: la traccia lo richiede.
 
 ## 9. Come rieseguire

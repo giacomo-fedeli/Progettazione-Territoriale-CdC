@@ -147,6 +147,8 @@ Modello **M/M/c** (formula di Erlang C): arrivi di Poisson, tempi di visita espo
 
 **Risultato** (tempo di visita 20 minuti, soglia 15 minuti, medici aggiuntivi 0): turni critici **8 su 21** oggi. Dopo la deviazione verso le CdC restano 8 con quota 30% e 50%; scendono a 6 con 70% e a 5 con 100%.
 
+**Dove si vede.** Nel report non c'è una pagina con i grafici delle code. Il calcolo sta nelle misure del modello (con i parametri tempo di visita, soglia e medici aggiuntivi) e in uno script Python indipendente (`coda/Analisi_CdC/python`, nella cartella di lavoro). I numeri principali si leggono nel Leggimi, sottopagina «Imbuto CdC e code».
+
 **Limiti:** il modello **non è calibrato** sulle attese osservate; usa solo sei mesi di dati; sono stime teoriche, non effetti causali. L'organico dei due PS Del Ponte (ostetrico-ginecologico e pediatrico) è indicato dalla traccia come una sola riga: il file lo assegna a entrambi (vedi [10](10-limiti-e-riproducibilita.md)).
 
 ---
@@ -169,8 +171,8 @@ I cinque valori sono stati ricalcolati con Python dal file originale e coincidon
 
 ## 6. Come sono costruite le card KPI
 
-Ogni card KPI è un'immagine SVG disegnata da una misura DAX (numero grande, freccia di variazione, linea mensile). Sono le **136 misure di presentazione** del modello: non calcolano numeri di business, mostrano il valore di una misura di calcolo.
-Esempio: `KPI Direzionale accessi valore` mostra il valore di `Accessi`; `KPI Direzionale accessi freccia` il segno di `Var % accessi`.
+Ogni card KPI è un'immagine SVG disegnata da una misura DAX (numero grande, freccia di variazione, linea mensile). Sono le **88 misure di presentazione** del modello: non calcolano numeri di business, mostrano il valore di una misura di calcolo.
+Esempio: `KPI card Direzionale accessi` disegna l'intera card «Accessi»: numero grande (valore di `Accessi`), variazione sul mese prima e linea mensile.
 
 Ogni pagina ha sei card al massimo (Attese e code ne ha quattro, Territorio quattro, Domanda quattro). La linea mensile ignora il filtro del periodo e rispetta gli altri filtri.
 

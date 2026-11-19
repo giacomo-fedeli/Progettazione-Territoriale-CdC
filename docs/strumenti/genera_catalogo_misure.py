@@ -267,12 +267,14 @@ GROUPS = [
     ("A. Volumi, pazienti e valore", [
         "Accessi", "Pazienti", "Accessi per paziente", "Paziente top", "Max accessi per paziente", "Valore €", "Prestazioni",
         "Accessi medi giornalieri", "Valore medio per accesso €", "Media Mobile 7 Giorni", "Fascia di picco", "Accessi V+B", "% V+B", "Valore € V+B",
-        "% arrivi autonomi", "Prestazioni per accesso", "% ricovero o trasferimento", "Accessi maschi", "Accessi femmine"]),
+        "% arrivi autonomi", "Prestazioni per accesso", "% ricovero o trasferimento", "Accessi maschi", "Accessi femmine",
+        "Ritorni entro 72 ore", "% ritorni entro 72 ore", "Pazienti con 4+ accessi", "% accessi pazienti con 4+ accessi",
+        "% dei pazienti", "% accessi per frequenza", "% degli accessi"]),
     ("B. Codici bianchi e ticket", [
         "Accessi codice bianco", "% codici bianchi", "Ticket stimato €", "Ticket registrato €", "Scostamento ticket €"]),
     ("C. Attese, permanenza e pazienti presenti", [
         "Attesa mediana (min)", "Attesa P90 (min)", "Permanenza mediana (min)", "Permanenza P90 (min)",
-        "Attesa mediana bianchi e verdi (min)", "Permanenza mediana bianchi e verdi (min)", "% attesa oltre 1 ora", "% permanenza oltre 6 ore",
+        "Attesa mediana bianchi e verdi (min)", "Permanenza mediana bianchi e verdi (min)", "% attesa oltre 1 ora", "% permanenza oltre 6 ore", "% permanenze oltre 24 ore", "Attesa mediana (h min)", "Permanenza mediana (h min)", "Attesa P90 (h min)", "Permanenza P90 (h min)",
         "Accessi senza dimissione", "Durata mediana (min)", "Tempo medio permanenza (min)",
         "Durata Minutti Accettazione-PresaInCarico (min)", "Durata Minutti Accettazione-Dimissione (min)",
         "Durata Minutti PresaInCarico-Dimissione (min)", "Pazienti in coda (media)", "Pazienti presenti (P90)",
@@ -383,7 +385,7 @@ def main():
         f = m["folder"]
         if f == "SP3 Rete CdC":
             assigned[m["name"]] = "H. Rete CdC (SP3)"
-        elif f == "SP4 Confronto":
+        elif f in ("SP4 Confronto", "SP4 Mappa"):
             assigned[m["name"]] = "I. Confronto con la Direzione Generale (SP4)"
         elif f.startswith("8 Controlli"):
             assigned[m["name"]] = "L. Controlli per la pagina Leggimi"
@@ -405,7 +407,7 @@ def main():
     w("**Come leggere le colonne**")
     w("- *Cosa misura*: descrizione scritta nel modello o, se manca, qui nello script.")
     w("- *Formato*: formato numerico DAX (`#,0` = intero con separatore, `0.0%` = percentuale con un decimale, …).")
-    w("- *Dove si vede*: pagine del report che usano la misura in un visual. «Indiretta» = non è in un visual ma la usa un'altra misura. «Solo bozze» = compare solo nelle pagine nascoste di prova. «Non usata» = né in un visual né in altre misure.")
+    w("- *Dove si vede*: pagine del report che usano la misura in un visual. «Indiretta» = non è in un visual ma la usa un'altra misura. «Non usata» = né in un visual né in altre misure.")
     w("")
     w("Tutte le misure stanno nella tabella `_Misure`, tranne 10 che stanno nelle tabelle di supporto `FNL_Fasi`, `Medici Aggiuntivi`, `Soglia Attesa`, `Tempo Visita` (parametri what-if) e `Tab_Presenti_Ora_Istituto`.")
     w("")

@@ -101,7 +101,6 @@ Il parametro Power Query `Cartella_SP3` punta alla cartella `SP3_rete_CdC/output
 | ISTAT – elenco dei comuni (codici a 6 cifre) | Codice del comune di residenza | Collegamento fact → comuni. Nel DB il campo `residenza` contiene il **codice ISTAT del comune**, non il CAP come scrive il PDF |
 | ISTAT – confini dei comuni al 01/01/2026 (generalizzati) | Poligoni dei comuni | Centro (centroide) di ogni comune e mappe dei bacini. Scaricati da [istat.it](https://www.istat.it/classificazione/confini-delle-unita-amministrative-a-fini-statistici/) |
 | `dim_struttura_ricovero.xlsx` | Indirizzo e coordinate dei 7 PS | Punti dei PS sulle mappe |
-| GeoNames | Coordinate alternative dei comuni | Solo prova di robustezza (non nel risultato finale): con queste coordinate la 6ª sede cambia, vedi [07](07-rete-cdc-e-confronto.md) |
 
 ---
 

@@ -2,14 +2,14 @@
 
 > **File generato** dallo script [`strumenti/genera_catalogo_misure.py`](strumenti/genera_catalogo_misure.py) leggendo i file del modello (TMDL) e del report (PBIR). Non modificarlo a mano: cambia il modello e rilancia lo script.
 
-Il modello ha **299 misure**: **163 di calcolo** (questo catalogo, con formula DAX) e **136 di presentazione** (SVG delle card KPI, colori, testi dei sottotitoli: non calcolano numeri di business, vedi sezione M).
+Il modello ha **271 misure**: **183 di calcolo** (questo catalogo, con formula DAX) e **88 di presentazione** (SVG delle card KPI, colori, testi dei sottotitoli: non calcolano numeri di business, vedi sezione M).
 
 Per le definizioni dei KPI in linguaggio semplice leggi prima [04 – KPI e misure](04-kpi-e-misure.md). Questo catalogo serve a chi vuole la formula esatta.
 
 **Come leggere le colonne**
 - *Cosa misura*: descrizione scritta nel modello o, se manca, qui nello script.
 - *Formato*: formato numerico DAX (`#,0` = intero con separatore, `0.0%` = percentuale con un decimale, …).
-- *Dove si vede*: pagine del report che usano la misura in un visual. «Indiretta» = non è in un visual ma la usa un'altra misura. «Solo bozze» = compare solo nelle pagine nascoste di prova. «Non usata» = né in un visual né in altre misure.
+- *Dove si vede*: pagine del report che usano la misura in un visual. «Indiretta» = non è in un visual ma la usa un'altra misura. «Non usata» = né in un visual né in altre misure.
 
 Tutte le misure stanno nella tabella `_Misure`, tranne 10 che stanno nelle tabelle di supporto `FNL_Fasi`, `Medici Aggiuntivi`, `Soglia Attesa`, `Tempo Visita` (parametri what-if) e `Tab_Presenti_Ora_Istituto`.
 
@@ -17,25 +17,32 @@ Tutte le misure stanno nella tabella `_Misure`, tranne 10 che stanno nelle tabel
 
 | Misura | Cosa misura | Formato | Dove si vede |
 |---|---|---|---|
-| `Accessi` | Numero di accessi: un accesso è una riga della tabella dei fatti (un episodio al Pronto Soccorso). | `#,0` | Direzionale, Domanda potenziale, Flussi, Territorio · + 3 sottopagine · card KPI di Direzionale |
+| `Accessi` | Numero di accessi: un accesso è una riga della tabella dei fatti (un episodio al Pronto Soccorso). | `#,0` | Direzionale, Domanda potenziale, Flussi, Territorio · + 4 sottopagine |
 | `Pazienti` | Pazienti distinti (conteggio distinto di FK_Paziente). Un paziente può avere più accessi. | `#,0` | Flussi |
-| `Accessi per paziente` | Accessi divisi per pazienti distinti. | `0.00` | card KPI di Flussi |
+| `Accessi per paziente` | Accessi divisi per pazienti distinti. | `0.00` | indiretta (via KPI card Flussi acc_paz) |
 | `Paziente top` | Codice del paziente con più accessi nel contesto di filtro. | – | non usata |
 | `Max accessi per paziente` | Numero massimo di accessi di un singolo paziente. | `#,0` | non usata |
-| `Valore €` | Somma del valore economico delle prestazioni. È una valorizzazione tariffaria, non un costo. | `#,0 €` | Direzionale, Flussi, Territorio · card KPI di Direzionale |
+| `Valore €` | Somma del valore economico delle prestazioni. È una valorizzazione tariffaria, non un costo. | `#,0 €` | Direzionale, Flussi, Territorio |
 | `Accessi V+B` | Accessi con triage in INGRESSO verde o bianco (gruppo «Minore (V/B)»). Idea di partenza della sottoprova 2, non è un KPI. | `#,0` | indiretta (via % V+B) |
 | `% V+B` | Quota di accessi con triage in ingresso verde o bianco. | `0.0%` | non usata |
 | `Valore € V+B` | Valore delle prestazioni degli accessi con triage in ingresso verde o bianco. | `#,0 €` | non usata |
 | `Fascia di picco` | Ora del giorno con più accessi nel contesto, come testo «hh:00». | – | non usata |
 | `Prestazioni` | Somma del numero di prestazioni registrate. | `#,0` | Flussi |
-| `Accessi medi giornalieri` | Accessi diviso i giorni del periodo selezionato (solo giorni con dati). Su un asse per ora o per giorno della settimana = arrivi medi al giorno. | `#,0.0` | Attese e code, Flussi · + 1 sottopagina · card KPI di Flussi |
-| `Valore medio per accesso €` | Valore medio delle prestazioni per accesso (valorizzazione tariffaria, non costo). | `#,0.0 €` | Territorio · card KPI di Flussi |
+| `Accessi medi giornalieri` | Accessi diviso i giorni del periodo selezionato (solo giorni con dati). Su un asse per ora o per giorno della settimana = arrivi medi al giorno. | `#,0.0` | Flussi · + 1 sottopagina |
+| `Valore medio per accesso €` | Valore medio delle prestazioni per accesso (valorizzazione tariffaria, non costo). | `#,0.0 €` | Territorio |
 | `Accessi femmine` | Accessi di pazienti femmine (lato destro della piramide per età). | `#,0` | Flussi |
 | `Accessi maschi` | Accessi di pazienti maschi con segno meno, per disegnarli a sinistra nella piramide per età (il formato nasconde il segno). | `#,0;#,0;0` | Flussi |
-| `% arrivi autonomi` | Quota di accessi arrivati con mezzi propri, sugli accessi con modalità di arrivo nota (esclusi «Non rilevato» e vuoti). Chi arriva da solo può scegliere una CdC. | `0.0%` | Flussi · card KPI di Flussi |
-| `Prestazioni per accesso` | Numero medio di prestazioni erogate per accesso al PS. | `0.0` | card KPI di Flussi |
+| `% arrivi autonomi` | Quota di accessi arrivati con mezzi propri, sugli accessi con modalità di arrivo nota (esclusi «Non rilevato» e vuoti). Chi arriva da solo può scegliere una CdC. | `0.0%` | indiretta (via KPI card Flussi autonomi) |
+| `Prestazioni per accesso` | Numero medio di prestazioni erogate per accesso al PS. | `0.0` | indiretta (via KPI card Flussi prest_acc) |
 | `Media Mobile 7 Giorni` | Media mobile a 7 giorni degli accessi giornalieri (toglie l'effetto del giorno della settimana). | – | Flussi |
-| `% ricovero o trasferimento` | Quota di accessi che finiscono in ricovero o trasferimento ad altra struttura: casi che una Casa di Comunità non può gestire. | `0.0%` | Flussi |
+| `% ricovero o trasferimento` | Quota di accessi che finiscono in ricovero o trasferimento ad altra struttura: casi che una Casa di Comunità non può gestire. | `0.0%` | + 1 sottopagina |
+| `Ritorni entro 72 ore` | Accessi di pazienti che erano già venuti in PS nelle 72 ore prima (in qualunque PS e mese). Ritorno precoce: indicatore di qualità della dimissione. | `#,0` | indiretta (via % ritorni entro 72 ore) |
+| `% ritorni entro 72 ore` | Quota di accessi che sono un ritorno entro 72 ore dal precedente. | `0.0%` | indiretta (via KPI card Episodi ritorni) |
+| `Pazienti con 4+ accessi` | Pazienti venuti in PS 4 o più volte nel periodo dei dati (DIm_Pazienti[Frequenza paziente]). | `#,0` | indiretta (via KPI card Episodi paz4) |
+| `% accessi pazienti con 4+ accessi` | Quota di accessi fatta dai pazienti con 4 o più accessi: candidati alla presa in carico territoriale. | `0.0%` | indiretta (via KPI card Episodi acc4) |
+| `% dei pazienti` | Quota dei pazienti nella classe di frequenza (o categoria) mostrata, sul totale pazienti del filtro. | `0.0%` | Flussi |
+| `% degli accessi` | Quota degli accessi del filtro (mesi, PS...) che cade nella diagnosi della riga, su tutte le diagnosi. Per la tabella delle diagnosi. | `0.0%` | + 1 sottopagina |
+| `% accessi per frequenza` | Quota degli accessi del filtro fatta dai pazienti della classe di frequenza mostrata (1, 2, 3, 4 o più accessi). | `0.0%` | Flussi |
 
 <details><summary>Formule DAX · A. Volumi, pazienti e valore</summary>
 
@@ -177,17 +184,78 @@ DIVIDE (
 )
 ```
 
+**Ritorni entro 72 ore**
+
+```dax
+VAR _tutti =
+    CALCULATETABLE (
+        SUMMARIZE ( Fact_PS_2022, Fact_PS_2022[FK_Paziente], Fact_PS_2022[data_ora_accettazione] ),
+        REMOVEFILTERS (),
+        DIm_Pazienti[Frequenza paziente] <> "1 accesso"
+    )
+VAR _cur =
+    CALCULATETABLE (
+        SUMMARIZE ( Fact_PS_2022, Fact_PS_2022[FK_Paziente], Fact_PS_2022[data_ora_accettazione] ),
+        DIm_Pazienti[Frequenza paziente] <> "1 accesso"
+    )
+RETURN
+    COUNTROWS (
+        FILTER (
+            _cur,
+            VAR p = Fact_PS_2022[FK_Paziente]
+            VAR t = Fact_PS_2022[data_ora_accettazione]
+            RETURN NOT ISEMPTY ( FILTER ( _tutti, Fact_PS_2022[FK_Paziente] = p && Fact_PS_2022[data_ora_accettazione] < t && Fact_PS_2022[data_ora_accettazione] >= t - 3 ) )
+        )
+    )
+```
+
+**% ritorni entro 72 ore**
+
+```dax
+DIVIDE ( [Ritorni entro 72 ore], [Accessi] )
+```
+
+**Pazienti con 4+ accessi**
+
+```dax
+CALCULATE ( [Pazienti], DIm_Pazienti[Frequenza paziente] = "4 o più accessi" )
+```
+
+**% accessi pazienti con 4+ accessi**
+
+```dax
+DIVIDE ( CALCULATE ( [Accessi], DIm_Pazienti[Frequenza paziente] = "4 o più accessi" ), [Accessi] )
+```
+
+**% dei pazienti**
+
+```dax
+DIVIDE ( [Pazienti], CALCULATE ( [Pazienti], REMOVEFILTERS ( DIm_Pazienti[Frequenza paziente] ) ) )
+```
+
+**% degli accessi**
+
+```dax
+DIVIDE ( [Accessi], CALCULATE ( [Accessi], REMOVEFILTERS ( DIm_Diagnosi_Primaria ) ) )
+```
+
+**% accessi per frequenza**
+
+```dax
+DIVIDE ( [Accessi], CALCULATE ( [Accessi], REMOVEFILTERS ( DIm_Pazienti[Frequenza paziente] ) ) )
+```
+
 </details>
 
 ## B. Codici bianchi e ticket
 
 | Misura | Cosa misura | Formato | Dove si vede |
 |---|---|---|---|
-| `% codici bianchi` | Accessi con triage in USCITA bianco ÷ tutti gli accessi. | `0.0%` | Direzionale, Flussi · card KPI di Direzionale |
+| `% codici bianchi` | Accessi con triage in USCITA bianco ÷ tutti gli accessi. | `0.0%` | Direzionale, Flussi |
 | `Accessi codice bianco` | Accessi con triage in USCITA = B (bianco). La traccia chiede il triage in uscita. | `#,0` | Flussi |
 | `Ticket stimato €` | Accessi con codice bianco in uscita × importo del ticket (25 €). Stima della compartecipazione, non costo del servizio. | `#,0 €` | Flussi |
 | `Ticket registrato €` | Importo del ticket effettivamente registrato nel flusso (Dim_Ticket[Importo_eur] tramite FK_Codice_Ticket). | `#,0 €` | Flussi |
-| `Scostamento ticket €` | Ticket stimato − ticket registrato: differenza tra la stima della traccia (25 € × codici bianchi in uscita) e l'importo registrato nel flusso. | `#,0 €` | card KPI di Flussi |
+| `Scostamento ticket €` | Ticket stimato − ticket registrato: differenza tra la stima della traccia (25 € × codici bianchi in uscita) e l'importo registrato nel flusso. | `#,0 €` | indiretta (via KPI card Flussi ticket) |
 
 <details><summary>Formule DAX · B. Codici bianchi e ticket</summary>
 
@@ -229,27 +297,32 @@ SUMX ( Fact_PS_2022, RELATED ( Dim_Ticket[Importo_eur] ) )
 | Misura | Cosa misura | Formato | Dove si vede |
 |---|---|---|---|
 | `Durata mediana (min)` | Mediana accettazione → dimissione, in minuti, calcolata riga per riga (solo accessi con dimissione). Il KPI ufficiale è «Permanenza mediana (min)». | `#,0` | non usata |
-| `Attesa mediana (min)` | Mediana di (presa in carico − arrivo), in minuti. | `#,0` | Attese e code, Direzionale · + 1 sottopagina · card KPI di Direzionale |
-| `Attesa P90 (min)` | 90° percentile di (presa in carico − arrivo), in minuti (PERCENTILE.INC). | `#,0` | Attese e code · card KPI di Attese |
-| `Permanenza mediana (min)` | Mediana di (dimissione − arrivo), in minuti. Gli accessi senza dimissione non entrano. | `#,0` | Attese e code · card KPI di Attese |
-| `Permanenza P90 (min)` | 90° percentile di (dimissione − arrivo), in minuti. Gli accessi senza dimissione non entrano. | `#,0` | Attese e code, Direzionale · card KPI di Direzionale |
+| `Attesa mediana (min)` | Mediana di (presa in carico − arrivo), in minuti. | `#,0` | Attese e code, Direzionale · + 1 sottopagina |
+| `Attesa P90 (min)` | 90° percentile di (presa in carico − arrivo), in minuti (PERCENTILE.INC). | `#,0` | Attese e code |
+| `Permanenza mediana (min)` | Mediana di (dimissione − arrivo), in minuti. Gli accessi senza dimissione non entrano. | `#,0` | Attese e code |
+| `Permanenza P90 (min)` | 90° percentile di (dimissione − arrivo), in minuti. Gli accessi senza dimissione non entrano. | `#,0` | Attese e code, Direzionale |
 | `Accessi senza dimissione` | Accessi senza data/ora di dimissione: esclusi dai tempi di permanenza, restano nei volumi. | `#,0` | Attese e code |
 | `Pazienti in coda (media)` | Pazienti presenti in media in un'ora: arrivati prima della fine dell'ora e dimessi dopo l'inizio dell'ora. Media sui giorni del periodo scelto. Esclusi gli accessi senza dimissione. Il filtro Pronto Soccorso resta attivo. | – | non usata |
 | `Pazienti presenti (P90)` | 90° percentile dei pazienti presenti nell'ora (stessa regola della media). | `#,0.0` | non usata |
 | `Tempo medio permanenza (min)` | Media accettazione → dimissione (formato giorni, non minuti). Non usata nel report: si usano mediana e P90. | – | non usata |
-| `Durata Minutti Accettazione-PresaInCarico (min)` | Media arrivo → presa in carico, in minuti. Non usata nel report (si usano mediana e P90). | – | solo bozze |
-| `Durata Minutti Accettazione-Dimissione (min)` | Media arrivo → dimissione, in minuti. Non usata nel report. | – | solo bozze |
-| `Durata Minutti PresaInCarico-Dimissione (min)` | Media presa in carico → dimissione, in minuti. Non usata nel report. | – | solo bozze |
-| `Attesa mediana bianchi e verdi (min)` | Attesa mediana (accettazione → presa in carico) dei soli codici bianchi e verdi in ingresso: i casi a bassa priorità, candidati alle CdC. | `#,0` | card KPI di Attese |
-| `Permanenza mediana bianchi e verdi (min)` | Permanenza mediana in PS dei soli codici bianchi e verdi in ingresso. | `#,0` | card KPI di Attese |
-| `% attesa oltre 1 ora` | Quota di accessi che aspettano più di 1 ora tra accettazione e presa in carico (sugli accessi con il dato). Soglia scelta dal gruppo per la leggibilità. | `0%` | Attese e code |
-| `% permanenza oltre 6 ore` | Quota di accessi che restano in PS più di 6 ore tra accettazione e dimissione (sugli accessi con dimissione registrata). Soglia scelta dal gruppo per la leggibilità. | `0%` | Attese e code |
+| `Durata Minutti Accettazione-PresaInCarico (min)` | Media arrivo → presa in carico, in minuti. Non usata nel report (si usano mediana e P90). | – | non usata |
+| `Durata Minutti Accettazione-Dimissione (min)` | Media arrivo → dimissione, in minuti. Non usata nel report. | – | non usata |
+| `Durata Minutti PresaInCarico-Dimissione (min)` | Media presa in carico → dimissione, in minuti. Non usata nel report. | – | non usata |
+| `Attesa mediana bianchi e verdi (min)` | Attesa mediana (accettazione → presa in carico) dei soli codici bianchi e verdi in ingresso: i casi a bassa priorità, candidati alle CdC. | `#,0` | indiretta (via KPI card Attese attesa_vb) |
+| `Permanenza mediana bianchi e verdi (min)` | Permanenza mediana in PS dei soli codici bianchi e verdi in ingresso. | `#,0` | indiretta (via KPI card Attese perm_vb) |
+| `% attesa oltre 1 ora` | Quota di accessi che aspettano più di 1 ora tra accettazione e presa in carico (sugli accessi con il dato). Soglia scelta dal gruppo per la leggibilità. | `0%` | non usata |
+| `% permanenza oltre 6 ore` | Quota di accessi che restano in PS più di 6 ore tra accettazione e dimissione (sugli accessi con dimissione registrata). Soglia scelta dal gruppo per la leggibilità. | `0%` | non usata |
+| `% permanenze oltre 24 ore` | Quota di accessi con permanenza in PS oltre 24 ore, sugli accessi con dimissione registrata. | `0.0%` | indiretta (via KPI card Episodi perm24) |
+| `Attesa mediana (h min)` | Come [Attesa mediana (min)], ma si legge in ore e minuti oltre i 60 minuti (formato dinamico). Per le tabelle. | – | Attese e code · + 1 sottopagina |
+| `Permanenza mediana (h min)` | Come [Permanenza mediana (min)], ma si legge in ore e minuti oltre i 60 minuti (formato dinamico). Per le tabelle. | – | Attese e code · + 1 sottopagina |
+| `Attesa P90 (h min)` | Come [Attesa P90 (min)], ma si legge in ore e minuti oltre i 60 minuti (formato dinamico). Per tabelle ed etichette. | – | Attese e code |
+| `Permanenza P90 (h min)` | Come [Permanenza P90 (min)], ma si legge in ore e minuti oltre i 60 minuti (formato dinamico). Per tabelle ed etichette. | – | Attese e code |
 | `Presenti (media)` | Pazienti presenti per ora, media sui giorni (tabella Tab_Presenti_Ora_Istituto). | – | non usata |
-| `In coda (media)` | Pazienti arrivati ma non ancora presi in carico, in media per ora. | – | + 1 sottopagina |
+| `In coda (media)` | Pazienti arrivati ma non ancora presi in carico, in media per ora. | – | indiretta (via Coda per operatore) |
 | `Accessi (media per ora)` | Arrivi medi per ora e per PS (usata nello studio code). | – | non usata |
 | `Personale (media)` | Personale presente in media per ora e per PS, dalla tabella dei turni. | – | non usata |
 | `Personale (tab)` | Personale presente per ora, dalla tabella calcolata. | – | indiretta (via Coda per operatore) |
-| `Coda per operatore` | Pazienti in coda ÷ personale presente. | – | + 1 sottopagina |
+| `Coda per operatore` | Pazienti in coda ÷ personale presente. | – | non usata |
 
 <details><summary>Formule DAX · C. Attese, permanenza e pazienti presenti</summary>
 
@@ -394,6 +467,39 @@ DIVIDE (
 )
 ```
 
+**% permanenze oltre 24 ore**
+
+```dax
+DIVIDE (
+    CALCULATE ( [Accessi], Fact_PS_2022[durata_accettazione_dimissione] > 1 ),
+    CALCULATE ( [Accessi], NOT ISBLANK ( Fact_PS_2022[durata_accettazione_dimissione] ) )
+)
+```
+
+**Attesa mediana (h min)**
+
+```dax
+[Attesa mediana (min)]
+```
+
+**Permanenza mediana (h min)**
+
+```dax
+[Permanenza mediana (min)]
+```
+
+**Attesa P90 (h min)**
+
+```dax
+[Attesa P90 (min)]
+```
+
+**Permanenza P90 (h min)**
+
+```dax
+[Permanenza P90 (min)]
+```
+
 **Presenti (media)**
 
 ```dax
@@ -496,11 +602,11 @@ DIVIDE ( [In coda (media)], [Personale (tab)] )
 | Misura | Cosa misura | Formato | Dove si vede |
 |---|---|---|---|
 | `Accessi per 1.000 ab.` | Accessi ogni 1.000 residenti del comune (popolazione ISTAT 2022). La popolazione è contata una sola volta per comune: nei comuni nati da fusione la dimensione ha più codici con la stessa popolazione ripetuta. | `#,0.0` | Territorio · + 1 sottopagina |
-| `Comuni con accessi` | Numero di comuni di residenza con almeno un accesso. | `#,0` | Territorio · card KPI di Territorio |
+| `Comuni con accessi` | Numero di comuni di residenza con almeno un accesso. | `#,0` | Territorio |
 | `Quota accessi sul totale` | Accessi del comune / accessi totali del contesto (ignora il filtro sui comuni). | `0.0%` | Territorio |
-| `Quota accessi top 10 comuni` | Quota di accessi che arriva dai 10 comuni con piu' accessi. | `0.0%` | Territorio · card KPI di Territorio |
-| `% accessi da fuori provincia` | Quota di accessi di residenti fuori dalla provincia di Varese (estero compreso), sugli accessi con residenza nota. | `0.0%` | card KPI di Territorio |
-| `Accessi per 1.000 ab. provincia Varese` | Accessi dei residenti in provincia di Varese ogni 1.000 abitanti della provincia (ISTAT 2022). Fissa la provincia: è il bacino dell'ASST e l'unico con popolazione completa. | `#,0.0` | card KPI di Territorio |
+| `Quota accessi top 10 comuni` | Quota di accessi che arriva dai 10 comuni con piu' accessi. | `0.0%` | Territorio |
+| `% accessi da fuori provincia` | Quota di accessi di residenti fuori dalla provincia di Varese (estero compreso), sugli accessi con residenza nota. | `0.0%` | indiretta (via KPI card Territorio fuori) |
+| `Accessi per 1.000 ab. provincia Varese` | Accessi dei residenti in provincia di Varese ogni 1.000 abitanti della provincia (ISTAT 2022). Fissa la provincia: è il bacino dell'ASST e l'unico con popolazione completa. | `#,0.0` | indiretta (via KPI card Territorio per1000) |
 | `Accessi per 1.000 ab. comuni da 3.000 ab.` | Accessi ogni 1.000 residenti solo per i comuni con almeno 3.000 abitanti: nei paesi piccoli pochi accessi fanno oscillare molto il tasso. | `#,0` | Territorio |
 
 <details><summary>Formule DAX · D. Territorio</summary>
@@ -568,8 +674,8 @@ RETURN IF ( pop >= 3000, [Accessi per 1.000 ab.] )
 
 | Misura | Cosa misura | Formato | Dove si vede |
 |---|---|---|---|
-| `Accessi mese prec` | Accessi del mese precedente al mese di riferimento (ignora il filtro mese). | `#,0` | solo bozze |
-| `Mese rif` | Numero dell'ultimo mese con dati nel periodo scelto: è il «mese di riferimento» dei confronti. | `0` | card KPI di Attese, Direzionale, Domanda, Flussi, Territorio |
+| `Accessi mese prec` | Accessi del mese precedente al mese di riferimento (ignora il filtro mese). | `#,0` | indiretta (via KPI card accessi, KPI sub accessi) |
+| `Mese rif` | Numero dell'ultimo mese con dati nel periodo scelto: è il «mese di riferimento» dei confronti. | `0` | indiretta (via KPI card Attese attesa90, KPI card Attese attesa_vb …) |
 | `Var % accessi` | Variazione % degli accessi: mese di riferimento rispetto al mese precedente. | `+0.0%;-0.0%;0.0%` | indiretta (via KPI card accessi, KPI sub accessi) |
 | `Accessi mese` | Accessi del mese di riferimento (ignora il filtro mese). | `#,0` | indiretta (via KPI card accessi, KPI sub accessi) |
 | `Mese rif breve` | Nome breve dell'ultimo mese con dati nel periodo scelto ('Mese rif'). | – | indiretta (via KPI card accessi, KPI card attesa mediana …) |
@@ -729,7 +835,7 @@ DIVIDE ( [% codici bianchi mese] - [% codici bianchi mese prec], [% codici bianc
 
 | Misura | Cosa misura | Formato | Dove si vede |
 |---|---|---|---|
-| `Accessi compatibili CdC` | IMBUTO UNICO del progetto (traccia SP2, 'Domanda compatibile'): accessi con Classificazione3_CdC = Potenzialmente compatibile, cioè tutti i criteri veri (diagnosi primaria, triage ingresso e uscita, esito, durata presa in carico-dimissione ≤ 2 h, diagnosi secondaria se presente). Totale 20.419. | `#,0` | Domanda potenziale · + 1 sottopagina · card KPI di Domanda |
+| `Accessi compatibili CdC` | IMBUTO UNICO del progetto (traccia SP2, 'Domanda compatibile'): accessi con Classificazione3_CdC = Potenzialmente compatibile, cioè tutti i criteri veri (diagnosi primaria, triage ingresso e uscita, esito, durata presa in carico-dimissione ≤ 2 h, diagnosi secondaria se presente). Totale 20.419. | `#,0` | Domanda potenziale · + 1 sottopagina |
 | `FNL Step 1 - Triage Ingresso` | Imbuto, passo 1: accessi con triage in ingresso compatibile (verde o bianco). | `0` | indiretta (via FNL Valore) |
 | `FNL Step 2 - + Diagnosi` | Imbuto, passo 2: … e diagnosi primaria compatibile. | `0` | indiretta (via FNL Valore) |
 | `FNL Step 3 - + Esito` | Imbuto, passo 3: … ed esito compatibile. | `0` | indiretta (via FNL Valore) |
@@ -738,9 +844,9 @@ DIVIDE ( [% codici bianchi mese] - [% codici bianchi mese prec], [% codici bianc
 | `FNL Step 6 - + Diagnosi Secondaria` | Imbuto, passo 6: … e diagnosi secondaria compatibile, se presente. | `0` | indiretta (via FNL Valore) |
 | `FNL Step 7 - Episodio Compatibile CdC` | Imbuto, passo 7 (ultimo): accessi con Episodio_Compatibile_CdC = TRUE. Coincide con «Accessi compatibili CdC». | `0` | indiretta (via FNL Valore) |
 | `FNL Step 0 - Accessi Totali` | Imbuto, passo 0: tutti gli accessi. | `0` | indiretta (via FNL Valore) |
-| `% Accessi Compatibili CdC` | Accessi compatibili CdC ÷ tutti gli accessi. | `0.0%` | Domanda potenziale · + 2 sottopagine · card KPI di Direzionale |
-| `Valore economico compatibili CdC` | Somma del valore delle prestazioni degli accessi compatibili CdC. | `#,0 €` | Domanda potenziale · card KPI di Domanda |
-| `% valore economico  compatibili CdC` | Valore dei compatibili ÷ valore totale delle prestazioni. | – | Domanda potenziale · card KPI di Domanda |
+| `% Accessi Compatibili CdC` | Accessi compatibili CdC ÷ tutti gli accessi. | `0.0%` | Domanda potenziale · + 3 sottopagine |
+| `Valore economico compatibili CdC` | Somma del valore delle prestazioni degli accessi compatibili CdC. | `#,0 €` | Domanda potenziale |
+| `% valore economico  compatibili CdC` | Valore dei compatibili ÷ valore totale delle prestazioni. | – | Domanda potenziale |
 | `Accessi non classificabili CdC` | Accessi con Classificazione3_CdC = Non classificabile: nessun criterio falso, ma almeno un dato mancante (diagnosi secondaria esclusa). Traccia SP2: casi dubbi da segnalare, non da contare come compatibili. | `#,0` | + 1 sottopagina |
 | `Accessi non compatibili CdC` | Accessi con Classificazione3_CdC = Non compatibile: almeno un criterio dell'imbuto è falso. | `#,0` | + 1 sottopagina |
 | `Quota CdC base dati` | Accessi potenzialmente compatibili che restano a ogni passo della tabella 'Quota CdC passi': chi decide da solo e arriva con mezzi propri, e chi arriva quando anche una CdC spoke è aperta (lun-sab 8-20, non festivi). Giustifica la quota base del 50%. | `#,0` | + 1 sottopagina |
@@ -913,31 +1019,31 @@ SWITCH(
 | `P attesa` | Studio code: probabilità di attendere (formula di Erlang C, coda M/M/c). | `0.00` | indiretta (via Wq modello (min)) |
 | `Wq modello (min)` | Studio code: attesa media in coda del modello M/M/c, in minuti. Vuota se ρ ≥ 1. | `#,0.0` | indiretta (via Stato turno prima) |
 | `Medici minimi` | Studio code: medici minimi perché l'attesa del modello resti sotto la soglia scelta. | `0` | indiretta (via Medici liberati dalle CdC, Medici mancanti prima) |
-| `Quota CdC compatibili` | Quota dei verdi compatibili (in orario CdC) che la CdC riesce davvero a prendere in carico. Viene dallo scenario scelto; senza scelta vale 50% (esempio della traccia). | `0%` | Domanda potenziale · card KPI di Domanda |
+| `Quota CdC compatibili` | Quota dei verdi compatibili (in orario CdC) che la CdC riesce davvero a prendere in carico. Viene dallo scenario scelto; senza scelta vale 50% (esempio della traccia). | `0%` | Domanda potenziale |
 | `Quota CdC non classificabili` | Quota dei verdi non classificabili (in orario CdC) assorbita dalla CdC. Vale 0 tranne nello scenario Ampio. | `0%` | indiretta (via Accessi deviati alle CdC) |
 | `Scenario CdC attivo` | Nome dello scenario scelto (per titoli e commenti). | – | indiretta (via Lettura scenario CdC) |
-| `Accessi deviati alle CdC` | Domanda presa in carico (traccia SP2): quota dello scenario × accessi compatibili, più l'eventuale quota dei non classificabili (solo scenario 5). Tutte le ore: le CdC hub sono aperte h24 (DM 77). | `#,0` | + 2 sottopagine |
+| `Accessi deviati alle CdC` | Domanda presa in carico (traccia SP2): quota dello scenario × accessi compatibili, più l'eventuale quota dei non classificabili (solo scenario 5). Tutte le ore: le CdC hub sono aperte h24 (DM 77). | `#,0` | + 1 sottopagina |
 | `Accessi dopo CdC` | Accessi che restano al PS dopo la deviazione verso le CdC (accessi − accessi deviati). | `#,0` | indiretta (via Lambda dopo CdC (pz/ora)) |
-| `Riduzione accessi PS %` | Accessi deviati ÷ accessi totali. Stima teorica a tutte le ore. | `0.0%` | + 1 sottopagina |
+| `Riduzione accessi PS %` | Accessi deviati ÷ accessi totali. Stima teorica a tutte le ore. | `0.0%` | indiretta (via Lettura scenario CdC) |
 | `Lambda dopo CdC (pz/ora)` | Studio code: arrivi per ora dopo la deviazione. | `0.00` | indiretta (via Medici minimi dopo CdC, Rho dopo CdC) |
 | `Rho dopo CdC` | Utilizzo dei medici dopo la deviazione (lambda' / (c x mu)). | `0.00` | indiretta (via Stato turno dopo CdC) |
 | `Wq dopo CdC (min)` | Attesa media in coda (Erlang C, M/M/c) dopo la deviazione. Vuota se il sistema e' instabile (rho >= 1). | `#,0.0` | indiretta (via Stato turno dopo CdC) |
-| `Stato turno prima` | Stato del turno oggi: Instabile (rho >= 1), Critico (attesa del modello sopra la soglia) oppure Ok. | – | indiretta (via Turni critici prima) |
-| `Stato turno dopo CdC` | Stato del turno dopo la deviazione: Instabile, Critico oppure Ok. | – | indiretta (via Turni critici dopo CdC) |
+| `Stato turno prima` | Stato del turno oggi: Instabile (rho >= 1), Critico (attesa del modello sopra la soglia) oppure Ok. | – | indiretta (via Turni critici prima, Turni instabili prima) |
+| `Stato turno dopo CdC` | Stato del turno dopo la deviazione: Instabile, Critico oppure Ok. | – | indiretta (via Turni critici dopo CdC, Turni instabili dopo CdC) |
 | `Medici minimi dopo CdC` | Numero minimo di medici perche' l'attesa del modello resti sotto la soglia, dopo la deviazione verso le CdC. | `0` | indiretta (via Medici liberati dalle CdC, Medici mancanti dopo CdC) |
 | `Medici liberati dalle CdC` | Medici in meno necessari nel turno grazie alla deviazione (medici minimi prima - dopo). | `0` | indiretta (via Ore-medico liberate a settimana) |
 | `Medici mancanti prima` | Medici che mancano oggi per stare sotto la soglia (minimi - in organico, mai negativo). | `0` | indiretta (via Medici-turno mancanti prima) |
 | `Medici mancanti dopo CdC` | Medici che mancano nel turno dopo la deviazione (mai negativo). | `0` | indiretta (via Medici-turno mancanti dopo CdC) |
 | `Turni PS-turno (n)` | Numero di combinazioni PS x turno nel contesto (21 in totale). | `0` | indiretta (via Lettura scenario CdC) |
-| `Turni critici prima` | Turni PS x turno instabili (rho>=1) o con attesa del modello sopra la soglia, oggi. | `0` | + 1 sottopagina |
-| `Turni critici dopo CdC` | Numero di turni (su 21) instabili o con attesa del modello sopra la soglia, dopo la deviazione. | `0` | + 1 sottopagina |
+| `Turni critici prima` | Turni PS x turno instabili (rho>=1) o con attesa del modello sopra la soglia, oggi. | `0` | indiretta (via Lettura scenario CdC) |
+| `Turni critici dopo CdC` | Numero di turni (su 21) instabili o con attesa del modello sopra la soglia, dopo la deviazione. | `0` | indiretta (via Lettura scenario CdC) |
 | `Turni instabili prima` | Turni con ρ ≥ 1 oggi. | `0` | non usata |
 | `Turni instabili dopo CdC` | Turni con ρ ≥ 1 dopo la deviazione. | `0` | non usata |
 | `Medici-turno in organico` | Somma dei medici presenti nei turni (un medico in un turno = 1 medico-turno). Include i Medici Aggiuntivi dello scenario. | `0` | non usata |
 | `Medici-turno minimi prima` | Medici-turno necessari oggi per stare sotto la soglia di attesa (modello Erlang C). | `0` | non usata |
 | `Medici-turno minimi dopo CdC` | Medici-turno necessari dopo la deviazione verso le CdC. | `0` | non usata |
 | `Medici-turno mancanti prima` | Dove i medici in organico sono meno dei minimi (somma dei soli deficit, i turni in surplus non compensano). | `0` | indiretta (via Lettura medici mancanti) |
-| `Medici-turno mancanti dopo CdC` | Somma dei deficit di medici per turno, dopo la deviazione. | `0` | + 1 sottopagina |
+| `Medici-turno mancanti dopo CdC` | Somma dei deficit di medici per turno, dopo la deviazione. | `0` | indiretta (via Lettura medici mancanti) |
 | `Ore-medico liberate a settimana` | Ore-medico in meno a settimana grazie alla deviazione (medici liberati × ore del turno × 7). | `#,0` | non usata |
 | `Medici Aggiuntivi Value` | Parametro what-if: medici in più per turno (0-3), scelto con lo slicer «Medici Aggiuntivi». | `0` | indiretta (via Medici scenario) |
 | `Soglia Attesa Value` | Parametro what-if: soglia di attesa in minuti (5-60, default 15). | `0` | indiretta (via Lettura medici mancanti, Medici minimi dopo CdC) |
@@ -1232,23 +1338,23 @@ SELECTEDVALUE('Tempo Visita'[Tempo Visita], 20)
 
 | Misura | Cosa misura | Formato | Dove si vede |
 |---|---|---|---|
-| `SP3 N CdC` | Numero di CdC della rete. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0` | Confronto, Rete CdC · card KPI di Rete |
-| `SP3 N hub` | CdC hub (bacino >= 40.000 ab., aperte h24 7/7). Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0` | Confronto, Rete CdC |
-| `SP3 Gestita` | Visite all'anno gestite dalle CdC (presa in carico entro la capacità). Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `#,0` | Confronto, Rete CdC · card KPI di Rete |
+| `SP3 N CdC` | Numero di CdC della rete. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0` | Rete CdC |
+| `SP3 N hub` | CdC hub (bacino >= 40.000 ab., aperte h24 7/7). Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0` | Rete CdC |
+| `SP3 Gestita` | Visite all'anno gestite dalle CdC (presa in carico entro la capacità). Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `#,0` | Rete CdC |
 | `SP3 Presa in carico` | Accessi compatibili all'anno in orario di apertura × quota presa in carico. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `#,0` | non usata |
-| `SP3 Capacita` | Visite all'anno possibili: ore × medici × 3 visite/ora × 85%. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `#,0` | Confronto |
-| `SP3 Riduzione accessi PS` | Visite gestite / accessi PS annui. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0.0%` | Confronto, Rete CdC · card KPI di Rete |
-| `SP3 Km medi` | Distanza stradale stimata, media pesata per la domanda. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0.00` | Confronto, Rete CdC · card KPI di Rete |
+| `SP3 Capacita` | Visite all'anno possibili: ore × medici × 3 visite/ora × 85%. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `#,0` | non usata |
+| `SP3 Riduzione accessi PS` | Visite gestite / accessi PS annui. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0.0%` | Rete CdC |
+| `SP3 Km medi` | Distanza stradale stimata, media pesata per la domanda. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0.00` | Rete CdC |
 | `SP3 Minuti medi` | Tempo medio di viaggio a 45 km/h. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0.0` | non usata |
-| `SP3 Domanda entro 10 km` | Quota della domanda a meno di 10 km dalla sua CdC. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0.0%` | Confronto, Rete CdC · card KPI di Rete |
+| `SP3 Domanda entro 10 km` | Quota della domanda a meno di 10 km dalla sua CdC. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0.0%` | Rete CdC |
 | `SP3 Km max` | Distanza del comune più lontano dalla sua CdC. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `0.0` | non usata |
-| `SP3 Costo annuo` | Medici a ore + infermieri e amministrativi + sede. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `#,0 €` | Confronto, Rete CdC · card KPI di Rete |
-| `SP3 Costo per visita` | Costo annuo / visite gestite. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `#,0 €` | Confronto, Rete CdC |
-| `SP3 Valore PS non erogato` | Tariffa PS delle visite gestite: valorizzazione tariffaria, non risparmio certo. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `#,0 €` | Confronto |
+| `SP3 Costo annuo` | Medici a ore + infermieri e amministrativi + sede. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `#,0 €` | Rete CdC |
+| `SP3 Costo per visita` | Costo annuo / visite gestite. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `#,0 €` | Rete CdC |
+| `SP3 Valore PS non erogato` | Tariffa PS delle visite gestite: valorizzazione tariffaria, non risparmio certo. Calcolata dal notebook SP3 per la rete filtrata in SP3_Rete (se nessuna: Proposta), quota 50%. | `#,0 €` | non usata |
 | `SP3 Domanda compatibile rete` | Accessi compatibili (misura unica [Accessi compatibili CdC], gen-giu 2022) dei comuni assegnati alla rete o alla CdC filtrata, tramite la tabella SP3_Assegnazione. | `#,0` | indiretta (via SP3 Domanda annua) |
-| `SP3 Domanda annua` | [SP3 Domanda compatibile rete] portata a un anno (× 365/181: i dati coprono 181 giorni). | `#,0` | Confronto |
+| `SP3 Domanda annua` | [SP3 Domanda compatibile rete] portata a un anno (× 365/181: i dati coprono 181 giorni). | `#,0` | indiretta (via SP3 Quota domanda) |
 | `SP3 Valore compatibili rete` | Valorizzazione tariffaria degli accessi compatibili dei comuni della rete (gen-giu 2022). | `#,0 €` | non usata |
-| `SP3 Quota domanda` | Quota della domanda della rete per fascia di distanza o per CdC. | `0.0%` | + 1 sottopagina |
+| `SP3 Quota domanda` | Quota della domanda della rete per fascia di distanza o per CdC. | `0.0%` | Confronto |
 | `SP3 Comuni` | Numero di comuni del territorio. | `0` | non usata |
 
 <details><summary>Formule DAX · H. Rete CdC (SP3)</summary>
@@ -1393,13 +1499,21 @@ DISTINCTCOUNT ( SP3_Assegnazione[Comune] )
 
 | Misura | Cosa misura | Formato | Dove si vede |
 |---|---|---|---|
-| `SP4 Scostamento N CdC (Proposta - DG)` | Scostamento Proposta meno Direzione Generale (traccia SP4, punto D): numero di CdC. | `+0;-0;0` | Confronto · card KPI di Confronto |
-| `SP4 Scostamento Gestita (Proposta - DG)` | Scostamento Proposta meno Direzione Generale (traccia SP4, punto D): visite gestite all'anno. | `+#,0;-#,0;0` | Confronto · card KPI di Confronto |
-| `SP4 Scostamento Riduzione accessi PS (Proposta - DG)` | Scostamento Proposta meno Direzione Generale (traccia SP4, punto D): riduzione accessi PS. | `+0.0%;-0.0%;0.0%` | Confronto · card KPI di Confronto |
-| `SP4 Scostamento Km medi (Proposta - DG)` | Scostamento Proposta meno Direzione Generale (traccia SP4, punto D): km medi. | `+0.00;-0.00;0.00` | Confronto · card KPI di Confronto |
-| `SP4 Scostamento Domanda entro 10 km (Proposta - DG)` | Scostamento Proposta meno Direzione Generale (traccia SP4, punto D): quota di domanda entro 10 km. | `+0.0%;-0.0%;0.0%` | Confronto · card KPI di Confronto |
+| `SP4 Scostamento N CdC (Proposta - DG)` | Scostamento Proposta meno Direzione Generale (traccia SP4, punto D): numero di CdC. | `+0;-0;0` | Confronto |
+| `SP4 Scostamento Gestita (Proposta - DG)` | Scostamento Proposta meno Direzione Generale (traccia SP4, punto D): visite gestite all'anno. | `+#,0;-#,0;0` | Confronto |
+| `SP4 Scostamento Riduzione accessi PS (Proposta - DG)` | Scostamento Proposta meno Direzione Generale (traccia SP4, punto D): riduzione accessi PS. | `+0.0%;-0.0%;0.0%` | Confronto |
+| `SP4 Scostamento Km medi (Proposta - DG)` | Scostamento Proposta meno Direzione Generale (traccia SP4, punto D): km medi. | `+0.00;-0.00;0.00` | Confronto |
+| `SP4 Scostamento Domanda entro 10 km (Proposta - DG)` | Scostamento Proposta meno Direzione Generale (traccia SP4, punto D): quota di domanda entro 10 km. | `+0.0%;-0.0%;0.0%` | Confronto |
 | `SP4 Scostamento Costo per visita (Proposta - DG)` | Scostamento Proposta meno Direzione Generale (traccia SP4, punto D): costo per visita gestita. | `+#,0 €;-#,0 €;0 €` | Confronto |
-| `SP4 Scostamento Costo annuo (Proposta - DG)` | Scostamento Proposta meno Direzione Generale: costo annuo in milioni di euro. | `+0.00 M€;-0.00 M€;0 M€` | Confronto · card KPI di Confronto |
+| `SP4 Scostamento Costo annuo (Proposta - DG)` | Scostamento Proposta meno Direzione Generale: costo annuo in milioni di euro. | `+0.00 M€;-0.00 M€;0 M€` | Confronto |
+| `Mappa lat` | Latitudine della sede CdC per la mappa interattiva del Confronto. | `0.00000` | Confronto |
+| `Mappa lon` | Longitudine della sede CdC per la mappa. Le sedi presenti in tutte e due le reti (Varese, Luino, Sesto Calende) sono spostate di circa 1,2 km: Proposta a ovest, DG a est, per vedere entrambi i pallini. | `0.00000` | Confronto |
+| `Mappa tipo` | Tipo e orario della CdC, per il tooltip della mappa. | – | Confronto |
+| `Mappa comuni nel bacino` | Comuni assegnati alla CdC (la più vicina) nella stessa rete. Totale 107 per rete. | `0` | Confronto |
+| `Mappa accessi compatibili` | Accessi compatibili all'anno dei comuni del bacino (domanda teorica). | `#,0` | Confronto |
+| `Mappa visite gestite` | Visite gestite all'anno: accessi compatibili a CdC aperta × quota 50%. Dimensione del pallino. | `#,0` | Confronto |
+| `Mappa costo annuo` | Costo annuo di funzionamento della CdC (personale + sede). | `#,0 €` | Confronto |
+| `Mappa costo per visita` | Costo annuo / visite gestite. | `#,0 €` | Confronto |
 
 <details><summary>Formule DAX · I. Confronto con la Direzione Generale (SP4)</summary>
 
@@ -1453,6 +1567,58 @@ DIVIDE (
         - CALCULATE ( [SP3 Costo annuo], SP3_Rete[Scenario] = "Direzione Generale" ),
     1e6
 )
+```
+
+**Mappa lat**
+
+```dax
+AVERAGE ( SP3_CdC[Latitudine] )
+```
+
+**Mappa lon**
+
+```dax
+VAR l = AVERAGE ( SP3_CdC[Longitudine] )
+VAR c = SELECTEDVALUE ( SP3_CdC[CdC] )
+VAR s = SELECTEDVALUE ( SP3_CdC[Scenario] )
+VAR doppia = CALCULATE ( DISTINCTCOUNT ( SP3_CdC[Scenario] ), REMOVEFILTERS ( SP3_CdC ), SP3_CdC[CdC] = c ) > 1
+RETURN l + IF ( doppia, IF ( s = "Proposta", -0.016, 0.016 ), 0 )
+```
+
+**Mappa tipo**
+
+```dax
+SWITCH ( SELECTEDVALUE ( SP3_CdC[Tipo] ), "Hub", "Hub · aperta 24 ore su 24, 7 giorni su 7", "Spoke", "Spoke · aperta 8–20, lunedì–sabato" )
+```
+
+**Mappa comuni nel bacino**
+
+```dax
+CALCULATE ( DISTINCTCOUNT ( SP3_Assegnazione[Comune] ), TREATAS ( VALUES ( SP3_CdC[CdC] ), SP3_Assegnazione[CdC] ), TREATAS ( VALUES ( SP3_CdC[Scenario] ), SP3_Assegnazione[Scenario] ) )
+```
+
+**Mappa accessi compatibili**
+
+```dax
+SUM ( SP3_CdC[Domanda teorica] )
+```
+
+**Mappa visite gestite**
+
+```dax
+SUM ( SP3_CdC[Gestita] )
+```
+
+**Mappa costo annuo**
+
+```dax
+SUM ( SP3_CdC[Costo annuo] )
+```
+
+**Mappa costo per visita**
+
+```dax
+DIVIDE ( SUM ( SP3_CdC[Costo annuo] ), SUM ( SP3_CdC[Gestita] ) )
 ```
 
 </details>
@@ -1545,18 +1711,20 @@ Servono solo a disegnare il report: card KPI in SVG (numero, freccia di variazio
 | (senza cartella) | 8 | Lettura accessi, Lettura scenario CdC, Lettura medici mancanti … |
 | 7 KPI Direzionale | 13 | KPI sub accessi, KPI sub accessi vs media, Lettura valore … |
 | SP4 Confronto | 1 | SP4 Lettura confronto |
-| Grafica KPI\Direzionale | 18 | KPI Direzionale accessi valore, KPI Direzionale accessi linea, KPI Direzionale accessi freccia … |
-| Grafica KPI\Attese | 12 | KPI Attese attesa90 valore, KPI Attese attesa90 linea, KPI Attese attesa90 freccia … |
-| Grafica KPI\Territorio | 12 | KPI Territorio comuni valore, KPI Territorio comuni linea, KPI Territorio comuni freccia … |
-| Grafica KPI\Domanda | 10 | KPI Domanda val_cdc valore, KPI Domanda val_cdc linea, KPI Domanda val_cdc freccia … |
-| Grafica KPI\Rete CdC | 6 | KPI Rete CdC n_cdc valore, KPI Rete CdC gestita valore, KPI Rete CdC riduzione valore … |
-| Grafica KPI\Confronto | 12 | KPI Confronto n_cdc valore, KPI Confronto n_cdc freccia, KPI Confronto km valore … |
-| Grafica KPI | 5 | KPI stile colore, KPI stile su, KPI stile giu … |
-| Grafica KPI\Flussi | 18 | KPI Flussi acc_giorno valore, KPI Flussi acc_giorno linea, KPI Flussi acc_giorno freccia … |
+| Grafica KPI | 4 | KPI stile colore, KPI stile su, KPI stile giu … |
 | 9 Grafica | 1 | Colore race comune |
 | 9 Grafica\Tooltip mappa | 6 | Tooltip comune sottotitolo, Tooltip confronto tasso, Tooltip compatibili CdC … |
 | 9 Grafica\Evidenze | 4 | Colore evidenza mese, Colore evidenza giorno, Colore comune sede PS … |
 | 9 Grafica\GitHub | 10 | GitHub indirizzo base, GitHub link fonti, GitHub link anomalie … |
+| Grafica KPI\Direzionale | 6 | KPI card Direzionale accessi, KPI card Direzionale bianchi, KPI card Direzionale attesa … |
+| Grafica KPI\Flussi | 6 | KPI card Flussi acc_giorno, KPI card Flussi acc_paz, KPI card Flussi autonomi … |
+| Grafica KPI\Attese | 4 | KPI card Attese attesa90, KPI card Attese attesa_vb, KPI card Attese perm … |
+| Grafica KPI\Territorio | 4 | KPI card Territorio comuni, KPI card Territorio per1000, KPI card Territorio top10 … |
+| Grafica KPI\Domanda | 4 | KPI card Domanda acc_cdc, KPI card Domanda val_cdc, KPI card Domanda pval_cdc … |
+| Grafica KPI\Rete CdC | 6 | KPI card Rete CdC n_cdc, KPI card Rete CdC gestita, KPI card Rete CdC riduzione … |
+| Grafica KPI\Confronto | 6 | KPI card Confronto n_cdc, KPI card Confronto km, KPI card Confronto entro10 … |
+| 9 Grafica\Intestazione | 1 | Interruttore CdC |
+| Grafica KPI\Episodi | 4 | KPI card Episodi ritorni, KPI card Episodi paz4, KPI card Episodi acc4 … |
 
 <details><summary>Elenco completo delle misure di presentazione</summary>
 
@@ -1591,122 +1759,12 @@ Servono solo a disegnare il report: card KPI in SVG (numero, freccia di variazio
 
 - `SP4 Lettura confronto`
 
-**Grafica KPI\Direzionale**
-
-- `KPI Direzionale accessi valore`
-- `KPI Direzionale accessi linea`
-- `KPI Direzionale accessi freccia`
-- `KPI Direzionale bianchi valore`
-- `KPI Direzionale bianchi linea`
-- `KPI Direzionale bianchi freccia`
-- `KPI Direzionale attesa valore`
-- `KPI Direzionale attesa linea`
-- `KPI Direzionale attesa freccia`
-- `KPI Direzionale perm90 valore`
-- `KPI Direzionale perm90 linea`
-- `KPI Direzionale perm90 freccia`
-- `KPI Direzionale valore valore`
-- `KPI Direzionale valore linea`
-- `KPI Direzionale valore freccia`
-- `KPI Direzionale pacc_cdc valore`
-- `KPI Direzionale pacc_cdc linea`
-- `KPI Direzionale pacc_cdc freccia`
-
-**Grafica KPI\Attese**
-
-- `KPI Attese attesa90 valore`
-- `KPI Attese attesa90 linea`
-- `KPI Attese attesa90 freccia`
-- `KPI Attese perm valore`
-- `KPI Attese perm linea`
-- `KPI Attese perm freccia`
-- `KPI Attese attesa_vb valore`
-- `KPI Attese attesa_vb linea`
-- `KPI Attese attesa_vb freccia`
-- `KPI Attese perm_vb valore`
-- `KPI Attese perm_vb linea`
-- `KPI Attese perm_vb freccia`
-
-**Grafica KPI\Territorio**
-
-- `KPI Territorio comuni valore`
-- `KPI Territorio comuni linea`
-- `KPI Territorio comuni freccia`
-- `KPI Territorio top10 valore`
-- `KPI Territorio top10 linea`
-- `KPI Territorio top10 freccia`
-- `KPI Territorio per1000 valore`
-- `KPI Territorio per1000 linea`
-- `KPI Territorio per1000 freccia`
-- `KPI Territorio fuori valore`
-- `KPI Territorio fuori linea`
-- `KPI Territorio fuori freccia`
-
-**Grafica KPI\Domanda**
-
-- `KPI Domanda val_cdc valore`
-- `KPI Domanda val_cdc linea`
-- `KPI Domanda val_cdc freccia`
-- `KPI Domanda pval_cdc valore`
-- `KPI Domanda pval_cdc linea`
-- `KPI Domanda pval_cdc freccia`
-- `KPI Domanda acc_cdc valore`
-- `KPI Domanda acc_cdc linea`
-- `KPI Domanda acc_cdc freccia`
-- `KPI Domanda quota valore`
-
-**Grafica KPI\Rete CdC**
-
-- `KPI Rete CdC n_cdc valore`
-- `KPI Rete CdC gestita valore`
-- `KPI Rete CdC riduzione valore`
-- `KPI Rete CdC km valore`
-- `KPI Rete CdC entro10 valore`
-- `KPI Rete CdC costo valore`
-
-**Grafica KPI\Confronto**
-
-- `KPI Confronto n_cdc valore`
-- `KPI Confronto n_cdc freccia`
-- `KPI Confronto km valore`
-- `KPI Confronto km freccia`
-- `KPI Confronto entro10 valore`
-- `KPI Confronto entro10 freccia`
-- `KPI Confronto gestita valore`
-- `KPI Confronto gestita freccia`
-- `KPI Confronto riduzione valore`
-- `KPI Confronto riduzione freccia`
-- `KPI Confronto costo valore`
-- `KPI Confronto costo freccia`
-
 **Grafica KPI**
 
 - `KPI stile colore`
 - `KPI stile su`
 - `KPI stile giu`
 - `KPI stile glow`
-- `KPI stile alone`
-
-**Grafica KPI\Flussi**
-
-- `KPI Flussi acc_giorno valore`
-- `KPI Flussi acc_giorno linea`
-- `KPI Flussi acc_giorno freccia`
-- `KPI Flussi acc_paz valore`
-- `KPI Flussi acc_paz linea`
-- `KPI Flussi acc_paz freccia`
-- `KPI Flussi autonomi valore`
-- `KPI Flussi autonomi linea`
-- `KPI Flussi autonomi freccia`
-- `KPI Flussi prest_acc valore`
-- `KPI Flussi prest_acc linea`
-- `KPI Flussi prest_acc freccia`
-- `KPI Flussi val_medio valore`
-- `KPI Flussi val_medio linea`
-- `KPI Flussi val_medio freccia`
-- `KPI Flussi ticket valore`
-- `KPI Flussi ticket linea`
-- `KPI Flussi ticket freccia`
 
 **9 Grafica**
 
@@ -1741,6 +1799,74 @@ Servono solo a disegnare il report: card KPI in SVG (numero, freccia di variazio
 - `GitHub link code`
 - `GitHub link rete`
 
+**Grafica KPI\Direzionale**
+
+- `KPI card Direzionale accessi`
+- `KPI card Direzionale bianchi`
+- `KPI card Direzionale attesa`
+- `KPI card Direzionale perm90`
+- `KPI card Direzionale valore`
+- `KPI card Direzionale pacc_cdc`
+
+**Grafica KPI\Flussi**
+
+- `KPI card Flussi acc_giorno`
+- `KPI card Flussi acc_paz`
+- `KPI card Flussi autonomi`
+- `KPI card Flussi prest_acc`
+- `KPI card Flussi val_medio`
+- `KPI card Flussi ticket`
+
+**Grafica KPI\Attese**
+
+- `KPI card Attese attesa90`
+- `KPI card Attese attesa_vb`
+- `KPI card Attese perm`
+- `KPI card Attese perm_vb`
+
+**Grafica KPI\Territorio**
+
+- `KPI card Territorio comuni`
+- `KPI card Territorio per1000`
+- `KPI card Territorio top10`
+- `KPI card Territorio fuori`
+
+**Grafica KPI\Domanda**
+
+- `KPI card Domanda acc_cdc`
+- `KPI card Domanda val_cdc`
+- `KPI card Domanda pval_cdc`
+- `KPI card Domanda quota`
+
+**Grafica KPI\Rete CdC**
+
+- `KPI card Rete CdC n_cdc`
+- `KPI card Rete CdC gestita`
+- `KPI card Rete CdC riduzione`
+- `KPI card Rete CdC km`
+- `KPI card Rete CdC entro10`
+- `KPI card Rete CdC costo`
+
+**Grafica KPI\Confronto**
+
+- `KPI card Confronto n_cdc`
+- `KPI card Confronto km`
+- `KPI card Confronto entro10`
+- `KPI card Confronto gestita`
+- `KPI card Confronto riduzione`
+- `KPI card Confronto costo`
+
+**9 Grafica\Intestazione**
+
+- `Interruttore CdC`
+
+**Grafica KPI\Episodi**
+
+- `KPI card Episodi ritorni`
+- `KPI card Episodi paz4`
+- `KPI card Episodi acc4`
+- `KPI card Episodi perm24`
+
 </details>
 
 ## Misure non usate
@@ -1756,9 +1882,15 @@ Misure di calcolo che, leggendo i file del report e del modello, non compaiono i
 - `Pazienti in coda (media)`
 - `Pazienti presenti (P90)`
 - `Tempo medio permanenza (min)`
+- `Durata Minutti Accettazione-PresaInCarico (min)`
+- `Durata Minutti Accettazione-Dimissione (min)`
+- `Durata Minutti PresaInCarico-Dimissione (min)`
+- `% attesa oltre 1 ora`
+- `% permanenza oltre 6 ore`
 - `Presenti (media)`
 - `Accessi (media per ora)`
 - `Personale (media)`
+- `Coda per operatore`
 - `Turni instabili prima`
 - `Turni instabili dopo CdC`
 - `Medici-turno in organico`
@@ -1766,8 +1898,10 @@ Misure di calcolo che, leggendo i file del report e del modello, non compaiono i
 - `Medici-turno minimi dopo CdC`
 - `Ore-medico liberate a settimana`
 - `SP3 Presa in carico`
+- `SP3 Capacita`
 - `SP3 Minuti medi`
 - `SP3 Km max`
+- `SP3 Valore PS non erogato`
 - `SP3 Valore compatibili rete`
 - `SP3 Comuni`
 
